@@ -1,5 +1,9 @@
 CNN_features_KoNViD-1k/
 .idea/
 heheh/
-
+__pycache__/
+Models/
+Results/
+Config/__pycache__/
+Utils/__pycache__/
 

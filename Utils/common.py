@@ -6,7 +6,7 @@ from thop import  profile
 
 def securePath(path):
     pathList = list()
-    while not os.path.exists(path):
+    while (not os.path.exists(path)) and (path!=''):
         pathList.append(path)
         path = os.path.dirname(path)
     pathList.reverse()

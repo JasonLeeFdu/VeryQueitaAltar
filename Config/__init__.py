@@ -10,8 +10,10 @@ import Utils.common as comm
 
 #################################################################################################
 '''
-## 本次实验名称(model + expid)
+## 本次实验名称(model + expid) 所以做十次实验要调整10次ID
 MODEL_NAME = 'LJCH1'
+## Dataset的名称
+DATASET_NAME = 'KoNViD-1k'
 ## 学习率
 LR = 1e-4#3
 ## 学习率下降间隔
@@ -19,7 +21,7 @@ LR_INTERVAL = 2000
 ## 学习率下降的比率
 LR_DECAY_FACOTOR = 0.9
 ## L2 正则约束系数
-WEIGHT_DECAY= 0#0.000000
+WEIGHT_DECAY= 0.0 #0.000000
 ## 批训练大小，训练
 BATCH_SIZE = 8
 ## 批训练大小，测试
@@ -33,10 +35,19 @@ NUM_WORKERS = 3
 MAX_Epoch = 1000
 ## 最大训练迭代数目
 MAX_ITERATIONS = 65000
+## 训练的时候不测试
+NO_TEST_DURING_TRAINING = False
+
+## 数据划分设置
+TRAIN_RATE = 3
+VAL_RATE   = 1
+TEST_RATE  = 1
+TRAIN_RATIO = TRAIN_RATE / (TRAIN_RATE + VAL_RATE + TEST_RATE)
+VAL_RATIO = VAL_RATE / (TRAIN_RATE + VAL_RATE + TEST_RATE)
+TEST_RATIO = TEST_RATE / (TRAIN_RATE + VAL_RATE + TEST_RATE)
+
 ## 进行模型参数的偷偷保留
-STEALTH_MODE_MODEL_ON = True
-
-
+# STEALTH_MODE_MODEL_ON = True
 
 '''################################################################################################
                                     路径配置

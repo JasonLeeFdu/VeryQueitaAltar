@@ -16,7 +16,8 @@ import Utils.common as tools
 
 
 
-
+torch.cuda.current_device()
+torch.cuda._initialized = True
 
 
 
@@ -98,8 +99,8 @@ def originalVSFAMain():
         model.train()
         L = 0
         for i, (features, length, label) in enumerate(train_loader):
-            features = features.to(device).float()
-            label = label.to(device).float()
+            features = features.float().cuda()
+            label = label.float().cuda()
             optimizer.zero_grad()  #
             outputs = model(features, length.float())
             loss = criterion(outputs, label)
@@ -165,7 +166,7 @@ def originalVSFAMain():
             writer.add_scalar("RMSE/test", RMSE, epoch)
 
         # 选择验证效果好的模型保存(由于是基于epoch的，所以比较科学)
-        if val_SROCC > best_val_criterion :#and epoch > conf.MAX_Epoch / 6:
+        if val_SROCC > best_val_criterion  and epoch > conf.MAX_Epoch / 6:
             print("实验{}: 更新最佳参数，位于 Epoch {}".format(conf.MODEL_NAME, epoch))
             print("Val results: val loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"
                   .format(val_loss, val_SROCC, val_KROCC, val_PLCC, val_RMSE))

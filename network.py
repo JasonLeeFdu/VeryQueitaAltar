@@ -23,7 +23,6 @@ from tensorboardX import SummaryWriter
 import os
 import numpy as np
 import time
-import cv2 as cv
 from datetime import datetime
 import math
 from tqdm import tqdm
@@ -97,7 +96,7 @@ class VQADataset_Old(Dataset):
         self.length = np.zeros((len(index), 1))
         self.mos = np.zeros((len(index), 1))
         for i in range(len(index)):
-            features = np.load(features_dir + str(index[i]) + '_resnet-50_res5c.npy')
+            features = np.load(features_dir + str(index[i]) + '_resnet-50_res5c.npy',allow_pickle=True)
             self.length[i] = features.shape[0]
             self.features[i, :features.shape[0], :] = features
             self.mos[i] = np.load(features_dir + str(index[i]) + '_score.npy')  #

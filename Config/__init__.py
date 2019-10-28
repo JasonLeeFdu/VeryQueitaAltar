@@ -18,7 +18,7 @@ DATASET_NAME = 'KoNViD'
 DISTORTION_ALGORITHM_NAME = 'DeepIQA'
 DISTORTION_ALG_FUNC_HANDLE = None
 ## 学习率
-LR = 1e-4#3
+LR = 1e-5#3
 ## 学习率下降间隔
 LR_INTERVAL = 2000
 ## 学习率下降的比率

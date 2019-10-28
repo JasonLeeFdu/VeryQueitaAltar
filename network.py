@@ -13,7 +13,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import Dataset
 from torchvision import transforms, models
-
+import h5py
 import numpy as np
 import json
 from scipy import stats
@@ -155,38 +155,30 @@ class VQADataset(Dataset):
 
 
 # The Training and testing datasets
-class VQADatasetLMDB(Dataset):
-    def __init__(self, lmdbPath=os.path.join(conf.TRAINING_SAMPLE_BASEPATH,conf.DATASET_NAME,'fastRecord'),max_len = conf.MAX_TIME_LEN):
-        super(VQADatasetLMDB, self).__init__()
+class VQADatasetH5(Dataset):
+    def __init__(self, lmdbPath=os.path.join(conf.TRAINING_SAMPLE_BASEPATH,conf.DATASET_NAME,'fastRecord.hdf5'),max_len = conf.MAX_TIME_LEN):
+        super(VQADatasetH5, self).__init__()
         # videoNameList is full name list
-        self.lmdb = lmdbPath
-        self.txn = None
-        self.env = None
-
-        self.env = lmdb.open(os.path.join(conf.DATASET_DIR, conf.DATASET_FN), max_readers=3, readonly=True)
-        self.txn = self.env.begin(write=False)  # patchWanted = txn.get(b'%010d'%random.randint(1,TOTAL_NUM))
-        self.len = self.txn.stat()['entries']
+        self.h5pyf = h5py.File(lmdbPath, "r")
         print('The data prep is finished')
 
+    def __len__(self):
+        return len(self.h5pyf.keys())
 
     def __getitem__(self, idx):
-        if idx >= self.len:
+        if idx >= self.__len__():
             return None
-        keyString = str(idx)
-        keyString = keyString.encode('ascii')
-        sample = self.txn.get(keyString)
-
-        sample = json.loads(sample.decode('utf-8'))
+        sampleItem = self.h5pyf[str(idx)]
 
         # feat
-        cubes = sample['cubes']
+        cubes = sampleItem['cubes'].value
 
-        cube = cubes[int(np.random.randint(0, 4, 1))]
+        cube = cubes[0,:,:,:,:]
         #
-        distortFeat = sample['distortionFeat']
-        contentFeat = sample['contentFeat']
-        label = sample['mos'] / sample['mosScale']
-        vidLen = sample['vidLen']
+        distortFeat = sampleItem['distortionFeat'].value
+        contentFeat = sampleItem['contentFeat'].value
+        label = sampleItem['mos'].value / sampleItem['mosScale'].value
+        vidLen = sampleItem['vidLen'].value
 
         return cube, distortFeat, contentFeat, label, vidLen
 
@@ -554,9 +546,13 @@ def test1():
     print(ss)
     return 3
 
+def test2():
+    d = VQADatasetH5()
+    a,b,c,d,s = d.getitem__(3)
+    return
 
 
 if __name__ == '__main__':
-    test1()
+    test2()
 
 

@@ -1,4 +1,5 @@
 # 你可以叫我御姐
+import h5py
 
 import skvideo.io
 import os
@@ -71,7 +72,6 @@ def BuildUpTrainingSamples():
                 pickle.dump(res1, f)
             print(videoName + ' info, maps and cubes are extracted! (%f%%)' % (100*counter/len(videoSets)))
         torch.cuda.empty_cache()
-
     # for the distortion feature
     if conf.FLG_EXTRACT_FEAT_DISTORTION:
         counter = 0
@@ -98,11 +98,6 @@ def BuildUpTrainingSamples():
                 newFeat[:feat.shape[0] - 2 * interv, :] = feat[interv:-interv, :]
             else:
                 newFeat = []
-
-            if newFeat.shape[0] != 238:
-                d = 67
-
-
             res2['distortionFeat'] = newFeat
             with open(os.path.join(videoFeatsDir,'_distortionFeat.pkl'), 'wb') as f: # final is '3242353245_sample.pkl'
                 pickle.dump(res2, f)
@@ -162,7 +157,6 @@ def BuildUpTrainingSamples():
 
             with open(os.path.join(directoryName,'_contentFeat.pkl'), 'rb') as f:
                 contentFeatDict = pickle.load(f)
-
             combinedDict = dict()
             combinedDict.update(mapCubeDict)
             combinedDict.update(distortFeatDict)
@@ -173,40 +167,82 @@ def BuildUpTrainingSamples():
             print('Sample ' + vname + ' is build!  (%f%%)' % (100 * counter / len(alreadyExtractedVideos)))
 
 
-def makeLMDB():
+
+
+def makeH5py():
     videoPath = conf.DATASET_VIDEOS_PATH
     videoSets = os.listdir(videoPath)
     videoSets.sort()
     interval = 100;
 
-    with lmdb.open(os.path.join(conf.TRAINING_SAMPLE_BASEPATH, conf.DATASET_NAME,'fastRecord'), map_size=1099511627776) as env:
-        txn = env.begin(write=True)  # return the transaction
-        for i in range(len(videoSets)):
-            vn = videoSets[i]
-            directoryName = os.path.join(conf.TRAINING_SAMPLE_BASEPATH, conf.DATASET_NAME, vn[:-4])
-            with open(os.path.join(directoryName,'sample.pkl'), 'rb') as f:
-                sampleDict = pickle.load(f)
-            samBytes = json.dumps(sampleDict).encode('utf-8')
-            txn.put(str(i).encode('ascii'),samBytes)
-            if (i+1) % interval == 0:
-                txn.commit()
-            print(i)
-        if (i + 1) % interval != 0:
-                txn.commit()
-        env.close()
+    h5pyf = h5py.File(os.path.join(conf.TRAINING_SAMPLE_BASEPATH, conf.DATASET_NAME,'fastRecord.hdf5'), "w")
+
+    for i in range(len(videoSets)):
+        vn = videoSets[i]
+        directoryName = os.path.join(conf.TRAINING_SAMPLE_BASEPATH, conf.DATASET_NAME, vn[:-4])
+        with open(os.path.join(directoryName,'sample.pkl'), 'rb') as f:
+            sampleDict = pickle.load(f)
+
+        # 第i号样本的数据
+        dsi = h5pyf.create_group(str(i))
+        for keys in sampleDict.keys():
+            dsi[keys] = sampleDict[keys]
+
+        print(i)
+    h5pyf.close()
+    print('数据写入完毕')
+    return
 
 
 
 
 
 
+def testHD5F():
+    ## access by its attribute
+    f = h5py.File("myh5py.hdf5", "w")
+
+    # 创建组bar1,组bar2，数据集dset
+    g1 = f.create_group("bar1")
+    g2 = f.create_group("bar2")
+    d = f.create_dataset("dset", data=np.arange(10))
+
+    # 在bar1组里面创建一个组car1和一个数据集dset1。
+    c1 = g1.create_group("car1")
+    d1 = g1.create_dataset("dset1", data=np.arange(10))
+
+    # 在bar2组里面创建一个组car2和一个数据集dset2
+    c2 = g2.create_group("car2")
+    d2 = g2.create_dataset("dset2", data=np.arange(10))
+
+    # 根目录下的组和数据集
+    print(".............")
+    for key in f.keys():
+        print(f[key].name)
+
+    # bar1这个组下面的组和数据集
+    print(".............")
+    for key in g1.keys():
+        print(g1[key].name)
+
+    # bar2这个组下面的组和数据集
+    print(".............")
+    for key in g2.keys():
+        print(g2[key].name)
+
+    # 那么car1组和car2组下面都有什么
+    print(".............")
+    print(c1.keys())
+    print(c2.keys())
+    print(g1.keys())
+    df = 342
 
 
 
 
 
 def main():
-    BuildUpTrainingSamples()
+    makeH5py()
     return 43
 
 if __name__ == '__main__':

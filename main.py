@@ -18,6 +18,7 @@ import Config as conf
 import Utils.common as tools
 import scipy.io as scio
 from network import  weights_init,newLoss
+import time
 
 '''
 random crop on bigger cube
@@ -120,6 +121,7 @@ def originalVSFAMain():
 
         for i, (cube,distortFeat,contentFeat,label,vidLen) in enumerate(train_loader):
             ii = i
+            s = time.time()
             #y_val1[i] = scale * label.numpy()  #
             cube = cube.cuda().float()
             distortFeat = distortFeat.cuda().float()
@@ -140,6 +142,7 @@ def originalVSFAMain():
                 # optimizer the net
                 optimizer.step()  # update parameters of net
                 optimizer.zero_grad()  # reset gradient
+
             L = L + loss.item() *  conf.GRAD_ACCUM
 
             if i % 10 == 0:

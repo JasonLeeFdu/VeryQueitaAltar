@@ -370,13 +370,60 @@ class LJCH1(nn.Module):
             score[i] = torch.mean(qi)  # video overall quality
         return score
 
+
+
+class LJCH1(nn.Module):
+    def __init__(self,maxLen):
+        super(LJCH1, self).__init__()
+        ## 呵呵 附庸风雅
+        self.reduced_size = 128
+        self.hidden_size = 32
+        # frame wise conv
+        TIME_INTERVAL = conf.ADJACENT_INTERVAL
+        self.stFeat = SpatialTemporalFeat(TIME_INTERVAL)
+        self.ann = ANN (5120, self.reduced_size, 1)
+        self.rnn = nn.GRU(self.reduced_size, self.hidden_size, batch_first=True,bidirectional=True)
+        self.time_interval = TIME_INTERVAL
+        self.q = nn.Linear(self.hidden_size * 2, 1)
+        self.maxLen = maxLen
+
+    def _get_initial_state(self,batch_size, device):
+        h0 = torch.zeros(2, batch_size, self.hidden_size, device=device)
+        return h0
+    def forward(self, cube,inputLength,featContent,featDistort):
+        T = self.maxLen #int(torch.max(inputLength).detach().cpu().numpy())
+        li = list()
+        for i in range(self.time_interval//2,T-self.time_interval//2):
+            # print(i)
+            videoClip = cube[:,i-self.time_interval//2:i+self.time_interval//2+1,:,:,:]  #   (N, C, D, H, W)
+            feat = self.stFeat(videoClip)
+            feat = torch.unsqueeze(feat,1)
+            li.append(feat)
+        spatialTemporalFeat  = torch.cat(li,dim=1)
+
+        ## feature concatenation anS feat reduce ==> LENGTH OF MAX_LEN !!!
+        totalFeat = torch.cat([spatialTemporalFeat,featContent,featDistort],dim=-1)
+
+        scores = self.ann(totalFeat)
+        outputs, _ = self.rnn(scores, self._get_initial_state(scores.size(0), scores.device))
+        q = F.relu(self.q(outputs))  # 基于帧的分数
+        score = torch.zeros([cube.shape[0]]).cuda()  # batch-wise
+        ## score 的 batch-wise 循环-- temporal pooling
+        for i in range(cube.shape[0]): # for every batch
+            # all the scores for one instance
+            qi = q[i, :int(inputLength[i]- 2 * self.time_interval//2)]  # q[N,T]
+            qi = TP(qi)
+            score[i] = torch.mean(qi)  # video overall quality
+        return score
+
+
 # 本人算法尝试1
 class SpatialTemporalFeat(nn.Module):
     def __init__(self,ti):
         super(SpatialTemporalFeat, self).__init__()
         # frame wise conv
         self.time_interval = ti
-        self.conv3d_1 = Conv3DShared(depth = 3, timeInterval=self.time_interval,padding=[0,1,1])
+        self.conv3d_1 = Conv3DShared(depth = self.time_interval, timeInterval=self.time_interval,padding=[0,1,1])
         self.conv3d_2 = Conv3DShared(depth = 1, timeInterval=self.time_interval,padding=[0,1,1])
 
         # cross frame conv

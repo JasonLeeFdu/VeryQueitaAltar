@@ -100,7 +100,7 @@ def originalVSFAMain():
     device = torch.device("cuda")
     model = nt.LJCH1(max_len).cuda()  #
     model.apply(weights_init)
-    criterion = nn.L1Loss().cuda()  # 本文采用 L1 loss
+    criterion = newLoss().cuda()  # 本文采用 L1 loss
     optimizer = torch.optim.Adam(model.parameters(), lr=conf.LR, weight_decay=conf.WEIGHT_DECAY)
     best_val_criterion = -1  # 选取模型是采用验证集里面，表现最好的那一个SROCC min
     modelSaved, Epoch,Iter,GlobalIter = tools.loadLatestCheckpoint(fnCore='model')

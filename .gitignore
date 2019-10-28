@@ -6,4 +6,7 @@ Models/
 Results/
 Config/__pycache__/
 Utils/__pycache__/
-
+Datasets/
+pretrainedModels/
+TrainingSamples/
+fomerCode/

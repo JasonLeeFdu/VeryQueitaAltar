@@ -12,6 +12,7 @@ def securePath(path):
     pathList.reverse()
     for elem in pathList:
         os.mkdir(elem)
+
     return
 
 

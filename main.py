@@ -1,4 +1,6 @@
 ## image IO
+import warnings
+warnings.filterwarnings('ignore')
 import os
 import h5py
 import torch
@@ -9,15 +11,19 @@ import numpy as np
 from scipy import stats
 from tensorboardX import SummaryWriter
 import network as nt
+import  tensorboardX as tbx
 
 # Program
 import Config as conf
 import Utils.common as tools
+import scipy.io as scio
+from network import  weights_init,newLoss
 
+'''
+random crop on bigger cube
+flip
 
-
-
-
+'''
 
 
 
@@ -26,13 +32,13 @@ def originalVSFAMain():
     # 根据不同的数据集来设定不同的 信息与feature
     if conf.DATASET_NAME == 'KoNViD-1k':
         features_dir = 'CNN_features_KoNViD-1k/'  # features dir
-        datainfo = 'Data/KoNViD-1kinfo.mat'  # database info: video_names, scores; video format, width, height, index, ref_ids, max_len, etc.
+        datainfo = 'DatasetInfo/KoNViD-1kinfo.mat'  # database info: video_names, scores; video format, width, height, index, ref_ids, max_len, etc.
     if conf.DATASET_NAME == 'CVD2014':
         features_dir = 'CNN_features_CVD2014/'
-        datainfo = 'Data/CVD2014info.mat'
+        datainfo = 'DatasetInfo/CVD2014info.mat'
     if conf.DATASET_NAME == 'LIVE-Qualcomm':
         features_dir = 'CNN_features_LIVE-Qualcomm/'
-        datainfo = 'Data/LIVE-Qualcomminfo.mat'
+        datainfo = 'DatasetInfo/LIVE-Qualcomminfo.mat'
         conf.MAX_Epoch = 15000  # need more training to converge
 
 
@@ -43,8 +49,8 @@ def originalVSFAMain():
     tools.securePath(conf.RESULT_PATH)
     trained_model_file = os.path.join(conf.MODEL_PATH,'trainedParams')
     save_result_file = conf.RESULT_PATH
-    writer = SummaryWriter(log_dir=conf.LOG_PATH)
 
+    writer = tbx.SummaryWriter(log_dir=conf.LOG_TRAIN_PATH)
 
     # 提示信息显示
     print('=============================== 本次训练信息 ==============================')
@@ -56,16 +62,16 @@ def originalVSFAMain():
 
 
     # 读取统计的Dataset信息       # exp_id = 0
-    Info = h5py.File(datainfo)  # index, ref_ids.二者的关系。ref_ids是视频的id，index是若干次id的random permute
+    Info = scio.loadmat(conf.DATASET_INFO_PATH)
     max_len = int(Info['max_len'][0])
-
 
 
     # 将数据集的分数进行标准化(有这么做的)
     scale = Info['scores'][0, :].max()  # label normalization factor
 
+
     # 数据集划分，把数据集分成 训练：验证：测试  3 : 1 : 1
-    N = Info['index'].shape[0]
+    N = Info['videoNum'][0][0]
     TrainN = int(N * conf.TRAIN_RATIO)
     ValN = int(N * conf.VAL_RATIO)
     arr = np.random.permutation(N)
@@ -73,54 +79,124 @@ def originalVSFAMain():
     val_index   = arr[TrainN:ValN + TrainN]
     test_index  = arr[ValN + TrainN:]
 
+    vnameSet = os.listdir(conf.DATASET_VIDEOS_PATH)
+    vnameSet = [os.path.join(conf.TRAINING_SAMPLE_BASEPATH,conf.DATASET_NAME,x[:-4]) for x in vnameSet]
 
+    trainSet = [vnameSet[x] for x in train_index]
+    valSet = [vnameSet[x] for x in val_index]
+    testSet = [vnameSet[x] for x in test_index]
 
-    # 数据集制作
-    train_dataset = nt.VQADataset(features_dir, train_index, max_len, scale=scale)
-    train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=conf.BATCH_SIZE, shuffle=True)
-    val_dataset = nt.VQADataset(features_dir, val_index, max_len, scale=scale)
-    val_loader = torch.utils.data.DataLoader(dataset=val_dataset)
+    # 数据集制作   videoNameList,max_len = conf.MAX_TIME_LEN)
+    train_dataset = nt.VQADataset(trainSet, max_len = conf.MAX_TIME_LEN)
+    train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=conf.BATCH_SIZE, shuffle=True,num_workers=5)
+    val_dataset = nt.VQADataset(valSet, max_len = conf.MAX_TIME_LEN)
+    val_loader = torch.utils.data.DataLoader(dataset=val_dataset,num_workers=5)
     if conf.TEST_RATIO > 0:
-        test_dataset = nt.VQADataset(features_dir, test_index, max_len, scale=scale)
-        test_loader = torch.utils.data.DataLoader(dataset=test_dataset)
+        test_dataset = nt.VQADataset(testSet, max_len = conf.MAX_TIME_LEN)
+        test_loader = torch.utils.data.DataLoader(dataset=test_dataset,num_workers=5)
 
     # 网络载入并设定损失与优化
     device = torch.device("cuda")
-    model = nt.VSFA().to(device)  #
-    criterion = nn.L1Loss()  # 本文采用 L1 loss
+    model = nt.LJCH1(max_len).cuda()  #
+    model.apply(weights_init)
+    criterion = nn.L1Loss().cuda()  # 本文采用 L1 loss
     optimizer = torch.optim.Adam(model.parameters(), lr=conf.LR, weight_decay=conf.WEIGHT_DECAY)
     best_val_criterion = -1  # 选取模型是采用验证集里面，表现最好的那一个SROCC min
-
-
-    for epoch in range(conf.MAX_Epoch):
+    modelSaved, Epoch,Iter,GlobalIter = tools.loadLatestCheckpoint(fnCore='model')
+    if modelSaved is not None:
+        model = modelSaved
+        print('The model has been trained in Epoch:%d, GlobalIteration:%d'% (Epoch,GlobalIter));print('')
+    else:
+        print('Brand new model');print('')
+    for epoch in range(Epoch+1,conf.MAX_Epoch): #      def forward(self, cube,inputLength,featContent,featDistort):
         # Train for 1 epoch
-        print('EPOCH:' + str(epoch + 1) + '/' + str(conf.MAX_Epoch))
+        print('--------------------------- EPOCH:' + str(epoch)  + '/' + str(conf.MAX_Epoch) + ' ---------------------------' )
         model.train()
         L = 0
-        for i, (features, length, label) in enumerate(train_loader):
-            features = features.to(device).float()
-            label = label.to(device).float()
-            optimizer.zero_grad()  #
-            outputs = model(features, length.float())
+        ii = -1
+        y_pred1 = np.zeros(len(val_index))
+        y_val1 = np.zeros(len(val_index))
+        optimizer.zero_grad()
+
+        for i, (cube,distortFeat,contentFeat,label,vidLen) in enumerate(train_loader):
+            ii = i
+            #y_val1[i] = scale * label.numpy()  #
+            cube = cube.cuda().float()
+            distortFeat = distortFeat.cuda().float()
+            contentFeat = contentFeat.cuda().float()
+            label = label.cuda().float().squeeze()
+            vidLen = vidLen.cuda().float()
+
+            outputs = model(cube, vidLen, contentFeat, distortFeat)
+            #y_pred1[i] = scale * outputs[0].to('cpu').numpy()
             loss = criterion(outputs, label)
+            goupi = loss.detach().cpu().numpy()
+            # 2.1 loss regularization
+            loss = loss / conf.GRAD_ACCUM
+            # 2.2 back propagation and accumulation
             loss.backward()
-            optimizer.step()
-            L = L + loss.item()
+            # 3. update parameters of net
+            if ((i + 1) % conf.GRAD_ACCUM) == 0:
+                # optimizer the net
+                optimizer.step()  # update parameters of net
+                optimizer.zero_grad()  # reset gradient
+            L = L + loss.item() *  conf.GRAD_ACCUM
+
             if i % 10 == 0:
-                print('Iter: %d, Loss: %f' % (i, loss))
+                print('Iter: %d, Loss: %f' % (i, goupi))
+                print('Outputs: \t',end='');print(outputs.detach().cpu().numpy())
+                print('Label: \t',end='');print(label.detach().cpu().numpy());print('')
+        ## save
+        tools.saveCheckpoint(netModel=model,epoch=epoch,iterr=ii,glbiter=ii*epoch+ii)
+        ## the remain unupdated grad
+        if ((ii + 1) % conf.GRAD_ACCUM) != 0:
+            # optimizer the net
+            optimizer.step()  # update parameters of net
+            optimizer.zero_grad()  # reset gradient
         train_loss = L / (i + 1)
+        ##
+
+        #trainval_loss = L / (i + 1)
+        ##trainval_PLCC = stats.pearsonr(y_pred1, y_val1)[0]
+        #trainval_SROCC = stats.spearmanr(y_pred1, y_val1)[0]
+        #trainval_RMSE = np.sqrt(((y_pred1 - y_val1) ** 2).mean())
+        #trainval_KROCC = stats.stats.kendalltau(y_pred1, y_val1)[0]
 
         model.eval()
+
+        ''' 
+        # train-val
+        y_pred = np.zeros(len(val_index))
+        y_val = np.zeros(len(val_index))
+        L = 0
+        
+        with torch.no_grad():
+            for i, (cube, distortFeat, contentFeat, label, vidLen) in enumerate(val_loader):
+                y_val[i] = scale * label.numpy()  #
+                cube = cube.to(device).float()
+                distortFeat = distortFeat.to(device).float()
+                contentFeat = contentFeat.to(device).float()
+                label = label.to(device).float()
+                vidLen = vidLen.to(device).float()
+
+                outputs = model(cube, vidLen, contentFeat, distortFeat)
+                y_pred[i] = scale * outputs[0].to('cpu').numpy()
+                loss = criterion(outputs, label)
+                L = L + loss.item()
+        '''
         # Val
         y_pred = np.zeros(len(val_index))
         y_val = np.zeros(len(val_index))
         L = 0
         with torch.no_grad():
-            for i, (features, length, label) in enumerate(val_loader):
-                y_val[i] = scale * label.numpy()  #
-                features = features.to(device).float()
+            for i, (cube,distortFeat,contentFeat,label,vidLen) in enumerate(val_loader):
+                y_val[i] = scale * label.to('cpu').numpy()  #
+                cube = cube.to(device).float()
+                distortFeat = distortFeat.to(device).float()
+                contentFeat = contentFeat.to(device).float()
                 label = label.to(device).float()
-                outputs = model(features, length.float())
+                vidLen = vidLen.to(device).float()
+                outputs = model(cube, vidLen, contentFeat, distortFeat)
                 y_pred[i] = scale * outputs[0].to('cpu').numpy()
                 loss = criterion(outputs, label)
                 L = L + loss.item()
@@ -136,11 +212,14 @@ def originalVSFAMain():
             y_test = np.zeros(len(test_index))
             L = 0
             with torch.no_grad():
-                for i, (features, length, label) in enumerate(test_loader):
+                for i,(cube,distortFeat,contentFeat,label,vidLen) in enumerate(test_loader):
                     y_test[i] = scale * label.numpy()  #
-                    features = features.to(device).float()
+                    cube = cube.to(device).float()
+                    distortFeat = distortFeat.to(device).float()
+                    contentFeat = contentFeat.to(device).float()
                     label = label.to(device).float()
-                    outputs = model(features, length.float())
+                    vidLen = vidLen.to(device).float()
+                    outputs = model(cube, vidLen, contentFeat, distortFeat)
                     y_pred[i] = scale * outputs[0].to('cpu').numpy()
                     loss = criterion(outputs, label)
                     L = L + loss.item()
@@ -157,6 +236,13 @@ def originalVSFAMain():
         writer.add_scalar("KROCC/val", val_KROCC, epoch)
         writer.add_scalar("PLCC/val", val_PLCC, epoch)
         writer.add_scalar("RMSE/val", val_RMSE, epoch)
+        '''
+        writer.add_scalar("loss/trainval", trainval_loss, epoch)
+        writer.add_scalar("SROCC/trainval", trainval_SROCC, epoch)
+        writer.add_scalar("KROCC/trainval", trainval_KROCC, epoch)
+        writer.add_scalar("PLCC/trainval", trainval_PLCC, epoch)
+        writer.add_scalar("RMSE/trainval", trainval_RMSE, epoch)
+        '''
         if conf.TEST_RATIO > 0 and not conf.NO_TEST_DURING_TRAINING:
             writer.add_scalar("loss/test", test_loss, epoch)
             writer.add_scalar("SROCC/test", SROCC, epoch)
@@ -165,7 +251,7 @@ def originalVSFAMain():
             writer.add_scalar("RMSE/test", RMSE, epoch)
 
         # 选择验证效果好的模型保存(由于是基于epoch的，所以比较科学)
-        if val_SROCC > best_val_criterion :#and epoch > conf.MAX_Epoch / 6:
+        if val_SROCC > best_val_criterion and epoch > conf.MAX_Epoch / 6:
             print("实验{}: 更新最佳参数，位于 Epoch {}".format(conf.MODEL_NAME, epoch))
             print("Val results: val loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"
                   .format(val_loss, val_SROCC, val_KROCC, val_PLCC, val_RMSE))
@@ -186,9 +272,12 @@ def originalVSFAMain():
             L = 0
             for i, (features, length, label) in enumerate(test_loader):
                 y_test[i] = scale * label.numpy()  #
-                features = features.to(device).float()
+                cube = cube.to(device).float()
+                distortFeat = distortFeat.to(device).float()
+                contentFeat = contentFeat.to(device).float()
                 label = label.to(device).float()
-                outputs = model(features, length.float())
+                vidLen = vidLen.to(device).float()
+                outputs = model(cube, vidLen, contentFeat, distortFeat)
                 y_pred[i] = scale * outputs[0].to('cpu').numpy()
                 loss = criterion(outputs, label)
                 L = L + loss.item()

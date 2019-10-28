@@ -411,7 +411,7 @@ class LJCH1(nn.Module):
         for i in range(cube.shape[0]): # for every batch
             # all the scores for one instance
             qi = q[i, :int(inputLength[i]- 2 * self.time_interval//2)]  # q[N,T]
-            qi = TP(qi)
+            qi = TP(qi) 
             score[i] = torch.mean(qi)  # video overall quality
         return score
 

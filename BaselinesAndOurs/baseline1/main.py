@@ -105,8 +105,14 @@ def originalVSFAMain():
     else:
         print('Brand new model');
         print('')
+
     # The optimizer should be after the real load in models, therefore the weight is updated. #NO updating#,#weird ghost network layerss#
     optimizer = torch.optim.Adam(model.parameters(), lr=conf.LR, weight_decay=conf.WEIGHT_DECAY)
+    scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, [500,1500], gamma=0.1, last_epoch=-1)
+
+    for epoch in range(Epoch + 1):
+        scheduler.step()
+
     for epoch in range(Epoch + 1, conf.MAX_Epoch):  # def forward(self, cube,inputLength,featContent,featDistort):
         # Train for 1 epoch
         print('--------------------------- EPOCH:' + str(epoch) + '/' + str(
@@ -215,11 +221,11 @@ def originalVSFAMain():
         writer.add_scalar("KROCC/val", val_KROCC, epoch)
         writer.add_scalar("PLCC/val", val_PLCC, epoch)
         writer.add_scalar("RMSE/val", val_RMSE, epoch)
-        writer.add_scalar("loss/train", test_loss, epoch)
-        writer.add_scalar("SROCC/val", SROCC, epoch)
-        writer.add_scalar("KROCC/val", KROCC, epoch)
-        writer.add_scalar("PLCC/val", PLCC, epoch)
-        writer.add_scalar("RMSE/val", RMSE, epoch)
+        writer.add_scalar("loss/test", test_loss, epoch)
+        writer.add_scalar("SROCC/test", SROCC, epoch)
+        writer.add_scalar("KROCC/test", KROCC, epoch)
+        writer.add_scalar("PLCC/test", PLCC, epoch)
+        writer.add_scalar("RMSE/test", RMSE, epoch)
         '''
         writer.add_scalar("loss/trainval", trainval_loss, epoch)
         writer.add_scalar("SROCC/trainval", trainval_SROCC, epoch)             print("Val results: val loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"
@@ -231,6 +237,7 @@ def originalVSFAMain():
             torch.save(model.state_dict(), trained_model_file)
             best_val_criterion = val_SROCC  # update best val SROCC
     '''
+        scheduler.step()
     # Test
     if conf.TEST_RATIO > 0:
         model.load_state_dict(torch.load(trained_model_file))  #

@@ -18,7 +18,7 @@ DATASET_NAME = 'KoNViD'
 DISTORTION_ALGORITHM_NAME = 'DeepIQA'
 DISTORTION_ALG_FUNC_HANDLE = None
 ## 学习率
-LR = 1e-5#3
+LR = 1e-4#3
 ## 学习率下降间隔
 LR_INTERVAL = 2000
 ## 学习率下降的比率
@@ -26,7 +26,7 @@ LR_DECAY_FACOTOR = 0.9
 ## L2 正则约束系数
 WEIGHT_DECAY= 0.0 #0.000000
 ## 批训练大小，训练
-BATCH_SIZE = 3
+BATCH_SIZE = 9
 ## 梯度累计步骤
 GRAD_ACCUM = 3
 ## 批训练大小，测试

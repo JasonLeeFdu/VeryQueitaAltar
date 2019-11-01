@@ -1,40 +1,31 @@
 ## image IO
 import warnings
+
 warnings.filterwarnings('ignore')
 import os
+import h5py
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
+from torch.utils.data import Dataset
 import numpy as np
 from scipy import stats
-import network as nt
-import  tensorboardX as tbx
-import pickle
+from tensorboardX import SummaryWriter
+import networkBaseline1 as nt
+import tensorboardX as tbx
 
 # Program
 import Config as conf
 import Utils.common as tools
 import scipy.io as scio
-from network import  weights_init,newLoss
+from networkBaseline1 import weights_init, newLoss
 import time
-import pickle
-
 
 '''
 random crop on bigger cube
 flip
 
-1. 随机划分永久化
-2. 实现若干论之后抽取test/val效果好的模型保存
-3. 恢复原来模型与对应相关的训练代码
-4. baseline1 与 原算法(试试三次哪个好)
-5. 查看光流运动信息是怎么被用上的
-
 '''
-
-
-
-
-
 
 
 def originalVSFAMain():
@@ -50,13 +41,13 @@ def originalVSFAMain():
         datainfo = 'DatasetInfo/LIVE-Qualcomminfo.mat'
         conf.MAX_Epoch = 15000  # need more training to converge
 
-
     # 路径的设置与保存
     tools.securePath('Models')
     tools.securePath('Results')
     tools.securePath(conf.MODEL_PATH)
-    tools.securePath(conf.BEST_PERFORMANCE_MODEL_PATH)
-    save_result_file = os.path.join(conf.BEST_PERFORMANCE_MODEL_PATH,'statistic.pkl')
+    tools.securePath(conf.RESULT_PATH)
+    trained_model_file = os.path.join(conf.MODEL_PATH, 'trainedParams')
+    save_result_file = conf.RESULT_PATH
 
     writer = tbx.SummaryWriter(log_dir=conf.LOG_TRAIN_PATH)
 
@@ -67,16 +58,12 @@ def originalVSFAMain():
     print('模型名称' + conf.MODEL_NAME)
     print('==========================================================================')
 
-
-
     # 读取统计的Dataset信息       # exp_id = 0
     Info = scio.loadmat(conf.DATASET_INFO_PATH)
     max_len = int(Info['max_len'][0])
 
-
     # 将数据集的分数进行标准化(有这么做的)
     scale = Info['scores'][0, :].max()  # label normalization factor
-
 
     # 数据集划分，把数据集分成 训练：验证：测试  3 : 1 : 1
     N = Info['videoNum'][0][0]
@@ -91,10 +78,8 @@ def originalVSFAMain():
         Array = np.concatenate(li,axis=1)
         with open(conf.PARTITION_TABLE,'wb') as f:
             pickle.dump(Array,f)
-
     else:
         with open(conf.PARTITION_TABLE,'rb') as f:
-
             Array = pickle.load(f)
 
 
@@ -104,39 +89,50 @@ def originalVSFAMain():
     test_index  = Array[ValN + TrainN:,conf.testRound]
 
 
+
     vnameSet = os.listdir(conf.DATASET_VIDEOS_PATH)
-    vnameSet = [os.path.join(conf.TRAINING_SAMPLE_BASEPATH,conf.DATASET_NAME,x[:-4]) for x in vnameSet]
+    vnameSet = [os.path.join(conf.TRAINING_SAMPLE_BASEPATH, conf.DATASET_NAME, x[:-4]) for x in vnameSet]
 
     trainSet = [vnameSet[x] for x in train_index]
     valSet = [vnameSet[x] for x in val_index]
     testSet = [vnameSet[x] for x in test_index]
 
     # 数据集制作   videoNameList,max_len = conf.MAX_TIME_LEN)
-    train_dataset = nt.VQADataset(trainSet, max_len = conf.MAX_TIME_LEN)
-    train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=conf.BATCH_SIZE, shuffle=True,num_workers=5)
-    val_dataset = nt.VQADataset(valSet, max_len = conf.MAX_TIME_LEN)
-    val_loader = torch.utils.data.DataLoader(dataset=val_dataset,num_workers=5)
+    train_dataset = nt.VQADataset(trainSet, max_len=conf.MAX_TIME_LEN)
+    train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=conf.BATCH_SIZE, shuffle=True,
+                                               num_workers=5)
+    val_dataset = nt.VQADataset(valSet, max_len=conf.MAX_TIME_LEN)
+    val_loader = torch.utils.data.DataLoader(dataset=val_dataset, num_workers=5)
     if conf.TEST_RATIO > 0:
-        test_dataset = nt.VQADataset(testSet, max_len = conf.MAX_TIME_LEN)
-        test_loader = torch.utils.data.DataLoader(dataset=test_dataset,num_workers=5)
+        test_dataset = nt.VQADataset(testSet, max_len=conf.MAX_TIME_LEN)
+        test_loader = torch.utils.data.DataLoader(dataset=test_dataset, num_workers=5)
 
     # 网络载入并设定损失与优化
     device = torch.device("cuda")
     model = nt.LJCH1(max_len).cuda()  #
     model.apply(weights_init)
     criterion = nn.L1Loss().cuda()  # 本文采用 L1 loss
-    optimizer = torch.optim.Adam(model.parameters(), lr=conf.LR, weight_decay=conf.WEIGHT_DECAY)
     best_val_criterion = -1  # 选取模型是采用验证集里面，表现最好的那一个SROCC min
-    modelSaved, Epoch,Iter,GlobalIter = tools.loadLatestCheckpoint(fnCore='model')
+    modelSaved, Epoch, Iter, GlobalIter = tools.loadLatestCheckpoint(fnCore='model')
     if modelSaved is not None:
         model = modelSaved
-        print('The model has been trained in Epoch:%d, GlobalIteration:%d'% (Epoch,GlobalIter));print('')
+        print('The model has been trained in Epoch:%d, GlobalIteration:%d' % (Epoch, GlobalIter));
+        print('')
     else:
-        print('Brand new model');print('')
+        print('Brand new model');
+        print('')
 
-    for epoch in range(Epoch+1,conf.MAX_Epoch): #      def forward(self, cube,inputLength,featContent,featDistort):
+    # The optimizer should be after the real load in models, therefore the weight is updated. #NO updating#,#weird ghost network layerss#
+    optimizer = torch.optim.Adam(model.parameters(), lr=conf.LR, weight_decay=conf.WEIGHT_DECAY)
+    scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, [500,1500], gamma=0.1, last_epoch=-1)
+
+    for epoch in range(Epoch + 1):
+        scheduler.step()
+
+    for epoch in range(Epoch + 1, conf.MAX_Epoch):  # def forward(self, cube,inputLength,featContent,featDistort):
         # Train for 1 epoch
-        print('--------------------------- EPOCH:' + str(epoch)  + '/' + str(conf.MAX_Epoch) + ' ---------------------------' )
+        print('--------------------------- EPOCH:' + str(epoch) + '/' + str(
+            conf.MAX_Epoch) + ' ---------------------------')
         model.train()
         L = 0
         ii = -1
@@ -144,10 +140,10 @@ def originalVSFAMain():
         y_val1 = np.zeros(len(val_index))
         optimizer.zero_grad()
 
-        for i, (cube,distortFeat,contentFeat,label,vidLen) in enumerate(train_loader):
+        for i, (cube, distortFeat, contentFeat, label, vidLen) in enumerate(train_loader):
             ii = i
             s = time.time()
-            #y_val1[i] = scale * label.numpy()  #
+            # y_val1[i] = scale * label.numpy()  #
             cube = cube.cuda().float()
             distortFeat = distortFeat.cuda().float()
             contentFeat = contentFeat.cuda().float()
@@ -155,7 +151,7 @@ def originalVSFAMain():
             vidLen = vidLen.cuda().float()
 
             outputs = model(cube, vidLen, contentFeat, distortFeat)
-            #y_pred1[i] = scale * outputs[0].to('cpu').numpy()
+            # y_pred1[i] = scale * outputs[0].to('cpu').numpy()
             loss = criterion(outputs, label)
             goupi = loss.detach().cpu().numpy()
             # 2.1 loss regularization
@@ -164,55 +160,37 @@ def originalVSFAMain():
             loss.backward()
             # 3. update parameters of net
             if ((i + 1) % conf.GRAD_ACCUM) == 0:
-                # optimizer the net
+                # optimizer the `net
                 optimizer.step()  # update parameters of net
                 optimizer.zero_grad()  # reset gradient
 
-            L = L + loss.item() *  conf.GRAD_ACCUM
+            L = L + loss.item() * conf.GRAD_ACCUM
 
             if i % 10 == 0:
                 print('Iter: %d, Loss: %f' % (i, goupi))
-                print('Outputs: \t',end='');print(outputs.detach().cpu().numpy())
-                print('Label: \t',end='');print(label.detach().cpu().numpy());print('')
+                print('Outputs: \t', end='');
+                print(outputs.detach().cpu().numpy())
+                print('Label: \t', end='');
+                print(label.detach().cpu().numpy());
+                print('')
         ## save
-        tools.saveCheckpoint(netModel=model,epoch=epoch,iterr=ii,glbiter=ii*epoch+ii)
+        tools.saveCheckpoint(netModel=model, epoch=epoch, iterr=ii, glbiter=ii * epoch + ii)
         ## the remain unupdated grad
         if ((ii + 1) % conf.GRAD_ACCUM) != 0:
             # optimizer the net
             optimizer.step()  # update parameters of net
             optimizer.zero_grad()  # reset gradient
         train_loss = L / (i + 1)
-        ##
 
         model.eval()
 
-        ''' 
-        # train-val
-        y_pred = np.zeros(len(val_index))
-        y_val = np.zeros(len(val_index))
-        L = 0
-        
-        with torch.no_grad():
-            for i, (cube, distortFeat, contentFeat, label, vidLen) in enumerate(val_loader):
-                y_val[i] = scale * label.numpy()  #
-                cube = cube.to(device).float()
-                distortFeat = distortFeat.to(device).float()
-                contentFeat = contentFeat.to(device).float()
-                label = label.to(device).float()
-                vidLen = vidLen.to(device).float()
-
-                outputs = model(cube, vidLen, contentFeat, distortFeat)
-                y_pred[i] = scale * outputs[0].to('cpu').numpy()
-                loss = criterion(outputs, label)
-                L = L + loss.item()
-        '''
 
         # Val
         y_pred = np.zeros(len(val_index))
         y_val = np.zeros(len(val_index))
         L = 0
         with torch.no_grad():
-            for i, (cube,distortFeat,contentFeat,label,vidLen) in enumerate(val_loader):
+            for i, (cube, distortFeat, contentFeat, label, vidLen) in enumerate(val_loader):
                 y_val[i] = scale * label.to('cpu').numpy()  #
                 cube = cube.to(device).float()
                 distortFeat = distortFeat.to(device).float()
@@ -235,7 +213,7 @@ def originalVSFAMain():
             y_test = np.zeros(len(test_index))
             L = 0
             with torch.no_grad():
-                for i,(cube,distortFeat,contentFeat,label,vidLen) in enumerate(test_loader):
+                for i, (cube, distortFeat, contentFeat, label, vidLen) in enumerate(test_loader):
                     y_test[i] = scale * label.numpy()  #
                     cube = cube.to(device).float()
                     distortFeat = distortFeat.to(device).float()
@@ -259,39 +237,26 @@ def originalVSFAMain():
         writer.add_scalar("KROCC/val", val_KROCC, epoch)
         writer.add_scalar("PLCC/val", val_PLCC, epoch)
         writer.add_scalar("RMSE/val", val_RMSE, epoch)
-
+        writer.add_scalar("loss/test", test_loss, epoch)
+        writer.add_scalar("SROCC/test", SROCC, epoch)
+        writer.add_scalar("KROCC/test", KROCC, epoch)
+        writer.add_scalar("PLCC/test", PLCC, epoch)
+        writer.add_scalar("RMSE/test", RMSE, epoch)
         '''
         writer.add_scalar("loss/trainval", trainval_loss, epoch)
-        writer.add_scalar("SROCC/trainval", trainval_SROCC, epoch)
-        writer.add_scalar("KROCC/trainval", trainval_KROCC, epoch)
-        writer.add_scalar("PLCC/trainval", trainval_PLCC, epoch)
-        writer.add_scalar("RMSE/trainval", trainval_RMSE, epoch)
-        '''
-
-        if conf.TEST_RATIO > 0 and not conf.NO_TEST_DURING_TRAINING:
-            writer.add_scalar("loss/test", test_loss, epoch)
-            writer.add_scalar("SROCC/test", SROCC, epoch)
-            writer.add_scalar("KROCC/test", KROCC, epoch)
-            writer.add_scalar("PLCC/test", PLCC, epoch)
-            writer.add_scalar("RMSE/test", RMSE, epoch)
-
-        # 选择验证效果好的模型保存(由于是基于epoch的，所以比较科学)
-        if SROCC > best_val_criterion and epoch > conf.MAX_Epoch / 6: ##$$##
-            print("实验{}: 更新最佳参数，位于 Epoch {}".format(conf.MODEL_NAME, epoch))
-            print("Val results: val loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"
-                  .format(val_loss, val_SROCC, val_KROCC, val_PLCC, val_RMSE))
+        writer.add_scalar("SROCC/trainval", trainval_SROCC, epoch)             print("Val results: val loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"
+                  .for mat(val_loss, val_SROCC, val_KROCC, val_PLCC, val_RMSE))
             if conf.TEST_RATIO > 0 and not conf.NO_TEST_DURING_TRAINING:
-                print("Test results: test loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"#
+                print("Test results: test loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"
                       .format(test_loss, SROCC, KROCC, PLCC, RMSE))
-            # 保存相关的模型
-            tools.saveCheckpoint(netModel=model, epoch=epoch, iterr=ii, glbiter=ii * epoch + ii,savingPath=conf.BEST_PERFORMANCE_MODEL_PATH,defaultFileName='bestModel.mdl')
-            np.save(save_result_file, (y_pred, y_test, test_loss, SROCC, KROCC, PLCC, RMSE, test_index))
-            best_val_criterion = SROCC  # update best val SROCC     ##$$##
-
-
+                np.save(save_result_file, (y_pred, y_test, test_loss, SROCC, KROCC, PLCC, RMSE, test_index))
+            torch.save(model.state_dict(), trained_model_file)
+            best_val_criterion = val_SROCC  # update best val SROCC
+    '''
+        scheduler.step()
     # Test
     if conf.TEST_RATIO > 0:
-        tools.loadSpecificCheckpointNetState1(None, None, None, conf.BEST_PERFORMANCE_MODEL_PATH,'bestModel.mdl')
+        model.load_state_dict(torch.load(trained_model_file))  #
         model.eval()
         with torch.no_grad():
             y_pred = np.zeros(len(test_index))
@@ -313,9 +278,9 @@ def originalVSFAMain():
         SROCC = stats.spearmanr(y_pred, y_test)[0]
         RMSE = np.sqrt(((y_pred - y_test) ** 2).mean())
         KROCC = stats.stats.kendalltau(y_pred, y_test)[0]
-        print("最终算法的测试： test loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"
+        print("Test results: test loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"
               .format(test_loss, SROCC, KROCC, PLCC, RMSE))
-        #np.save(save_result_file, (y_pred, y_test, test_loss, SROCC, KROCC, PLCC, RMSE, test_index))
+        # np.save(save_result_file, (y_pred, y_test, test_loss, SROCC, KROCC, PLCC, RMSE, test_index))
 
 
 def originalCNNFeatExtractMain():
@@ -329,19 +294,3 @@ def main():
 
 if __name__ == '__main__':
     originalVSFAMain()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

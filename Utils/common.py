@@ -24,7 +24,7 @@ def secureSoftLink(src,dst):
 
 
 
-def saveCheckpoint(netModel, epoch, iterr, glbiter, fnCore='model'):
+def saveCheckpoint(netModel, epoch, iterr, glbiter, fnCore='model',savingPath=conf.MODEL_PATH,defaultFileName = None):
     ##net_state = netModel.state_dict()
     res = dict()
     ##res['NetState'] = net_state
@@ -32,16 +32,25 @@ def saveCheckpoint(netModel, epoch, iterr, glbiter, fnCore='model'):
     res['Epoch'] = epoch
     res['Iter'] = iterr
     res['GlobalIter'] = glbiter
-    fn = fnCore + '_' + str(epoch) + '_' + str(iterr) + '.mdl'
-    pfn = os.path.join(conf.MODEL_PATH, fn)
+    if defaultFileName is None:
+        fn = fnCore + '_' + str(epoch) + '_' + str(iterr) + '.mdl'
+    else:
+        fn = defaultFileName
+    pfn = os.path.join(savingPath, fn)
     pfnFile = io.open(pfn, mode='wb')
     pickle.dump(res, pfnFile)
 
 
-def loadSpecificCheckpointNetState1(epoch, iterr, fnCore='model'):
-    fn = fnCore + '_' + str(epoch) + '_' + str(iterr) + '.mdl'
-    pfn = os.path.join(conf.MODEL_PATH, fn)
-    res = pickle.load(pfn)
+
+
+def loadSpecificCheckpointNetState1(epoch, iterr, fnCore='model',savingPath=conf.MODEL_PATH,defaultFileName = None):
+    if defaultFileName is None:
+        fn = fnCore + '_' + str(epoch) + '_' + str(iterr) + '.mdl'
+        pfn = os.path.join(conf.MODEL_PATH, fn)
+    else:
+        pfn = os.path.join(savingPath,defaultFileName)
+    with open(pfn,'rb') as f:
+        res = pickle.load(f)
     net_state = res['NetState']
     globalIter = res['GlobalIter']
     return net_state, globalIter

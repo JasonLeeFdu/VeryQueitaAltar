@@ -2,16 +2,13 @@
 import warnings
 warnings.filterwarnings('ignore')
 import os
-import h5py
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-from torch.utils.data import Dataset
 import numpy as np
 from scipy import stats
-from tensorboardX import SummaryWriter
 import network as nt
 import  tensorboardX as tbx
+import pickle
 
 # Program
 import Config as conf
@@ -19,12 +16,23 @@ import Utils.common as tools
 import scipy.io as scio
 from network import  weights_init,newLoss
 import time
+import pickle
+
 
 '''
 random crop on bigger cube
 flip
 
+1. 随机划分永久化
+2. 实现若干论之后抽取test/val效果好的模型保存
+3. 恢复原来模型与对应相关的训练代码
+4. baseline1 与 原算法(试试三次哪个好)
+5. 查看光流运动信息是怎么被用上的
+
 '''
+
+
+
 
 
 
@@ -47,9 +55,8 @@ def originalVSFAMain():
     tools.securePath('Models')
     tools.securePath('Results')
     tools.securePath(conf.MODEL_PATH)
-    tools.securePath(conf.RESULT_PATH)
-    trained_model_file = os.path.join(conf.MODEL_PATH,'trainedParams')
-    save_result_file = conf.RESULT_PATH
+    tools.securePath(conf.BEST_PERFORMANCE_MODEL_PATH)
+    save_result_file = os.path.join(conf.BEST_PERFORMANCE_MODEL_PATH,'statistic.pkl')
 
     writer = tbx.SummaryWriter(log_dir=conf.LOG_TRAIN_PATH)
 
@@ -75,10 +82,27 @@ def originalVSFAMain():
     N = Info['videoNum'][0][0]
     TrainN = int(N * conf.TRAIN_RATIO)
     ValN = int(N * conf.VAL_RATIO)
-    arr = np.random.permutation(N)
-    train_index = arr[:TrainN]
-    val_index   = arr[TrainN:ValN + TrainN]
-    test_index  = arr[ValN + TrainN:]
+    if not os.path.exists(conf.PARTITION_TABLE):
+        li = list()
+        for i in range(1000):
+            arr = np.random.permutation(N)
+            arr = arr.reshape([N,1])
+            li.append(arr)
+        Array = np.concatenate(li,axis=1)
+        with open(conf.PARTITION_TABLE,'wb') as f:
+            pickle.dump(Array,f)
+
+    else:
+        with open(conf.PARTITION_TABLE,'rb') as f:
+
+            Array = pickle.load(f)
+
+
+
+    train_index = Array[:TrainN,conf.testRound]
+    val_index   = Array[TrainN:ValN + TrainN,conf.testRound]
+    test_index  = Array[ValN + TrainN:,conf.testRound]
+
 
     vnameSet = os.listdir(conf.DATASET_VIDEOS_PATH)
     vnameSet = [os.path.join(conf.TRAINING_SAMPLE_BASEPATH,conf.DATASET_NAME,x[:-4]) for x in vnameSet]
@@ -160,12 +184,6 @@ def originalVSFAMain():
         train_loss = L / (i + 1)
         ##
 
-        #trainval_loss = L / (i + 1)
-        ##trainval_PLCC = stats.pearsonr(y_pred1, y_val1)[0]
-        #trainval_SROCC = stats.spearmanr(y_pred1, y_val1)[0]
-        #trainval_RMSE = np.sqrt(((y_pred1 - y_val1) ** 2).mean())
-        #trainval_KROCC = stats.stats.kendalltau(y_pred1, y_val1)[0]
-
         model.eval()
 
         ''' 
@@ -188,6 +206,7 @@ def originalVSFAMain():
                 loss = criterion(outputs, label)
                 L = L + loss.item()
         '''
+
         # Val
         y_pred = np.zeros(len(val_index))
         y_val = np.zeros(len(val_index))
@@ -240,6 +259,7 @@ def originalVSFAMain():
         writer.add_scalar("KROCC/val", val_KROCC, epoch)
         writer.add_scalar("PLCC/val", val_PLCC, epoch)
         writer.add_scalar("RMSE/val", val_RMSE, epoch)
+
         '''
         writer.add_scalar("loss/trainval", trainval_loss, epoch)
         writer.add_scalar("SROCC/trainval", trainval_SROCC, epoch)
@@ -247,6 +267,7 @@ def originalVSFAMain():
         writer.add_scalar("PLCC/trainval", trainval_PLCC, epoch)
         writer.add_scalar("RMSE/trainval", trainval_RMSE, epoch)
         '''
+
         if conf.TEST_RATIO > 0 and not conf.NO_TEST_DURING_TRAINING:
             writer.add_scalar("loss/test", test_loss, epoch)
             writer.add_scalar("SROCC/test", SROCC, epoch)
@@ -255,20 +276,22 @@ def originalVSFAMain():
             writer.add_scalar("RMSE/test", RMSE, epoch)
 
         # 选择验证效果好的模型保存(由于是基于epoch的，所以比较科学)
-        if val_SROCC > best_val_criterion and epoch > conf.MAX_Epoch / 6:
+        if SROCC > best_val_criterion and epoch > conf.MAX_Epoch / 6: ##$$##
             print("实验{}: 更新最佳参数，位于 Epoch {}".format(conf.MODEL_NAME, epoch))
             print("Val results: val loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"
                   .format(val_loss, val_SROCC, val_KROCC, val_PLCC, val_RMSE))
             if conf.TEST_RATIO > 0 and not conf.NO_TEST_DURING_TRAINING:
-                print("Test results: test loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"
+                print("Test results: test loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"#
                       .format(test_loss, SROCC, KROCC, PLCC, RMSE))
-                np.save(save_result_file, (y_pred, y_test, test_loss, SROCC, KROCC, PLCC, RMSE, test_index))
-            torch.save(model.state_dict(), trained_model_file)
-            best_val_criterion = val_SROCC  # update best val SROCC
+            # 保存相关的模型
+            tools.saveCheckpoint(netModel=model, epoch=epoch, iterr=ii, glbiter=ii * epoch + ii,savingPath=conf.BEST_PERFORMANCE_MODEL_PATH,defaultFileName='bestModel.mdl')
+            np.save(save_result_file, (y_pred, y_test, test_loss, SROCC, KROCC, PLCC, RMSE, test_index))
+            best_val_criterion = SROCC  # update best val SROCC     ##$$##
+
 
     # Test
     if conf.TEST_RATIO > 0:
-        model.load_state_dict(torch.load(trained_model_file))  #
+        tools.loadSpecificCheckpointNetState1(None, None, None, conf.BEST_PERFORMANCE_MODEL_PATH,'bestModel.mdl')
         model.eval()
         with torch.no_grad():
             y_pred = np.zeros(len(test_index))
@@ -290,9 +313,9 @@ def originalVSFAMain():
         SROCC = stats.spearmanr(y_pred, y_test)[0]
         RMSE = np.sqrt(((y_pred - y_test) ** 2).mean())
         KROCC = stats.stats.kendalltau(y_pred, y_test)[0]
-        print("Test results: test loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"
+        print("最终算法的测试： test loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"
               .format(test_loss, SROCC, KROCC, PLCC, RMSE))
-        np.save(save_result_file, (y_pred, y_test, test_loss, SROCC, KROCC, PLCC, RMSE, test_index))
+        #np.save(save_result_file, (y_pred, y_test, test_loss, SROCC, KROCC, PLCC, RMSE, test_index))
 
 
 def originalCNNFeatExtractMain():

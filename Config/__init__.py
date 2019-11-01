@@ -2,8 +2,14 @@ import os
 import random
 # from network import *
 import datetime
-import Utils.common as comm
 
+import argparse
+## 外部调用环境
+parser = argparse.ArgumentParser()
+parser.add_argument('--testRound', type=int, nargs='?', help='给外部函数调用',default='1')
+
+args = parser.parse_args()
+testRound = args.testRound
 
 '''################################################################################################
                                     学习超参数
@@ -11,7 +17,7 @@ import Utils.common as comm
 #################################################################################################
 '''
 ## 本次实验名称(model + expid) 所以做十次实验要调整10次ID
-MODEL_NAME = 'LJCH1'
+MODEL_NAME = 'LJCH%d' % args.testRound
 ## Dataset的名称
 DATASET_NAME = 'KoNViD'
 ## Distortion Feat 提取算法
@@ -37,7 +43,7 @@ TRAIN_EPOCH_OR_ITERS = 'epoch'
 ## 加载模型所用的线程数
 NUM_WORKERS = 3
 ## 最大训练EPOCH次数
-MAX_Epoch = 3000
+MAX_Epoch = 101111
 ## 最大训练迭代数目
 MAX_ITERATIONS = 65000
 ## 训练的时候不测试
@@ -73,12 +79,15 @@ else:
 
 TRAINING_SAMPLE_BASEPATH = os.path.join(_PROJECT_BASEPATH,'TrainingSamples')
 MODEL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','model') % MODEL_NAME
+BEST_PERFORMANCE_MODEL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','bestPerformance') % MODEL_NAME
 LOG_TRAIN_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log') % MODEL_NAME
 LOG_VAL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log','val') % MODEL_NAME
 LOG_TEST_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log','test') % MODEL_NAME
-STEALTH_MODE_MODEL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','snapshots') % MODEL_NAME
-RESULT_PATH =  os.path.join(_PROJECT_BASEPATH,'Results','VQA_%s','result') % MODEL_NAME
 PRETRAINED_MODELS_DIR = os.path.join(_PROJECT_BASEPATH,'pretrainedModels')
+
+PARTITION_TABLE = 'PartitionTabel.pkl'
+
+
 
 # 网络结构
 

@@ -1,8 +1,14 @@
 import os
-import Config as conf
+import Config as conf #
 import pickle
 import io
 from thop import  profile
+
+'''
+为确保泛化性，不能与配置文件耦合
+
+'''
+
 
 def securePath(path):
     pathList = list()
@@ -24,7 +30,7 @@ def secureSoftLink(src,dst):
 
 
 
-def saveCheckpoint(netModel, epoch, iterr, glbiter, fnCore='model',savingPath=conf.MODEL_PATH,defaultFileName = None):
+def saveCheckpoint(netModel, epoch, iterr, glbiter, fnCore='model',savingPath='',defaultFileName = None):
     ##net_state = netModel.state_dict()
     res = dict()
     ##res['NetState'] = net_state
@@ -41,9 +47,18 @@ def saveCheckpoint(netModel, epoch, iterr, glbiter, fnCore='model',savingPath=co
     pickle.dump(res, pfnFile)
 
 
+def savePickle(obj,fn):
+    with open(fn,'wb') as f:
+        pickle.dump(obj,f)
+    return
+
+def loadPickle(fn):
+    with open(fn,'rb') as f:
+        res = pickle.load(f)
+    return  res
 
 
-def loadSpecificCheckpointNetState1(epoch, iterr, fnCore='model',savingPath=conf.MODEL_PATH,defaultFileName = None):
+def loadSpecificCheckpointNetState1(epoch, iterr, fnCore='model',savingPath='',defaultFileName = None):
     if defaultFileName is None:
         fn = fnCore + '_' + str(epoch) + '_' + str(iterr) + '.mdl'
         pfn = os.path.join(conf.MODEL_PATH, fn)
@@ -56,9 +71,8 @@ def loadSpecificCheckpointNetState1(epoch, iterr, fnCore='model',savingPath=conf
     return net_state, globalIter
 
 
-def loadLatestCheckpoint(fnCore='model'):
+def loadLatestCheckpoint(modelPath,fnCore='model'):
     # return net_status epoch iterr
-    modelPath = conf.MODEL_PATH
     candidateCpSet = os.listdir(modelPath)
     candidateCpSet = [x for x in candidateCpSet if x.startswith(fnCore) and x.endswith('.mdl')]
     if len(candidateCpSet) == 0:

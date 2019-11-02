@@ -6,10 +6,12 @@ import datetime
 import argparse
 ## 外部调用环境
 parser = argparse.ArgumentParser()
-parser.add_argument('--testRound', type=int, nargs='?', help='给外部函数调用',default='1')
+parser.add_argument('--testRound', type=int, nargs='?', help='给外部函数调用',default='2') # good - 0
+parser.add_argument('--verbose', type=int, nargs='?', help='给外部函数调用',default='1') # good - 0
 
 args = parser.parse_args()
 testRound = args.testRound
+verbose   = args.verbose
 
 '''################################################################################################
                                     学习超参数
@@ -32,7 +34,7 @@ LR_DECAY_FACOTOR = 0.9
 ## L2 正则约束系数
 WEIGHT_DECAY= 0.0 #0.000000
 ## 批训练大小，训练
-BATCH_SIZE = 9
+BATCH_SIZE = 2
 ## 梯度累计步骤
 GRAD_ACCUM = 3
 ## 批训练大小，测试

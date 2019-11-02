@@ -30,7 +30,7 @@ from PIL import Image
 import skvideo.io
 
 # Program
-import Config as conf
+import Config.confOur as conf
 import Utils.common as tools
 import pickle
 import lmdb
@@ -350,6 +350,7 @@ class LJCH1(nn.Module):
         self.ann = ANN(4608, self.reduced_size, 1)
         self.rnn = nn.GRU(self.reduced_size, self.hidden_size, batch_first=True, bidirectional=True)
         self.time_interval = TIME_INTERVAL
+        self.stFeat  =  SpatialTemporalFeat(TIME_INTERVAL)
         self.q = nn.Linear(self.hidden_size * 2, 1)
         self.maxLen = maxLen
 
@@ -365,6 +366,7 @@ class LJCH1(nn.Module):
             videoClip = cube[:, i - self.time_interval // 2:i + self.time_interval // 2 + 1, :, :, :]  # (N, C, D, H, W)
             feat = self.stFeat(videoClip)
             feat = torch.unsqueeze(feat, 1)
+
             li.append(feat)
         spatialTemporalFeat = torch.cat(li, dim=1)
 

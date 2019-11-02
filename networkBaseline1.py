@@ -30,7 +30,7 @@ from PIL import Image
 import skvideo.io
 
 # Program
-import Config as conf
+import Config.confBaseline1 as conf
 import Utils.common as tools
 import pickle
 import lmdb
@@ -361,7 +361,7 @@ class LJCH1(nn.Module):
         totalFeat = torch.cat([featContent, featDistort], dim=-1)
         scores = self.ann(totalFeat)
         outputs, _ = self.rnn(scores, self._get_initial_state(scores.size(0), scores.device))
-        q = F.relu(self.q(outputs))  # 基于帧的分数
+        q = self.q(outputs)  # 基于帧的分数
         score = torch.zeros([cube.shape[0]]).cuda()  # batch-wise
         ## score 的 batch-wise 循环-- temporal pooling
         for i in range(cube.shape[0]):  # for every batch

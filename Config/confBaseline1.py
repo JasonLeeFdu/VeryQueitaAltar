@@ -100,8 +100,8 @@ LOG_VAL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log','val') % M
 LOG_TEST_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log','test') % MODEL_NAME
 PRETRAINED_MODELS_DIR = os.path.join(_PROJECT_BASEPATH,'pretrainedModels')
 
-PARTITION_TABLE = 'PartitionTabel.pkl'
-
+PARTITION_TABLE_TOTAL = 'PartitionTabel.pkl'
+PARTITION_TABLE_TOTAL_EXP = 'PartitionTabel%s.pkl' % DATASET_NAME
 
 
 # 网络结构
@@ -122,7 +122,7 @@ SAMPLING_SIZE = 64
 SAMPLING_NUM = 4
 
 # guided pooling的策略
-STRATEGY ='fourRand'        # 'fourTop','uniRand','topNum'
+STRATEGY ='fourRand'
 
 # spatial temporal ajacent interval
 ADJACENT_INTERVAL = 3

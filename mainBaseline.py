@@ -91,19 +91,18 @@ def originalVSFAMain():
     N = Info['videoNum'][0][0]
     TrainN = int(N * conf.TRAIN_RATIO)
     ValN = int(N * conf.VAL_RATIO)
-    if not os.path.exists(conf.PARTITION_TABLE):
+    if not os.path.exists(conf.PARTITION_TABLE_TOTAL_EXP):
         li = list()
         for i in range(1000):
             arr = np.random.permutation(N)
             arr = arr.reshape([N, 1])
             li.append(arr)
         Array = np.concatenate(li, axis=1)
-        with open(conf.PARTITION_TABLE, 'wb') as f:
+        with open(conf.PARTITION_TABLE_TOTAL_EXP, 'wb') as f:
             pickle.dump(Array, f)
 
     else:
-        with open(conf.PARTITION_TABLE, 'rb') as f:
-
+        with open(conf.PARTITION_TABLE_TOTAL_EXP, 'rb') as f:
             Array = pickle.load(f)
 
     train_index = Array[:TrainN, conf.testRound]

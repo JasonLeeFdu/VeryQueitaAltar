@@ -10,13 +10,14 @@ fi
 
 # 构建log文件
 REWRITE=false
+VERBOSE=0
 echo LJCH > tee ./bashLogs/log.txt
 
 
 # 开启实验循环 
 for i in {0..9}
 do
-	python mainBaseline1.py --testRound $i --verbose 1 | tee -a ./bashLogs/log.txt
+	python mainBaseline1.py --testRound $i --verbose $VERBOSE | tee -a ./bashLogs/log.txt
 done
 
 

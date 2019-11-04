@@ -12,20 +12,19 @@ import datetime
 #################################################################################################'''
 
 def initConfig(tr,vb):
-    global testRoundFUCK
-    testRoundFUCK = tr
+    global testRound
+    testRound = tr
     global  verbose
     verbose = vb
     global MODEL_NAME,MODEL_PATH,BEST_PERFORMANCE_MODEL_PATH,LOG_TRAIN_PATH,LOG_VAL_PATH,LOG_TEST_PATH
-    MODEL_NAME = 'Baseline1_%d' % testRoundFUCK
+    MODEL_NAME = 'Baseline1_%d' % testRound
     MODEL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','model') % MODEL_NAME
     BEST_PERFORMANCE_MODEL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','bestPerformance') % MODEL_NAME
     LOG_TRAIN_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log') % MODEL_NAME
     LOG_VAL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log','val') % MODEL_NAME
     LOG_TEST_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log','test') % MODEL_NAME
 
-testRoundFUCK = 888
-testRound = testRoundFUCK
+testRound = 888
 verbose = 888
 
 '''################################################################################################
@@ -34,7 +33,7 @@ verbose = 888
 #################################################################################################
 '''
 ## 本次实验名称(model + expid) 所以做十次实验要调整10次ID
-MODEL_NAME = 'Baseline1_%d' % testRoundFUCK
+MODEL_NAME = 'Baseline1_%d' % testRound
 ## Dataset的名称
 DATASET_NAME = 'KoNViD'
 ## Distortion Feat 提取算法

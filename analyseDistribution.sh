@@ -3,7 +3,7 @@
 
 for i in {0..100}
 do
-	python mainBaseline1.py --testRound $i --vb 0
+	python mainBaseline.py --testRound $i --verbose 0
 done
 
 

@@ -26,7 +26,7 @@ import argparse
 
 import networkBaseline1 as nt
 import Config.confBaseline1 as conf
-from networkBaseline1 import weights_init, newLoss
+from networkBaseline1 import weights_init
 
 
 '''
@@ -39,10 +39,14 @@ flip
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--vb', '-v',type=int, help='minimum of print',default=3)
+
+parser.add_argument('--verbose', '-v',type=int, help='是否显示训练信息',default=1)
+parser.add_argument('--testRound', '-t',type=int, help='测试第几轮',default=0)
+
 args = parser.parse_args()
-verbose   = args.vb
-conf.initConfig(2,verbose)
+verbose   = args.verbose
+testRound   = args.testRound
+conf.initConfig(testRound,verbose)
 
 
 

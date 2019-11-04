@@ -3,9 +3,29 @@ import random
 # from network import *
 import datetime
 
-import argparse
-## 外部调用环境
 
+
+
+'''################################################################################################
+                                    功能性函数
+
+#################################################################################################'''
+
+def initConfig(tr,vb):
+    global testRound
+    testRound = tr
+    global  verbose
+    verbose = vb
+    global MODEL_NAME,MODEL_PATH,BEST_PERFORMANCE_MODEL_PATH,LOG_TRAIN_PATH,LOG_VAL_PATH,LOG_TEST_PATH
+    MODEL_NAME = 'Our1_%d' % testRound
+    MODEL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','model') % MODEL_NAME
+    BEST_PERFORMANCE_MODEL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','bestPerformance') % MODEL_NAME
+    LOG_TRAIN_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log') % MODEL_NAME
+    LOG_VAL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log','val') % MODEL_NAME
+    LOG_TEST_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log','test') % MODEL_NAME
+
+testRound = 888
+verbose = 888
 
 '''################################################################################################
                                     学习超参数
@@ -13,7 +33,7 @@ import argparse
 #################################################################################################
 '''
 ## 本次实验名称(model + expid) 所以做十次实验要调整10次ID
-MODEL_NAME = 'LJCH%d' % args.testRound
+MODEL_NAME = 'Our1_%d' % testRound # our1:
 ## Dataset的名称
 DATASET_NAME = 'KoNViD'
 ## Distortion Feat 提取算法
@@ -39,12 +59,11 @@ TRAIN_EPOCH_OR_ITERS = 'epoch'
 ## 加载模型所用的线程数
 NUM_WORKERS = 3
 ## 最大训练EPOCH次数
-MAX_Epoch = 101111
+MAX_Epoch = 1000
 ## 最大训练迭代数目
 MAX_ITERATIONS = 65000
 ## 训练的时候不测试
 NO_TEST_DURING_TRAINING = False
-
 
 ## 数据划分设置
 TRAIN_RATE = 3
@@ -81,8 +100,8 @@ LOG_VAL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log','val') % M
 LOG_TEST_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log','test') % MODEL_NAME
 PRETRAINED_MODELS_DIR = os.path.join(_PROJECT_BASEPATH,'pretrainedModels')
 
-PARTITION_TABLE = 'PartitionTabel.pkl'
-
+PARTITION_TABLE_TOTAL = 'PartitionTabel.pkl'
+PARTITION_TABLE_TOTAL_EXP = 'PartitionTabel%s.pkl' % DATASET_NAME
 
 
 # 网络结构
@@ -103,7 +122,7 @@ SAMPLING_SIZE = 64
 SAMPLING_NUM = 4
 
 # guided pooling的策略
-STRATEGY ='fourRand'        # 'fourTop','uniRand','topNum'
+STRATEGY ='fourRand'
 
 # spatial temporal ajacent interval
 ADJACENT_INTERVAL = 3

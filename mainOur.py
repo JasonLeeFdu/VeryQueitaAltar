@@ -1,38 +1,51 @@
 ## image IO
+#
 import warnings
+
 warnings.filterwarnings('ignore')
 import os
 import torch
 import torch.nn as nn
 import numpy as np
 from scipy import stats
-import networkOur as nt
-import  tensorboardX as tbx
-import pickle
+import tensorboardX as tbx
 
 # Program
-import Config.confOur as conf
+
 import Utils.common as tools
+
+
+
 import scipy.io as scio
-from networkOur import  weights_init,newLoss
 import time
 import pickle
+import argparse
+
+
+
+
+import networkOur1 as nt
+import Config.confOur1 as conf
+from networkOur1 import weights_init
+
+
+
 
 
 '''
 random crop on bigger cube
 flip
 
-1. 随机划分永久化
-2. 实现若干论之后抽取test/val效果好的模型保存
-3. 恢复原来模型与对应相关的训练代码
-4. baseline1 与 原算法(试试三次哪个好)
-5. 查看光流运动信息是怎么被用上的
-
 '''
+parser = argparse.ArgumentParser()
 
+parser.add_argument('--verbose', '-v',type=int, help='是否显示训练信息',default=1)
+parser.add_argument('--testRound', '-t',type=int, help='测试第几轮',default=0)
 
-
+args = parser.parse_args()
+verbose   = args.verbose
+testRound   = args.testRound
+conf.initConfig(testRound,verbose)
 
 
 
@@ -50,7 +63,7 @@ def originalVSFAMain():
         conf.MAX_Epoch = 15000  # need more training to converge
 
     # 路径的设置与保存
-    tools.securePath('Models');a = 34
+    tools.securePath('Models')
     tools.securePath('Results')
     tools.securePath(conf.MODEL_PATH)
     tools.securePath(conf.BEST_PERFORMANCE_MODEL_PATH)
@@ -59,6 +72,7 @@ def originalVSFAMain():
     writer = tbx.SummaryWriter(log_dir=conf.LOG_TRAIN_PATH)
 
     # 提示信息显示
+
     print('=============================== 本次训练信息 ==============================')
     print('实验模型名称: {}'.format(conf.MODEL_NAME))
     print('数据集' + conf.DATASET_NAME)
@@ -76,19 +90,18 @@ def originalVSFAMain():
     N = Info['videoNum'][0][0]
     TrainN = int(N * conf.TRAIN_RATIO)
     ValN = int(N * conf.VAL_RATIO)
-    if not os.path.exists(conf.PARTITION_TABLE):
+    if not os.path.exists(conf.PARTITION_TABLE_TOTAL_EXP):
         li = list()
         for i in range(1000):
             arr = np.random.permutation(N)
             arr = arr.reshape([N, 1])
             li.append(arr)
         Array = np.concatenate(li, axis=1)
-        with open(conf.PARTITION_TABLE, 'wb') as f:
+        with open(conf.PARTITION_TABLE_TOTAL_EXP, 'wb') as f:
             pickle.dump(Array, f)
 
     else:
-        with open(conf.PARTITION_TABLE, 'rb') as f:
-
+        with open(conf.PARTITION_TABLE_TOTAL_EXP, 'rb') as f:
             Array = pickle.load(f)
 
     train_index = Array[:TrainN, conf.testRound]
@@ -118,11 +131,12 @@ def originalVSFAMain():
     model.apply(weights_init)
     criterion = nn.L1Loss().cuda()  # 本文采用 L1 loss
     best_val_criterion = -1  # 选取模型是采用验证集里面，表现最好的那一个SROCC min
-    modelSaved, Epoch, Iter, GlobalIter = tools.loadLatestCheckpoint(modelPath=conf.MODEL_PATH, fnCore='model')
+    modelSaved, Epoch, Iter, GlobalIter,modelPath = tools.loadLatestCheckpoint(modelPath=conf.MODEL_PATH, fnCore='model')
     if modelSaved is not None:
         model = modelSaved
         if conf.verbose == 1:
             print('The model has been trained in Epoch:%d, GlobalIteration:%d' % (Epoch, GlobalIter));
+            print('Model Path:%s' % modelPath);
             print('')
     else:
         if conf.verbose == 1:
@@ -324,18 +338,32 @@ def originalVSFAMain():
         SROCC = stats.spearmanr(y_pred, y_test)[0]
         RMSE = np.sqrt(((y_pred - y_test) ** 2).mean())
         KROCC = stats.stats.kendalltau(y_pred, y_test)[0]
-        if  conf.verbose == 1:
-            print("第%d次实验，  最终算法的测试： test loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"
-                  .format(conf.testRound,test_loss, SROCC, KROCC, PLCC, RMSE))
+        print("第{}次实验，  最终算法的测试：".format(conf.testRound))
+        print(" test loss={:.4f}, testSROCC={:.4f}, testKROCC={:.4f}, testPLCC={:.4f}, testRMSE={:.4f}".format(test_loss, SROCC, KROCC, PLCC, RMSE))
+        with torch.no_grad():
+            y_pred = np.zeros(len(test_index))
+            y_test = np.zeros(len(test_index))
+            L = 0
+            for i, (cube, distortFeat, contentFeat, label, vidLen) in enumerate(val_loader):
+                y_test[i] = scale * label.numpy()  #
+                cube = cube.to(device).float()
+                distortFeat = distortFeat.to(device).float()
+                contentFeat = contentFeat.to(device).float()
+                label = label.to(device).float()
+                vidLen = vidLen.to(device).float()
+                outputs = model(cube, vidLen, contentFeat, distortFeat)
+                y_pred[i] = scale * outputs[0].to('cpu').numpy()
+                loss = criterion(outputs, label)
+                L = L + loss.item()
+        test_loss = L / (i + 1)
+        PLCC = stats.pearsonr(y_pred, y_test)[0]
+        SROCC = stats.spearmanr(y_pred, y_test)[0]
+        RMSE = np.sqrt(((y_pred - y_test) ** 2).mean())
+        KROCC = stats.stats.kendalltau(y_pred, y_test)[0]
+        print("val loss={:.4f}, valSROCC={:.4f}, valKROCC={:.4f}, valPLCC={:.4f}, valRMSE={:.4f}"
+              .format(test_loss, SROCC, KROCC, PLCC, RMSE))
 
 
-
-def originalCNNFeatExtractMain():
-    dfgdsf = 4
-
-
-
-#
 def main():
     return 0
 
@@ -352,6 +380,47 @@ if __name__ == '__main__':
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+
+#! /bin/bash
+
+# 建立bashlog存在的文件夹
+if [ ! -d "bashLogs" ];then
+	mkdir bashLogs
+else
+	echo "bashLogs 文件夹已经存在"
+fi
+REWRITE=true
+
+
+
+# 开启实验循环 
+for i in {0...9}
+do
+
+	if  $REWRITE ; then
+		python mainBaseline1.py --testRound $i --verbose 0 | tee ./bashLogs/log.txt
+	else
+		python mainBaseline1.py --testRound $i --verbose 0 | tee -a ./bashLogs/log.txt
+	fi
+done
+
+
+
+
+"""
 
 
 

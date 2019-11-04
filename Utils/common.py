@@ -75,7 +75,7 @@ def loadLatestCheckpoint(modelPath,fnCore='model'):
     candidateCpSet = os.listdir(modelPath)
     candidateCpSet = [x for x in candidateCpSet if x.startswith(fnCore) and x.endswith('.mdl')]
     if len(candidateCpSet) == 0:
-        return None, 0, 0, 0
+        return None, 0, 0, 0,None
     ref = [x.split('.')[0] for x in candidateCpSet]
     ref1 = [x.split('_')[1] for x in ref]
     ref2 = [x.split('_')[2] for x in ref]

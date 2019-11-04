@@ -30,7 +30,7 @@ from PIL import Image
 import skvideo.io
 
 # Program
-import Config.confOur as conf
+import Config.confOur1 as conf
 import Utils.common as tools
 import pickle
 import lmdb

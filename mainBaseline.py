@@ -339,8 +339,8 @@ def originalVSFAMain():
         SROCC = stats.spearmanr(y_pred, y_test)[0]
         RMSE = np.sqrt(((y_pred - y_test) ** 2).mean())
         KROCC = stats.stats.kendalltau(y_pred, y_test)[0]
-        print("第{}次实验，  最终算法的测试：")
-        print(" test loss={:.4f}, testSROCC={:.4f}, testKROCC={:.4f}, testPLCC={:.4f}, testRMSE={:.4f}".format(conf.testRound,test_loss, SROCC, KROCC, PLCC, RMSE))
+        print("第{}次实验，  最终算法的测试：".format(conf.testRound))
+        print(" test loss={:.4f}, testSROCC={:.4f}, testKROCC={:.4f}, testPLCC={:.4f}, testRMSE={:.4f}".format(test_loss, SROCC, KROCC, PLCC, RMSE))
         with torch.no_grad():
             y_pred = np.zeros(len(test_index))
             y_test = np.zeros(len(test_index))

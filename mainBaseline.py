@@ -339,16 +339,32 @@ def originalVSFAMain():
         SROCC = stats.spearmanr(y_pred, y_test)[0]
         RMSE = np.sqrt(((y_pred - y_test) ** 2).mean())
         KROCC = stats.stats.kendalltau(y_pred, y_test)[0]
-        if  conf.verbose == 1:
-            print("第%d次实验，  最终算法的测试： test loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"
-                  .format(conf.testRound,test_loss, SROCC, KROCC, PLCC, RMSE))
+        print("第{}次实验，  最终算法的测试：")
+        print(" test loss={:.4f}, testSROCC={:.4f}, testKROCC={:.4f}, testPLCC={:.4f}, testRMSE={:.4f}".format(conf.testRound,test_loss, SROCC, KROCC, PLCC, RMSE))
+        with torch.no_grad():
+            y_pred = np.zeros(len(test_index))
+            y_test = np.zeros(len(test_index))
+            L = 0
+            for i, (cube, distortFeat, contentFeat, label, vidLen) in enumerate(val_loader):
+                y_test[i] = scale * label.numpy()  #
+                cube = cube.to(device).float()
+                distortFeat = distortFeat.to(device).float()
+                contentFeat = contentFeat.to(device).float()
+                label = label.to(device).float()
+                vidLen = vidLen.to(device).float()
+                outputs = model(cube, vidLen, contentFeat, distortFeat)
+                y_pred[i] = scale * outputs[0].to('cpu').numpy()
+                loss = criterion(outputs, label)
+                L = L + loss.item()
+        test_loss = L / (i + 1)
+        PLCC = stats.pearsonr(y_pred, y_test)[0]
+        SROCC = stats.spearmanr(y_pred, y_test)[0]
+        RMSE = np.sqrt(((y_pred - y_test) ** 2).mean())
+        KROCC = stats.stats.kendalltau(y_pred, y_test)[0]
+        print("val loss={:.4f}, valSROCC={:.4f}, valKROCC={:.4f}, valPLCC={:.4f}, valRMSE={:.4f}"
+              .format(test_loss, SROCC, KROCC, PLCC, RMSE))
 
 
-def originalCNNFeatExtractMain():
-    dfgdsf = 4
-
-
-#
 def main():
     return 0
 

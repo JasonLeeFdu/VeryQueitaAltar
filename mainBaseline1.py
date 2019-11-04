@@ -29,15 +29,14 @@ import Config.confBaseline1 as conf
 from networkBaseline1 import weights_init
 
 
+
+
+
 '''
 random crop on bigger cube
 flip
 
 '''
-
-
-
-
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--verbose', '-v',type=int, help='是否显示训练信息',default=1)
@@ -132,11 +131,12 @@ def originalVSFAMain():
     model.apply(weights_init)
     criterion = nn.L1Loss().cuda()  # 本文采用 L1 loss
     best_val_criterion = -1  # 选取模型是采用验证集里面，表现最好的那一个SROCC min
-    modelSaved, Epoch, Iter, GlobalIter = tools.loadLatestCheckpoint(modelPath=conf.MODEL_PATH, fnCore='model')
+    modelSaved, Epoch, Iter, GlobalIter,modelPath = tools.loadLatestCheckpoint(modelPath=conf.MODEL_PATH, fnCore='model')
     if modelSaved is not None:
         model = modelSaved
         if conf.verbose == 1:
             print('The model has been trained in Epoch:%d, GlobalIteration:%d' % (Epoch, GlobalIter));
+            print('Model Path:%s' % modelPath);
             print('')
     else:
         if conf.verbose == 1:
@@ -371,7 +371,55 @@ def main():
 if __name__ == '__main__':
     originalVSFAMain()
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 """
+
+#! /bin/bash
+
+# 建立bashlog存在的文件夹
+if [ ! -d "bashLogs" ];then
+	mkdir bashLogs
+else
+	echo "bashLogs 文件夹已经存在"
+fi
+REWRITE=true
+
+
+
+# 开启实验循环 
+for i in {0...9}
+do
+
+	if  $REWRITE ; then
+		python mainBaseline1.py --testRound $i --verbose 0 | tee ./bashLogs/log.txt
+	else
+		python mainBaseline1.py --testRound $i --verbose 0 | tee -a ./bashLogs/log.txt
+	fi
+done
+
+
+
+
 """
 
 

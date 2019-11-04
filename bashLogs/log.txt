@@ -1,0 +1,122 @@
+LJCH
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline1_0
+数据集KoNViD
+模型名称Baseline1_0
+==========================================================================
+The model has been trained in Epoch:9, GlobalIteration:790
+Model Path:<_io.BufferedReader name='/home/winston/workSpace/PycharmProjects/VQA/Ours/Models/VQA_Baseline1_0/model/model_9_79.mdl'>
+
+第0次实验，  最终算法的测试：
+ test loss=0.1070, testSROCC=0.4143, testKROCC=0.2914, testPLCC=0.3862, testRMSE=0.6081
+val loss=0.0994, valSROCC=0.4447, valKROCC=0.3097, valPLCC=0.3863, valRMSE=0.5793
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline1_0
+数据集KoNViD
+模型名称Baseline1_0
+==========================================================================
+The model has been trained in Epoch:9, GlobalIteration:790
+Model Path:/home/winston/workSpace/PycharmProjects/VQA/Ours/Models/VQA_Baseline1_0/model/model_9_79.mdl
+
+第0次实验，  最终算法的测试：
+ test loss=0.1070, testSROCC=0.4143, testKROCC=0.2914, testPLCC=0.3862, testRMSE=0.6081
+val loss=0.0994, valSROCC=0.4447, valKROCC=0.3097, valPLCC=0.3863, valRMSE=0.5793
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline1_1
+数据集KoNViD
+模型名称Baseline1_1
+==========================================================================
+The model has been trained in Epoch:9, GlobalIteration:790
+Model Path:/home/winston/workSpace/PycharmProjects/VQA/Ours/Models/VQA_Baseline1_1/model/model_9_79.mdl
+
+第1次实验，  最终算法的测试：
+ test loss=0.1140, testSROCC=0.4433, testKROCC=0.3074, testPLCC=0.4160, testRMSE=0.6945
+val loss=0.1082, valSROCC=0.4372, valKROCC=0.3115, valPLCC=0.4185, valRMSE=0.6611
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline1_2
+数据集KoNViD
+模型名称Baseline1_2
+==========================================================================
+The model has been trained in Epoch:9, GlobalIteration:790
+Model Path:/home/winston/workSpace/PycharmProjects/VQA/Ours/Models/VQA_Baseline1_2/model/model_9_79.mdl
+
+第2次实验，  最终算法的测试：
+ test loss=0.1048, testSROCC=0.4208, testKROCC=0.2891, testPLCC=0.3772, testRMSE=0.6000
+val loss=0.1058, valSROCC=0.4324, valKROCC=0.2973, valPLCC=0.3827, valRMSE=0.6110
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline1_3
+数据集KoNViD
+模型名称Baseline1_3
+==========================================================================
+The model has been trained in Epoch:9, GlobalIteration:790
+Model Path:/home/winston/workSpace/PycharmProjects/VQA/Ours/Models/VQA_Baseline1_3/model/model_9_79.mdl
+
+第3次实验，  最终算法的测试：
+ test loss=0.1071, testSROCC=0.4007, testKROCC=0.2776, testPLCC=0.3555, testRMSE=0.6194
+val loss=0.1059, valSROCC=0.4509, valKROCC=0.3159, valPLCC=0.4328, valRMSE=0.5940
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline1_4
+数据集KoNViD
+模型名称Baseline1_4
+==========================================================================
+The model has been trained in Epoch:9, GlobalIteration:790
+Model Path:/home/winston/workSpace/PycharmProjects/VQA/Ours/Models/VQA_Baseline1_4/model/model_9_79.mdl
+
+第4次实验，  最终算法的测试：
+ test loss=0.1123, testSROCC=0.4212, testKROCC=0.3012, testPLCC=0.3846, testRMSE=0.6275
+val loss=0.1085, valSROCC=0.4769, valKROCC=0.3311, valPLCC=0.4410, valRMSE=0.6046
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline1_5
+数据集KoNViD
+模型名称Baseline1_5
+==========================================================================
+The model has been trained in Epoch:9, GlobalIteration:790
+Model Path:/home/winston/workSpace/PycharmProjects/VQA/Ours/Models/VQA_Baseline1_5/model/model_9_79.mdl
+
+第5次实验，  最终算法的测试：
+ test loss=0.1045, testSROCC=0.4033, testKROCC=0.2755, testPLCC=0.3503, testRMSE=0.6041
+val loss=0.1092, valSROCC=0.4138, valKROCC=0.2944, valPLCC=0.3761, valRMSE=0.6281
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline1_6
+数据集KoNViD
+模型名称Baseline1_6
+==========================================================================
+The model has been trained in Epoch:9, GlobalIteration:790
+Model Path:/home/winston/workSpace/PycharmProjects/VQA/Ours/Models/VQA_Baseline1_6/model/model_9_79.mdl
+
+第6次实验，  最终算法的测试：
+ test loss=0.1092, testSROCC=0.4741, testKROCC=0.3297, testPLCC=0.4356, testRMSE=0.6519
+val loss=0.1021, valSROCC=0.4685, valKROCC=0.3304, valPLCC=0.4493, valRMSE=0.6125
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline1_7
+数据集KoNViD
+模型名称Baseline1_7
+==========================================================================
+The model has been trained in Epoch:9, GlobalIteration:790
+Model Path:/home/winston/workSpace/PycharmProjects/VQA/Ours/Models/VQA_Baseline1_7/model/model_9_79.mdl
+
+第7次实验，  最终算法的测试：
+ test loss=0.1073, testSROCC=0.4065, testKROCC=0.2817, testPLCC=0.3842, testRMSE=0.6145
+val loss=0.1017, valSROCC=0.3887, valKROCC=0.2686, valPLCC=0.3778, valRMSE=0.5980
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline1_8
+数据集KoNViD
+模型名称Baseline1_8
+==========================================================================
+The model has been trained in Epoch:9, GlobalIteration:790
+Model Path:/home/winston/workSpace/PycharmProjects/VQA/Ours/Models/VQA_Baseline1_8/model/model_9_79.mdl
+
+第8次实验，  最终算法的测试：
+ test loss=0.1076, testSROCC=0.4073, testKROCC=0.2789, testPLCC=0.4044, testRMSE=0.6504
+val loss=0.1052, valSROCC=0.4324, valKROCC=0.3059, valPLCC=0.3888, valRMSE=0.6242
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline1_9
+数据集KoNViD
+模型名称Baseline1_9
+==========================================================================
+The model has been trained in Epoch:9, GlobalIteration:790
+Model Path:/home/winston/workSpace/PycharmProjects/VQA/Ours/Models/VQA_Baseline1_9/model/model_9_79.mdl
+
+第9次实验，  最终算法的测试：
+ test loss=0.1116, testSROCC=0.5021, testKROCC=0.3491, testPLCC=0.4607, testRMSE=0.6252
+val loss=0.1104, valSROCC=0.4532, valKROCC=0.3142, valPLCC=0.4179, valRMSE=0.6182

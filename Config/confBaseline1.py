@@ -59,7 +59,7 @@ TRAIN_EPOCH_OR_ITERS = 'epoch'
 ## 加载模型所用的线程数
 NUM_WORKERS = 3
 ## 最大训练EPOCH次数
-MAX_Epoch = 10
+MAX_Epoch = 1000
 ## 最大训练迭代数目
 MAX_ITERATIONS = 65000
 ## 训练的时候不测试

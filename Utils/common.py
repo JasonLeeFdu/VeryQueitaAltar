@@ -88,7 +88,7 @@ def loadLatestCheckpoint(modelPath,fnCore='model'):
     latestCpFn = candidateCpSet[idx]
     latestCpFnFIO = io.open(os.path.join(modelPath, latestCpFn), 'rb')
     res = pickle.load(latestCpFnFIO)
-    return res['NetState'], res['Epoch'], res['Iter'], res['GlobalIter']
+    return res['NetState'], res['Epoch'], res['Iter'], res['GlobalIter'],os.path.join(modelPath, latestCpFn)
 
 def get_lr(optimizer):
     for param_group in optimizer.param_groups:

@@ -1,38 +1,48 @@
 ## image IO
+#
 import warnings
+
 warnings.filterwarnings('ignore')
 import os
 import torch
 import torch.nn as nn
 import numpy as np
 from scipy import stats
-import networkOur as nt
-import  tensorboardX as tbx
-import pickle
+import tensorboardX as tbx
 
 # Program
-import Config.confOur as conf
+
 import Utils.common as tools
+
+
+
 import scipy.io as scio
-from networkOur import  weights_init,newLoss
 import time
 import pickle
+import argparse
+
+
+
+
+import networkBaseline1 as nt
+import Config.confBaseline1 as conf
+from networkBaseline1 import weights_init, newLoss
 
 
 '''
 random crop on bigger cube
 flip
 
-1. 随机划分永久化
-2. 实现若干论之后抽取test/val效果好的模型保存
-3. 恢复原来模型与对应相关的训练代码
-4. baseline1 与 原算法(试试三次哪个好)
-5. 查看光流运动信息是怎么被用上的
-
 '''
 
 
 
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--vb', '-v',type=int, help='minimum of print',default=3)
+args = parser.parse_args()
+verbose   = args.vb
+conf.initConfig(2,verbose)
 
 
 
@@ -50,7 +60,7 @@ def originalVSFAMain():
         conf.MAX_Epoch = 15000  # need more training to converge
 
     # 路径的设置与保存
-    tools.securePath('Models');a = 34
+    tools.securePath('Models')
     tools.securePath('Results')
     tools.securePath(conf.MODEL_PATH)
     tools.securePath(conf.BEST_PERFORMANCE_MODEL_PATH)
@@ -59,6 +69,7 @@ def originalVSFAMain():
     writer = tbx.SummaryWriter(log_dir=conf.LOG_TRAIN_PATH)
 
     # 提示信息显示
+
     print('=============================== 本次训练信息 ==============================')
     print('实验模型名称: {}'.format(conf.MODEL_NAME))
     print('数据集' + conf.DATASET_NAME)
@@ -329,10 +340,8 @@ def originalVSFAMain():
                   .format(conf.testRound,test_loss, SROCC, KROCC, PLCC, RMSE))
 
 
-
 def originalCNNFeatExtractMain():
     dfgdsf = 4
-
 
 
 #
@@ -343,15 +352,8 @@ def main():
 if __name__ == '__main__':
     originalVSFAMain()
 
-
-
-
-
-
-
-
-
-
+"""
+"""
 
 
 

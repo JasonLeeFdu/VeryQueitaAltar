@@ -1,4 +1,5 @@
 ## image IO
+#
 import warnings
 
 warnings.filterwarnings('ignore')
@@ -17,12 +18,23 @@ import scipy.io as scio
 from networkBaseline1 import weights_init, newLoss
 import time
 import pickle
+import argparse
 
 '''
 random crop on bigger cube
 flip
 
 '''
+
+
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--vb', '-v',type=int, help='minimum of print',default=3)
+args = parser.parse_args()
+verbose   = args.vb
+conf.initConfig(2,verbose)
+
 
 
 def originalVSFAMain():
@@ -48,6 +60,7 @@ def originalVSFAMain():
     writer = tbx.SummaryWriter(log_dir=conf.LOG_TRAIN_PATH)
 
     # 提示信息显示
+
     print('=============================== 本次训练信息 ==============================')
     print('实验模型名称: {}'.format(conf.MODEL_NAME))
     print('数据集' + conf.DATASET_NAME)
@@ -80,9 +93,9 @@ def originalVSFAMain():
 
             Array = pickle.load(f)
 
-    train_index = Array[:TrainN, conf.testRound]
-    val_index = Array[TrainN:ValN + TrainN, conf.testRound]
-    test_index = Array[ValN + TrainN:, conf.testRound]
+    train_index = Array[:TrainN, conf.testRoundFUCK]
+    val_index = Array[TrainN:ValN + TrainN, conf.testRoundFUCK]
+    test_index = Array[ValN + TrainN:, conf.testRoundFUCK]
 
     vnameSet = os.listdir(conf.DATASET_VIDEOS_PATH)
     vnameSet = [os.path.join(conf.TRAINING_SAMPLE_BASEPATH, conf.DATASET_NAME, x[:-4]) for x in vnameSet]
@@ -315,7 +328,7 @@ def originalVSFAMain():
         KROCC = stats.stats.kendalltau(y_pred, y_test)[0]
         if  conf.verbose == 1:
             print("第%d次实验，  最终算法的测试： test loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"
-                  .format(conf.testRound,test_loss, SROCC, KROCC, PLCC, RMSE))
+                  .format(conf.testRoundFUCK,test_loss, SROCC, KROCC, PLCC, RMSE))
 
 
 def originalCNNFeatExtractMain():

@@ -1,5 +1,4 @@
 import os
-import Config as conf #
 import pickle
 import io
 from thop import  profile
@@ -60,8 +59,8 @@ def loadPickle(fn):
 
 def loadSpecificCheckpointNetState1(epoch, iterr, fnCore='model',savingPath='',defaultFileName = None):
     if defaultFileName is None:
-        fn = fnCore + '_' + str(epoch) + '_' + str(iterr) + '.mdl'
-        pfn = os.path.join(conf.MODEL_PATH, fn)
+        print('Deprecated~!')
+        return
     else:
         pfn = os.path.join(savingPath,defaultFileName)
     with open(pfn,'rb') as f:

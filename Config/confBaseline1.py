@@ -3,22 +3,38 @@ import random
 # from network import *
 import datetime
 
-import argparse
-## 外部调用环境
-parser = argparse.ArgumentParser()
-parser.add_argument('--testRound', type=int, nargs='?', help='给外部函数调用',default='2') # good - 0
-parser.add_argument('--verbose', type=int, nargs='?', help='给外部函数调用',default='1') # good - 0
 
-args = parser.parse_args()
-testRound = args.testRound
-verbose   = args.verbose
+
+
+'''################################################################################################
+                                    功能性函数
+
+#################################################################################################'''
+
+def initConfig(tr,vb):
+    global testRoundFUCK
+    testRoundFUCK = tr
+    global  verbose
+    verbose = vb
+    global MODEL_NAME,MODEL_PATH,BEST_PERFORMANCE_MODEL_PATH,LOG_TRAIN_PATH,LOG_VAL_PATH,LOG_TEST_PATH
+    MODEL_NAME = 'Baseline1_%d' % testRoundFUCK
+    MODEL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','model') % MODEL_NAME
+    BEST_PERFORMANCE_MODEL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','bestPerformance') % MODEL_NAME
+    LOG_TRAIN_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log') % MODEL_NAME
+    LOG_VAL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log','val') % MODEL_NAME
+    LOG_TEST_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log','test') % MODEL_NAME
+
+testRoundFUCK = 888
+testRound = testRoundFUCK
+verbose = 888
+
 '''################################################################################################
                                     学习超参数
 
 #################################################################################################
 '''
 ## 本次实验名称(model + expid) 所以做十次实验要调整10次ID
-MODEL_NAME = 'Baseline1_%d' % args.testRound
+MODEL_NAME = 'Baseline1_%d' % testRoundFUCK
 ## Dataset的名称
 DATASET_NAME = 'KoNViD'
 ## Distortion Feat 提取算法
@@ -49,7 +65,6 @@ MAX_Epoch = 10
 MAX_ITERATIONS = 65000
 ## 训练的时候不测试
 NO_TEST_DURING_TRAINING = False
-
 
 ## 数据划分设置
 TRAIN_RATE = 3

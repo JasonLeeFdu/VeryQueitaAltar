@@ -5,13 +5,7 @@ import datetime
 
 import argparse
 ## 外部调用环境
-parser = argparse.ArgumentParser()
-parser.add_argument('--testRound', type=int, nargs='?', help='给外部函数调用',default='2') # good - 0
-parser.add_argument('--verbose', type=int, nargs='?', help='给外部函数调用',default='1') # good - 0
 
-args = parser.parse_args()
-testRound = args.testRound
-verbose   = args.verbose
 
 '''################################################################################################
                                     学习超参数

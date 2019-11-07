@@ -296,7 +296,7 @@ def TP(q, tau=12, beta=0.5):
 """ =================================================================================================
                                             各种模型的尝试
 
-
+0.0725, SROCC=0.7668, KROCC=0.5726, PLCC=0.7647, RMSE=0.4242
 
     =================================================================================================
 """
@@ -396,7 +396,7 @@ class SpatialTemporalFeat(nn.Module):
 
     def forward(self, inpu):
         out = self.conv3d_1(inpu)  # 3
-        out = self.conv3d_2(out)  # 5
+        out = self.conv3d_2(out)  # 5 =0.7653, KROCC=0.5704, PLCC=0.7651, RMSE=0.4172
         out = self.conv3d_3(out)  # 7
         out = self.conv3d_4(out)  # 9
         out = torch.squeeze(out, dim=2)

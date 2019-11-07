@@ -1,6 +1,6 @@
 # 你可以叫我御姐
 import h5py
-
+import cv2 as cv
 import skvideo.io
 import os
 import scipy.io as scio
@@ -14,7 +14,9 @@ import Utils.common as tools
 from energyGuidedPooling import EnergyGuidedPooling
 from contentFeature import ExtractFeatVid as contentFeatureExtractor
 from  distortionFeatureDeepIQA import ExtractFeatVid
+import torch_dct as dct
 import lmdb
+from energyGuidedPooling import imshow
 
 def buildUpSampleFileSystem(trainingSampleBasePath,benchmarkName):
     tools.securePath(os.path.join(trainingSampleBasePath,benchmarkName))
@@ -40,11 +42,12 @@ def BuildUpTrainingSamples():
         for videoName in videoSets:
             # For each video
             videoFeatsDir = os.path.join(basePath, benchmarkName, videoName[:-4])  # where to save these features
+            '''
             if os.path.exists(os.path.join(videoFeatsDir,'_energyMapNCubes.pkl')) and not conf.FLG_OVERWRITE_MAPCUBES:
                 counter += 1
                 print(videoName + ' info, maps and cubes have already been extracted! (%f%%)' % (100 * counter / len(videoSets)))
                 continue
-
+            '''
             counter += 1
             res1 = dict()
             tools.securePath(videoFeatsDir)
@@ -57,6 +60,7 @@ def BuildUpTrainingSamples():
             maxlen = conf.MAX_TIME_LEN
             canvas = np.zeros([maxlen,3,conf.SAMPLING_SIZE,conf.SAMPLING_SIZE],np.float32)
             newCubes = []
+            interv = conf.ADJACENT_INTERVAL // 2
             for i in cubes:
                 fore = i[:, :, :, :] / 255.0  # regularize
                 canvas[:fore.shape[0],:,:,:] = fore
@@ -65,6 +69,7 @@ def BuildUpTrainingSamples():
                 if i.shape[0] != 240:
                     d = 67
             res1['cubes']       = newCubes
+            res1['dctFeat']     = dctMotionFeat(newCubes,maxLen=maxlen)
             res1['vidLen']      = videoClip.shape[0]
             res1['mos']         = valueMap[keyFn.index(videoName[:-4])]
             res1['mosScale']    = scoreScale
@@ -238,11 +243,55 @@ def testHD5F():
     df = 342
 
 
+def dctMotionFeat(cubesList =None,timeInterval=3,maxLen = 240):
+    length = cubesList[0].shape[0]
+    ## end debug
+    resFeat = list()
+    ## convert to yuv
+    yCubesList = list()
+    for cube in cubesList: # cube [0,1]
+        # for every cube
+        li = list()
+        for i in range(cube.shape[0]):
+            cubeSlice = cube[i,:,:,:]
+            cubeSlice = np.transpose(cubeSlice,[1,2,0])         # cubeSlice = cubeSlice[:,:,[2,1,0]]
+            csYUV = cv.cvtColor(cubeSlice,cv.COLOR_RGB2YCR_CB)
+            y = np.expand_dims(csYUV[:,:,0],0)
+            li.append(y)
+        yCube = np.concatenate(li,axis=0)
+        yCubesList.append(yCube)
+
+    for t in range(timeInterval//2,length - timeInterval//2):
+        # for each frame t
+        dctBlockListThisFrameAllCubes = list()
+        for yCube in yCubesList:
+            smallTimeCube = yCube[t-timeInterval//2:t+timeInterval//2+1,:,:]
+            for i in range(8):
+                for j in range(8):
+                    cubeBlock = torch.FloatTensor(smallTimeCube[:,i*8:(i+1)*8,j*8:(j+1)*8])
+                    dctBlock  = torch.unsqueeze(dct.dct_3d(cubeBlock),dim=0)
+                    dctBlockListThisFrameAllCubes.append(dctBlock)
+        # statistic and to feature of the frame
+        ## statistic of these block
+        dctBlockSet = torch.cat(dctBlockListThisFrameAllCubes,dim=0)
+        dctBlockStd = torch.std(dctBlockSet, dim=0)
+        dctBlockMean = torch.mean(dctBlockSet, dim=0)
+        spatialTimeDCTFeat = torch.unsqueeze(torch.cat([dctBlockStd.view([-1]),dctBlockMean.view([-1])]),dim=0)
+        resFeat.append(spatialTimeDCTFeat)
+    resFeat = torch.cat(resFeat,dim=0)
+    realTime = resFeat.shape[0]
+    if ((maxLen - (timeInterval // 2) * 2) - realTime) != 0:
+        padding = torch.zeros([(maxLen - (timeInterval // 2) * 2) - realTime,2*dctBlockSet.shape[3]*dctBlockSet.shape[1]*dctBlockSet.shape[2]])
+        resFeat = torch.cat([resFeat,padding],dim=0)
+    return  resFeat.cpu().numpy()
+
+
+
 
 
 
 def main():
-    makeH5py()
+    BuildUpTrainingSamples()
     return 43
 
 if __name__ == '__main__':

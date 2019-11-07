@@ -155,17 +155,18 @@ def originalVSFAMain():
         y_val1 = np.zeros(len(val_index))
         optimizer.zero_grad()
 
-        for i, (cube, distortFeat, contentFeat, label, vidLen) in enumerate(train_loader):
+        for i, (cube, distortFeat, contentFeat, label, vidLen,dctFeat) in enumerate(train_loader):
             ii = i
             s = time.time()
             # y_val1[i] = scale * label.numpy()  #
             cube = cube.cuda().float()
             distortFeat = distortFeat.cuda().float()
             contentFeat = contentFeat.cuda().float()
+            dctFeat = dctFeat.cuda().float()
             label = label.cuda().float().squeeze()
             vidLen = vidLen.cuda().float()
 
-            outputs = model(cube, vidLen, contentFeat, distortFeat)
+            outputs = model(cube, vidLen, contentFeat, distortFeat,dctFeat)
             # y_pred1[i] = scale * outputs[0].to('cpu').numpy()
             loss = criterion(outputs, label)
             goupi = loss.detach().cpu().numpy()
@@ -226,14 +227,15 @@ def originalVSFAMain():
         y_val = np.zeros(len(val_index))
         L = 0
         with torch.no_grad():
-            for i, (cube, distortFeat, contentFeat, label, vidLen) in enumerate(val_loader):
+            for i, (cube, distortFeat, contentFeat, label, vidLen,dctFeat) in enumerate(val_loader):
                 y_val[i] = scale * label.to('cpu').numpy()  #
                 cube = cube.to(device).float()
                 distortFeat = distortFeat.to(device).float()
                 contentFeat = contentFeat.to(device).float()
+                dctFeat = dctFeat.cuda().float()
                 label = label.to(device).float()
                 vidLen = vidLen.to(device).float()
-                outputs = model(cube, vidLen, contentFeat, distortFeat)
+                outputs = model(cube, vidLen, contentFeat, distortFeat,dctFeat)
                 y_pred[i] = scale * outputs[0].to('cpu').numpy()
                 loss = criterion(outputs, label)
                 L = L + loss.item()
@@ -249,14 +251,15 @@ def originalVSFAMain():
             y_test = np.zeros(len(test_index))
             L = 0
             with torch.no_grad():
-                for i, (cube, distortFeat, contentFeat, label, vidLen) in enumerate(test_loader):
+                for i, (cube, distortFeat, contentFeat, label, vidLen, dctFeat) in enumerate(test_loader):
                     y_test[i] = scale * label.numpy()  #
                     cube = cube.to(device).float()
                     distortFeat = distortFeat.to(device).float()
+                    dctFeat = dctFeat.cuda().float()
                     contentFeat = contentFeat.to(device).float()
                     label = label.to(device).float()
                     vidLen = vidLen.to(device).float()
-                    outputs = model(cube, vidLen, contentFeat, distortFeat)
+                    outputs = model(cube, vidLen, contentFeat, distortFeat,dctFeat)
                     y_pred[i] = scale * outputs[0].to('cpu').numpy()
                     loss = criterion(outputs, label)
                     L = L + loss.item()
@@ -322,14 +325,15 @@ def originalVSFAMain():
             y_pred = np.zeros(len(test_index))
             y_test = np.zeros(len(test_index))
             L = 0
-            for i, (cube, distortFeat, contentFeat, label, vidLen) in enumerate(test_loader):
+            for i, (cube, distortFeat, contentFeat, label, vidLen,dctFeat) in enumerate(test_loader):
                 y_test[i] = scale * label.numpy()  #
                 cube = cube.to(device).float()
                 distortFeat = distortFeat.to(device).float()
                 contentFeat = contentFeat.to(device).float()
+                dctFeat = dctFeat.cuda().float()
                 label = label.to(device).float()
                 vidLen = vidLen.to(device).float()
-                outputs = model(cube, vidLen, contentFeat, distortFeat)
+                outputs = model(cube, vidLen, contentFeat, distortFeat,dctFeat)
                 y_pred[i] = scale * outputs[0].to('cpu').numpy()
                 loss = criterion(outputs, label)
                 L = L + loss.item()
@@ -344,14 +348,15 @@ def originalVSFAMain():
             y_pred = np.zeros(len(test_index))
             y_test = np.zeros(len(test_index))
             L = 0
-            for i, (cube, distortFeat, contentFeat, label, vidLen) in enumerate(val_loader):
+            for i, (cube, distortFeat, contentFeat, label, vidLen,dctFeat) in enumerate(val_loader):
                 y_test[i] = scale * label.numpy()  #
                 cube = cube.to(device).float()
                 distortFeat = distortFeat.to(device).float()
                 contentFeat = contentFeat.to(device).float()
+                dctFeat = dctFeat.cuda().float()
                 label = label.to(device).float()
                 vidLen = vidLen.to(device).float()
-                outputs = model(cube, vidLen, contentFeat, distortFeat)
+                outputs = model(cube, vidLen, contentFeat, distortFeat,dctFeat)
                 y_pred[i] = scale * outputs[0].to('cpu').numpy()
                 loss = criterion(outputs, label)
                 L = L + loss.item()

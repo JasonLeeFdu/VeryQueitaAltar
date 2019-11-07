@@ -131,6 +131,11 @@ def originalVSFAMain():
     model.apply(weights_init)
     criterion = nn.L1Loss().cuda()  # 本文采用 L1 loss
     best_val_criterion = -1  # 选取模型是采用验证集里面，表现最好的那一个SROCC min
+    # 更新最佳标准
+    if os.path.exists(save_result_file):
+        lastResDict = tools.loadPickle(save_result_file)
+        best_val_criterion = lastResDict['SROCC']
+
     modelSaved, Epoch, Iter, GlobalIter,modelPath = tools.loadLatestCheckpoint(modelPath=conf.MODEL_PATH, fnCore='model')
     if modelSaved is not None:
         model = modelSaved
@@ -181,12 +186,12 @@ def originalVSFAMain():
 
             L = L + loss.item() * conf.GRAD_ACCUM
 
-            if i % 10 == 0 and conf.verbose == 1:
+            if i % 100 == 0 and conf.verbose == 1:
                 print('Iter: %d, Loss: %f' % (i, goupi))
-                print('Outputs: \t', end='');
-                print(outputs.detach().cpu().numpy())
-                print('Label: \t', end='');
-                print(label.detach().cpu().numpy());
+                #print('Outputs: \t', end='');
+                #print(outputs.detach().cpu().numpy())
+                #print('Label: \t', end='');
+                #print(label.detach().cpu().numpy());
                 print('')
         ## save
         tools.saveCheckpoint(netModel=model, epoch=epoch, iterr=ii, glbiter=ii * epoch + ii, savingPath=conf.MODEL_PATH)

@@ -10,10 +10,7 @@ import argparse
                                     #学习超参数
 
 #################################################################################################
-'''
-## 本次实验名称(model + expid) 所以做十次实验要调整10次ID
-MODEL_NAME = 'LJCH%d' % args.testRound
-## Dataset的名称
+
 DATASET_NAME = 'KoNViD'
 ## Distortion Feat 提取算法提取算法
 DISTORTION_ALGORITHM_NAME = 'DeepIQA'
@@ -53,15 +50,8 @@ TRAIN_RATIO = TRAIN_RATE / (TRAIN_RATE + VAL_RATE + TEST_RATE)
 VAL_RATIO = VAL_RATE / (TRAIN_RATE + VAL_RATE + TEST_RATE)
 TEST_RATIO = TEST_RATE / (TRAIN_RATE + VAL_RATE + TEST_RATE)
 
-## 进行模型参数的偷偷保留
-# STEALTH_MODE_MODEL_ON = True
 
-'''################################################################################################
-                                    #路径配置
-
-#################################################################################################
-'''
-# 路径配置
+## Distortion Feat 提取算法
 _PROJECT_BASEPATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATASET_VIDEOS_PATH = '???'   # for videoSets
 DATASET_INFO_PATH   = '???'
@@ -72,19 +62,11 @@ if DATASET_NAME == 'KoNViD':
 else:
     pass
 
+
+_PROJECT_BASEPATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 TRAINING_SAMPLE_BASEPATH = os.path.join(_PROJECT_BASEPATH,'TrainingSamples')
-MODEL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','model') % MODEL_NAME
-BEST_PERFORMANCE_MODEL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','bestPerformance') % MODEL_NAME
-LOG_TRAIN_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log') % MODEL_NAME
-LOG_VAL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log','val') % MODEL_NAME
-LOG_TEST_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log','test') % MODEL_NAME
-PRETRAINED_MODELS_DIR = os.path.join(_PROJECT_BASEPATH,'pretrainedModels')
 
-PARTITION_TABLE = 'PartitionTabel.pkl'
-
-
-
-# 网络结构
 
 
 '''################################################################################################
@@ -126,7 +108,7 @@ SEED = random.randint(1, 900000)
 
 # 提取特征的流程控制
 FLG_EXTRACT_MAPCUBES = True
-FLG_OVERWRITE_MAPCUBES = False
+FLG_OVERWRITE_MAPCUBES = True
 FLG_EXTRACT_FEAT_DISTORTION = True
 FLG_OVERWRITE_FEAT_DISTORTION = False
 FLG_EXTRACT_FEAT_CONTENT    = True
@@ -141,4 +123,3 @@ FLG_OVERWRITE_MERGE_ALL = True
 '''
 
 
-'''

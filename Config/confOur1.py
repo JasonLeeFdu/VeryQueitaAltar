@@ -48,7 +48,7 @@ LR_DECAY_FACOTOR = 0.9
 ## L2 正则约束系数
 WEIGHT_DECAY= 0.0 #0.000000
 ## 批训练大小，训练
-BATCH_SIZE = 2
+BATCH_SIZE = 5
 ## 梯度累计步骤
 GRAD_ACCUM = 3
 ## 批训练大小，测试

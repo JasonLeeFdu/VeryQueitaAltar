@@ -41,6 +41,7 @@ import lmdb
     1. 可以尝试都作为四维度矩阵读入 (为了快速实验)
     2. 端到端
 
+
     =================================================================================================
 """
 
@@ -115,7 +116,7 @@ class VQADataset_Old(Dataset):
         sample = (self.features[idx], self.length[idx], self.label[idx])
         return sample
 
-
+# useless
 class newLoss(nn.Module):
     def __init__(self, lamda=2):
         super(newLoss, self).__init__()
@@ -152,9 +153,11 @@ class VQADataset(Dataset):
         distortFeat = sample['distortionFeat']
         contentFeat = sample['contentFeat']
         label = sample['mos'] / sample['mosScale']
+        # spatialTemporalFeat     = sample['dctFeat']
+        spatialTemporalFeat     = sample['dctFeat'];spatialTemporalFeat = spatialTemporalFeat[:-2,:]
         vidLen = sample['vidLen']
 
-        return cube, distortFeat, contentFeat, label, vidLen
+        return cube, distortFeat, contentFeat, label, vidLen,spatialTemporalFeat
 
 
 # The Training and testing datasets
@@ -269,7 +272,7 @@ class ANN(nn.Module):
         # 全连接一共几层,本文一层
         self.n_ANNlayers = n_ANNlayers
         self.ss = input_size
-        self.fc0 = nn.Linear(4608, reduced_size)  #
+        self.fc0 = nn.Linear(4992, reduced_size)  #
         self.dropout = nn.Dropout(p=dropout_p)  #
         self.fc = nn.Linear(reduced_size, reduced_size)  #
 
@@ -338,8 +341,8 @@ class VSFA(nn.Module):
 
 '''
 
-
-class LJCH1(nn.Module):
+# conv3d
+class LJCH0(nn.Module):
     def __init__(self, maxLen):
         super(LJCH1, self).__init__()
         ## 呵呵 附庸风雅
@@ -380,6 +383,39 @@ class LJCH1(nn.Module):
         ## score 的 batch-wise 循环-- temporal pooling
         for i in range(cube.shape[0]):
             qi = q[i, :int(inputLength[i]-2)]  # q[N,T]
+            qi = TP(qi)
+            score[i] = torch.mean(qi)  # video overall quality
+        return score
+
+# dctFeat
+class LJCH1(nn.Module):
+    def __init__(self, maxLen):
+        super(LJCH1, self).__init__()
+        ## 呵呵 附庸风雅
+        self.reduced_size = 128
+        self.hidden_size = 32
+        # frame wise conv
+        TIME_INTERVAL = conf.ADJACENT_INTERVAL
+        self.ann = ANN(4608 + 384, self.reduced_size, 1)
+        self.rnn = nn.GRU(self.reduced_size, self.hidden_size, batch_first=True, bidirectional=True)
+        self.time_interval = TIME_INTERVAL
+        self.q = nn.Linear(self.hidden_size * 2, 1)
+        self.maxLen = maxLen
+
+    def _get_initial_state(self, batch_size, device):
+        h0 = torch.zeros(2, batch_size, self.hidden_size, device=device)
+        return h0
+
+    def forward(self, cube, inputLength, featContent, featDistort,dctFeat):
+        totalFeat = torch.cat([featContent, featDistort,dctFeat], dim=-1)
+        scores = self.ann(totalFeat)
+        outputs, _ = self.rnn(scores, self._get_initial_state(scores.size(0), scores.device))
+        q = self.q(outputs)  # 基于帧的分数
+        score = torch.zeros([cube.shape[0]]).cuda()  # batch-wise
+        ## score 的 batch-wise 循环-- temporal pooling
+        for i in range(cube.shape[0]):  # for every batch
+            # all the scores for one instance
+            qi = q[i, :int(inputLength[i] - 2 * self.time_interval // 2)]  # q[N,T]
             qi = TP(qi)
             score[i] = torch.mean(qi)  # video overall quality
         return score
@@ -426,6 +462,67 @@ class SpatialTemporalFeat(nn.Module):
         feat = torch.squeeze(feat, dim=-1)
         fc1 = self.fc1(feat)
         return fc1
+
+###### 比较loss
+class ComparingLoss(nn.Module):
+    def __init__(self):
+        super(ComparingLoss, self).__init__()
+        self.accept = True
+
+    def forward(self,x,label):
+        '''
+
+        :param x: [T,]
+        :param y: [T,]
+        :return:
+        '''
+        T = x.shape[0]
+        sum = torch.zeros([1])
+        for i in range(T-1):
+            for j in range(i+1,T):
+                sum += ((x[i] > x[j]) ^ (label[i] > label[j])) * ( torch.abs((x[i] - label[i])) + torch.abs((x[j] - label[j])))
+        sum /= T
+        return sum
+###### 多尺度时间域融合
+class MultiScaleRecall(nn.Module):
+    '''
+        multiscale recall scoring 新型的时域增强
+    '''
+    # input is : [3,240]
+    def __init__(self):
+        super(MultiScaleRecall, self).__init__()
+        # 全连接一共几层,本文一层
+        self.w1 = nn.Parameter(torch.FloatTensor(np.random.normal(0,1e-2,[1,1,3])),requires_grad=True)
+        self.w2 = nn.Parameter(torch.FloatTensor(np.random.normal(0,1e-2,[1,1,5])),requires_grad=True)
+        self.w3 = nn.Parameter(torch.FloatTensor(np.random.normal(0,1e-2,[1,1,7])),requires_grad=True)
+        self.wFusion = nn.Parameter(torch.FloatTensor(np.random.normal(0,1e-2,[3+5+7,3])),requires_grad=True)
+    def forward(self,x,length):
+        finalQScoresList =  list()
+        for i in range(int(length.shape[0])):
+            lenn = length[i]
+            # for every batch
+            q = x[i,:int(lenn)] # (221,) crop the valid time interval
+            q = q.view([1,1,-1])
+            # fusion weight for conv3
+            qw1 = F.softmax(F.conv1d(q,self.w1,padding=1),dim=-1)
+            # fusion weight for conv5
+            qw2 = F.softmax(F.conv1d(q,self.w2,padding=2),dim=-1)
+            # fusion weight for conv7
+            qw3 = F.softmax(F.conv1d(q,self.w3,padding=3),dim=-1)
+
+            # kernel weight distribution
+            kernelInfo = torch.cat([self.w1.view([1,-1]),self.w2.view([1,-1]),self.w3.view([1,-1])],dim=-1)
+
+            # learnt form the kernel weight distribution
+            fusionRate = torch.softmax(F.leaky_relu(torch.mm(kernelInfo,self.wFusion).squeeze()),dim=-1)
+
+            # final fused score
+            fusedScore = fusionRate[0]*(torch.sum(qw1 * q)) + fusionRate[1]*(torch.sum(qw2 * q)) + fusionRate[2]*(torch.sum(qw3 * q))
+            fusedScore = fusedScore.view([1,-1])
+            finalQScoresList.append(fusedScore)
+        finalQScore = torch.cat(finalQScoresList,dim=0)
+        return finalQScore
+
 
 
 def global_avg_pool2d(x):
@@ -515,6 +612,7 @@ class Conv3D(nn.Module):
         y = self.bn(y)
         y = F.relu(y)
         return y
+
 
 
 def main():  # NCHW  | NCDHW   cin cout hwd | [batch_num, time_interval, channel, height, width]

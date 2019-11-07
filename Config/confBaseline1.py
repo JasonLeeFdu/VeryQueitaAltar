@@ -40,7 +40,7 @@ DATASET_NAME = 'KoNViD'
 DISTORTION_ALGORITHM_NAME = 'DeepIQA'
 DISTORTION_ALG_FUNC_HANDLE = None
 ## 学习率
-LR = 1e-4#3
+LR = 1e-5#3
 ## 学习率下降间隔
 LR_INTERVAL = 2000
 ## 学习率下降的比率
@@ -48,9 +48,9 @@ LR_DECAY_FACOTOR = 0.9
 ## L2 正则约束系数
 WEIGHT_DECAY= 0.0 #0.000000
 ## 批训练大小，训练
-BATCH_SIZE = 9
+BATCH_SIZE = 16
 ## 梯度累计步骤
-GRAD_ACCUM = 3
+GRAD_ACCUM = 1
 ## 批训练大小，测试
 VALTEST_BATCHSIZE = 24
 
@@ -59,7 +59,7 @@ TRAIN_EPOCH_OR_ITERS = 'epoch'
 ## 加载模型所用的线程数
 NUM_WORKERS = 3
 ## 最大训练EPOCH次数
-MAX_Epoch = 1000
+MAX_Epoch = 3000
 ## 最大训练迭代数目
 MAX_ITERATIONS = 65000
 ## 训练的时候不测试

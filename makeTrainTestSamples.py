@@ -11,6 +11,7 @@ import torch
 import pickle
 import Config as conf
 import Utils.common as tools
+
 from energyGuidedPooling import EnergyGuidedPooling
 from contentFeature import ExtractFeatVid as contentFeatureExtractor
 from  distortionFeatureDeepIQA import ExtractFeatVid
@@ -21,6 +22,7 @@ from energyGuidedPooling import imshow
 def buildUpSampleFileSystem(trainingSampleBasePath,benchmarkName):
     tools.securePath(os.path.join(trainingSampleBasePath,benchmarkName))
     return
+
 
 # build up the trainig samples: map cubes  contentFeat distortionFeat
 def BuildUpTrainingSamples():

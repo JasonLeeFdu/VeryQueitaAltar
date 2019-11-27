@@ -17,7 +17,7 @@ def initConfig(tr,vb):
     global  verbose
     verbose = vb
     global MODEL_NAME,MODEL_PATH,BEST_PERFORMANCE_MODEL_PATH,LOG_TRAIN_PATH,LOG_VAL_PATH,LOG_TEST_PATH
-    MODEL_NAME = 'Our1_%d' % testRound
+    MODEL_NAME = 'Baseline2_%d' % testRound
     MODEL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','model') % MODEL_NAME
     BEST_PERFORMANCE_MODEL_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','bestPerformance') % MODEL_NAME
     LOG_TRAIN_PATH = os.path.join(_PROJECT_BASEPATH,'Models','VQA_%s','log') % MODEL_NAME
@@ -33,7 +33,7 @@ verbose = 888
 #################################################################################################
 '''
 ## 本次实验名称(model + expid) 所以做十次实验要调整10次ID
-MODEL_NAME = 'Our1_%d' % testRound # our1:
+MODEL_NAME = 'Baseline2_%d' % testRound # our1:
 ## Dataset的名称
 DATASET_NAME = 'KoNViD'
 ## Distortion Feat 提取算法
@@ -59,7 +59,7 @@ TRAIN_EPOCH_OR_ITERS = 'epoch'
 ## 加载模型所用的线程数
 NUM_WORKERS = 321
 ## 最大训练EPOCH次数
-MAX_Epoch = 3000
+MAX_Epoch = 4000
 ## 最大训练迭代数目
 MAX_ITERATIONS = 65000
 ## 训练的时候不测试

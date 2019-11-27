@@ -142,18 +142,22 @@ class VQADataset(Dataset):
 
     def __getitem__(self, idx):
         vdSampleDir = self.videoSet[idx]
-        with open(os.path.join(vdSampleDir, 'sample.pkl'), 'rb') as f:
-            sample = pickle.load(f)
+        # 在这一步用一个flip
+        if np.random.rand() < 0.5:
+            with open(os.path.join(vdSampleDir, 'sample.pkl'), 'rb') as f:
+                sample = pickle.load(f)
+        else:
+            with open(os.path.join(vdSampleDir, 'sampleR.pkl'), 'rb') as f:
+                sample = pickle.load(f)
 
         # feat
         cubes = sample['cubes']
-
         cube = cubes[0]
         #
         distortFeat = sample['distortionFeat']
         contentFeat = sample['contentFeat']
         label = sample['mos'] / sample['mosScale']
-        spatialTemporalFeat     = sample['dctFeat']
+        spatialTemporalFeat     = sample['motionFeat']
         vidLen = sample['vidLen']
 
         return cube, distortFeat, contentFeat, label, vidLen,spatialTemporalFeat
@@ -386,7 +390,7 @@ class LJCH0(nn.Module):
             score[i] = torch.mean(qi)  # video overall quality
         return score
 
-# dctFeat
+# motionFeat
 class LJCH1(nn.Module):
     def __init__(self, maxLen):
         super(LJCH1, self).__init__()
@@ -395,7 +399,7 @@ class LJCH1(nn.Module):
         self.hidden_size = 32
         # frame wise conv
         TIME_INTERVAL = conf.ADJACENT_INTERVAL
-        self.ann = ANN(4608 + 384, self.reduced_size, 1)
+        self.ann = ANN(4608 + 256, self.reduced_size, 1)
         self.rnn = nn.GRU(self.reduced_size, self.hidden_size, batch_first=True, bidirectional=True)
         self.time_interval = TIME_INTERVAL
         self.q = nn.Linear(self.hidden_size * 2, 1)
@@ -477,8 +481,8 @@ class ComparingLoss(nn.Module):
         '''
         T = x.shape[0]
         sum = torch.zeros([1])
-        for i in range(T-1):
-            for j in range(i+1,T):
+        for i in range(T-1): # i
+            for j in range(i+1,T): #
                 sum += ((x[i] > x[j]) ^ (label[i] > label[j])) * ( torch.abs((x[i] - label[i])) + torch.abs((x[j] - label[j])))
         sum /= T
         return sum

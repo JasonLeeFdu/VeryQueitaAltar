@@ -32,6 +32,30 @@ def imshow(img):
     plt.imshow(img)
     plt.show()
 
+# 当前所需要的提取时间域特征的方法(时域变化连续性)：
+def solveTheMotionFeature(video_data,time_interval=3):
+    # convert to Yuv, and abstract Y component
+    resVideoData = np.zeros([video_data.shape[0],video_data.shape[1],video_data.shape[2],1],dtype=np.uint8)
+    for i in range(video_data.shape[0]):
+        img = video_data[i,:,:,:]
+        imgg = cv.cvtColor(img,cv.COLOR_RGB2YCR_CB)
+        resVideoData[i, :, :, :] = np.expand_dims(imgg[:,:,0],axis=-1)
+    # diff
+    video_data2 = resVideoData[1:, :, :, :]
+    video_data1 = resVideoData[:-1, :, :, :]
+    delta_vid = (video_data2 - video_data1)
+
+    # feat
+    listMeanStd = list()
+    for i in range(time_interval//2,delta_vid.shape[0]-time_interval//2):
+        # for every frame
+        cube = delta_vid[i-time_interval//2:i+time_interval//2,:,:,:]
+        cubeStd =  np.std(cube,axis=0)
+        feat,_ = np.histogram(cubeStd,bins=256,range=(0,128))
+        feat = feat / np.sum(feat)
+        listMeanStd.append(feat)
+    resFeat = np.stack(listMeanStd,axis=0)
+    return  resFeat
 
 # Gaussian kernel generator
 def fspecial_gauss(size, sigma):

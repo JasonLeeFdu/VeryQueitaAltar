@@ -145,16 +145,16 @@ class VQADataset(Dataset):
             sample = pickle.load(f)
 
         # feat
-        cubes = sample['cubes']
+        cubes = None
 
-        cube = cubes[0]
+        #cube = cubes[0]
         #
         distortFeat = sample['distortionFeat']
         contentFeat = sample['contentFeat']
         label = sample['mos'] / sample['mosScale']
         vidLen = sample['vidLen']
 
-        return cube, distortFeat, contentFeat, label, vidLen
+        return distortFeat, distortFeat, contentFeat, label, vidLen
 
 
 # The Training and testing datasets

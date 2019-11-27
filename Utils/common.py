@@ -2,11 +2,29 @@ import os
 import pickle
 import io
 from thop import  profile
-
+import sys
+import datetime
 '''
 为确保泛化性，不能与配置文件耦合
 
 '''
+
+
+
+class Logger(object):
+    def __init__(self, filename=None):
+        if filename is None:
+            filename = 'ConsoleInfo_' + str(datetime.datetime.now())[:13].replace('-','') + '.log'
+        self.filename = filename
+        self.terminal = sys.stdout
+        self.log = open(self.filename, "a")
+        self.counter = 1
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
+    def flush(self):
+        self.log.flush()
+        self.terminal.flush()
 
 
 def securePath(path):

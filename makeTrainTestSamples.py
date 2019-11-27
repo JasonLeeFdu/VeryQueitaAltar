@@ -17,7 +17,7 @@ from contentFeature import ExtractFeatVid as contentFeatureExtractor
 from  distortionFeatureDeepIQA import ExtractFeatVid
 import torch_dct as dct
 import lmdb
-from energyGuidedPooling import imshow
+from energyGuidedPooling import imshow,solveTheMotionFeature
 
 def buildUpSampleFileSystem(trainingSampleBasePath,benchmarkName):
     tools.securePath(os.path.join(trainingSampleBasePath,benchmarkName))
@@ -55,27 +55,55 @@ def BuildUpTrainingSamples():
             tools.securePath(videoFeatsDir)
             # load the video and calculate
             videoClip = skvideo.io.vread(os.path.join(videoPath,videoName))
-            se, te, cubes = EnergyGuidedPooling(videoClip)
-            res1['se'] = se
-            res1['te'] = te
+
             # post process(only align)
             maxlen = conf.MAX_TIME_LEN
-            canvas = np.zeros([maxlen,3,conf.SAMPLING_SIZE,conf.SAMPLING_SIZE],np.float32)
-            newCubes = []
-            interv = conf.ADJACENT_INTERVAL // 2
-            for i in cubes:
-                fore = i[:, :, :, :] / 255.0  # regularize
-                canvas[:fore.shape[0],:,:,:] = fore
-                newCubes.append(canvas)
-            for i in newCubes:
-                if i.shape[0] != 240:
-                    d = 67
-            res1['cubes']       = newCubes
-            res1['dctFeat']     = dctMotionFeat(newCubes,maxLen=maxlen)
-            res1['vidLen']      = videoClip.shape[0]
-            res1['mos']         = valueMap[keyFn.index(videoName[:-4])]
-            res1['mosScale']    = scoreScale
+
+            ## we discard the energy guided pooling method.
+            # se, te, cubes = EnergyGuidedPooling(videoClip)
+            # res1['se'] = se
+            # res1['te'] = te
+            # canvas = np.zeros([maxlen,3,conf.SAMPLING_SIZE,conf.SAMPLING_SIZE],np.float32)
+            #newCubes = []
+            #for i in cubes:
+            #    fore = i[:, :, :, :] / 255.0  # regularize
+            #    canvas[:fore.shape[0],:,:,:] = fore
+            #    newCubes.append(canvas)
+            #for i in newCubes:
+            #    if i.shape[0] != 240:
+            #        d = 67
+            #res1['cubes']       = newCubes
+            #res1['dctFeat']     = dctMotionFeat(newCubes,maxLen=maxlen)
+
+            ## 正常顺序：
+            canvas = np.zeros([maxlen-2, 256], np.float32) # 256-D feat
+            mf = solveTheMotionFeature(videoClip)
+            mf[0:videoClip.shape[0]-3,:] = mf
+
+            ## for origin lr
+            res1['vidLen']              = videoClip.shape[0]  ##  1  ->  vidLen-2*(TI//2) - 1
+            res1['mos']                 = valueMap[keyFn.index(videoName[:-4])]
+            res1['mosScale']            = scoreScale
+            res1['motionFeat']          = canvas
             with open(os.path.join(videoFeatsDir,'_energyMapNCubes.pkl'), 'wb') as f: # final is '3242353245_sample.pkl'
+                pickle.dump(res1, f)
+
+            ## 相反顺序
+            videoClipR = np.zeros_like(videoClip)
+            for i in range(videoClipR.shape[0]):
+                videoClipR[i,:,:,:] = np.fliplr(videoClip[i,:,:,:])
+            # do the same operations
+            canvas = np.zeros([maxlen - 2, 256], np.float32)  # 256-D feat
+            mf = solveTheMotionFeature(videoClipR)
+            mf[0:videoClipR.shape[0] - 3, :] = mf
+
+            ## for origin lr
+            res1['vidLen'] = videoClip.shape[0]  ##  1  ->  vidLen-2*(TI//2) - 1
+            res1['mos'] = valueMap[keyFn.index(videoName[:-4])]
+            res1['mosScale'] = scoreScale
+            res1['motionFeat'] = canvas
+            with open(os.path.join(videoFeatsDir, '_energyMapNCubesR.pkl'),
+                      'wb') as f:  # final is '3242353245_sample.pkl'
                 pickle.dump(res1, f)
             print(videoName + ' info, maps and cubes are extracted! (%f%%)' % (100*counter/len(videoSets)))
         torch.cuda.empty_cache()
@@ -90,12 +118,13 @@ def BuildUpTrainingSamples():
                 print(videoName + ' distortion feat has already been extracted! (%f%%)' % (
                             100 * counter / len(videoSets)))
                 continue
-
             counter += 1
             res2 = dict()
             tools.securePath(videoFeatsDir)
             # load the video and calculate
             videoClip = skvideo.io.vread(os.path.join(videoPath, videoName))
+
+            ## 正向：
             if conf.DISTORTION_ALGORITHM_NAME == 'DeepIQA':
                 feat      = ExtractFeatVid(videoClip)
                 # post process(cut and align)
@@ -107,6 +136,23 @@ def BuildUpTrainingSamples():
                 newFeat = []
             res2['distortionFeat'] = newFeat
             with open(os.path.join(videoFeatsDir,'_distortionFeat.pkl'), 'wb') as f: # final is '3242353245_sample.pkl'
+                pickle.dump(res2, f)
+
+            ## 反向：
+            videoClipR = np.zeros_like(videoClip)
+            for i in range(videoClipR.shape[0]):
+                videoClipR[i, :, :, :] = np.fliplr(videoClip[i, :, :, :])
+            if conf.DISTORTION_ALGORITHM_NAME == 'DeepIQA':
+                feat      = ExtractFeatVid(videoClipR)
+                # post process(cut and align)
+                maxlen = conf.MAX_TIME_LEN
+                interv = conf.ADJACENT_INTERVAL // 2
+                newFeat = np.zeros([maxlen - 2 * interv, 512], np.float32)
+                newFeat[:feat.shape[0] - 2 * interv, :] = feat[interv:-interv, :]
+            else:
+                newFeat = []
+            res2['distortionFeat'] = newFeat
+            with open(os.path.join(videoFeatsDir,'_distortionFeatR.pkl'), 'wb') as f: # final is '3242353245_sample.pkl'
                 pickle.dump(res2, f)
             print(videoName + ' distortion feat is extracted! (%f%%)' % (100*counter/len(videoSets)))
         torch.cuda.empty_cache()
@@ -129,16 +175,31 @@ def BuildUpTrainingSamples():
             tools.securePath(videoFeatsDir)
             # load the video and calculate
             videoClip = skvideo.io.vread(os.path.join(videoPath, videoName))
+
+            ## 正向：
             feat = contentFeatureExtractor(videoClip)
             # post process(cut and align)
             maxlen = conf.MAX_TIME_LEN
             interv = conf.ADJACENT_INTERVAL // 2
             newFeat = np.zeros([maxlen - 2*interv, 4096], np.float32)
             newFeat[:feat.shape[0] - 2*interv, :] = feat[interv:-interv, :].cpu().numpy()
-            if newFeat.shape[0] != 238:
-                d = 67
             res3['contentFeat'] = newFeat
             with open(os.path.join(videoFeatsDir, '_contentFeat.pkl'),
+                      'wb') as f:
+                pickle.dump(res3, f)
+
+            ## 反向：
+            videoClipR = np.zeros_like(videoClip)
+            for i in range(videoClipR.shape[0]):
+                videoClipR[i, :, :, :] = np.fliplr(videoClip[i, :, :, :])
+            feat = contentFeatureExtractor(videoClipR)
+            # post process(cut and align)
+            maxlen = conf.MAX_TIME_LEN
+            interv = conf.ADJACENT_INTERVAL // 2
+            newFeat = np.zeros([maxlen - 2 * interv, 4096], np.float32)
+            newFeat[:feat.shape[0] - 2 * interv, :] = feat[interv:-interv, :].cpu().numpy()
+            res3['contentFeat'] = newFeat
+            with open(os.path.join(videoFeatsDir, '_contentFeatR.pkl'),
                       'wb') as f:
                 pickle.dump(res3, f)
             print(videoName + ' content feat is extracted! (%f%%)' % (100 * counter / len(videoSets)))
@@ -148,7 +209,7 @@ def BuildUpTrainingSamples():
     # merging the samples
     if conf.FLG_MERGE_MAP_CUBE_AND_FEATS:
         alreadyExtractedVideos = os.listdir(os.path.join(basePath, benchmarkName))
-        counter = 0
+        counter = 0;counterR = 0
         for vname in alreadyExtractedVideos:
             directoryName = os.path.join(basePath, benchmarkName,vname)
             if os.path.exists(os.path.join(directoryName, 'sample.pkl')) and not conf.FLG_OVERWRITE_MERGE_ALL:
@@ -173,6 +234,29 @@ def BuildUpTrainingSamples():
                 pickle.dump(combinedDict, f)
             print('Sample ' + vname + ' is build!  (%f%%)' % (100 * counter / len(alreadyExtractedVideos)))
 
+
+            # 反向：
+            if os.path.exists(os.path.join(directoryName, 'sampleR.pkl')) and not conf.FLG_OVERWRITE_MERGE_ALL:
+                counter += 1
+                print('Sample ' + vname + ' has already been build! (%f%%)' % (100 * counter / len(alreadyExtractedVideos)))
+                continue
+            counterR += 1
+            with open(os.path.join(directoryName,'_energyMapNCubesR.pkl'), 'rb') as f:
+                mapCubeDict = pickle.load(f)
+
+            with open(os.path.join(directoryName,'_distortionFeatR.pkl'), 'rb') as f:
+                distortFeatDict = pickle.load(f)
+
+            with open(os.path.join(directoryName,'_contentFeatR.pkl'), 'rb') as f:
+                contentFeatDict = pickle.load(f)
+            combinedDict = dict()
+            combinedDict.update(mapCubeDict)
+            combinedDict.update(distortFeatDict)
+            combinedDict.update(contentFeatDict)
+            with open(os.path.join(directoryName, 'sampleR.pkl'),
+                      'wb') as f:
+                pickle.dump(combinedDict, f)
+            print('SampleR ' + vname + ' is build!  (%f%%)' % (100 * counterR / len(alreadyExtractedVideos)))
 
 
 

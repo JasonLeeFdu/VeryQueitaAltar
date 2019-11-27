@@ -9,6 +9,7 @@ import torch.functional as F
 import tensorboardX as tbx
 import os
 import torch
+from torch.nn import utils as nn_utils
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import Dataset
@@ -30,7 +31,7 @@ from PIL import Image
 import skvideo.io
 
 # Program
-import Config.confOur1 as conf
+import Config.confBaseline3 as conf
 import Utils.common as tools
 import pickle
 import lmdb
@@ -299,10 +300,49 @@ def TP(q, tau=12, beta=0.5):
     m = m / n
     return beta * m + (1 - beta) * l
 
+def TP2(q,param, tau=12, beta=0.5):
+    """subjectively-inspired temporal pooling,基于时间域的pooling"""
+    q = torch.unsqueeze(torch.t(q), 0)
+    length = q.shape[0]
+    ### adaptive memory start
+
+    STEEP_MAX = 30;         # 边缘衰减
+    STEEP_MIN = 1;
+    INTERVAL_MAX = 30;      # 平台长度
+    INTERVAL_MIN = 3;
+
+    steepFactor = param[0]
+    intervalFactor = param[1]
+    steep = STEEP_MIN + steepFactor * (STEEP_MAX - STEEP_MIN);
+    interval = INTERVAL_MIN + intervalFactor * (INTERVAL_MAX - INTERVAL_MIN) # 单向
+
+    ## 生成mask
+    length = q.shape[-1]
+    grid = torch.range(start=0,end=length-1).cuda()
+
+    qMemStd = q - torch.min(q)
+
+    memList = list()
+    memList.append(q[0,0,0].view(1,1,1))
+    for i in range(1,int(qMemStd.shape[-1])):
+        mask = (1 + torch.exp(-steep * (-torch.abs((grid - i)) + interval)))
+        qMemMasked = torch.squeeze(qMemStd) * mask
+        idx = torch.argmin(qMemMasked[:i + 1]) # weighted minpooling
+        memList.append(q[0,0,idx].view(1,1,1))
+    l = torch.cat(memList,dim=-1)
+
+    ### adaptive memory end
+
+    # l = -F.max_pool1d(torch.cat((qm, -q), 2), tau, stride=1)  # min pooling
+    qp = 10000.0 * torch.ones((1, 1, tau - 1)).to(q.device)  #
+    m = F.avg_pool1d(torch.cat((q * torch.exp(-q), qp * torch.exp(-qp)), 2), tau, stride=1)  # padding在右边
+    n = F.avg_pool1d(torch.cat((torch.exp(-q), torch.exp(-qp)), 2), tau, stride=1)
+    m = m / n
+    return beta * m + (1 - beta) * l
 
 """ =================================================================================================
                                             各种模型的尝试
-
+    
 
 
     =================================================================================================
@@ -391,7 +431,7 @@ class LJCH0(nn.Module):
             score[i] = torch.mean(qi)  # video overall quality
         return score
 
-# dctFeat
+# 这个多尺度卷积效果不好，多尺度卷积没有理由
 class LJCH1(nn.Module):
     def __init__(self, maxLen):
         super(LJCH1, self).__init__()
@@ -405,6 +445,7 @@ class LJCH1(nn.Module):
         self.time_interval = TIME_INTERVAL
         self.q = nn.Linear(self.hidden_size * 2, 1)
         self.maxLen = maxLen
+        self.msr = MultiScaleRecall()
 
     def _get_initial_state(self, batch_size, device):
         h0 = torch.zeros(2, batch_size, self.hidden_size, device=device)
@@ -415,14 +456,102 @@ class LJCH1(nn.Module):
         scores = self.ann(totalFeat)
         outputs, _ = self.rnn(scores, self._get_initial_state(scores.size(0), scores.device))
         q = self.q(outputs)  # 基于帧的分数
-        score = torch.zeros([motionFeat.shape[0]]).cuda()  # batch-wise
-        ## score 的 batch-wise 循环-- temporal pooling
-        for i in range(motionFeat.shape[0]):  # for every batch
-            # all the scores for one instance
-            qi = q[i, :int(inputLength[i] - 2 * self.time_interval // 2 - 1)]  # q[N,T]
-            qi = TP(qi)
+        ## score 的 batch-wise 循环-- temporal pooling inputLength# [16]
+        resScore = self.msr(q,inputLength- 2 * self.time_interval // 2 - 1)
+        return resScore
+
+
+
+
+class memPramReg(nn.Module):
+    def __init__(self, input_size=64):
+        super(memPramReg, self).__init__()
+        self.inputSize = input_size
+        self.adaptiveMemRegression = nn.Sequential(nn.Linear(self.inputSize, self.inputSize),
+                                                   nn.ReLU(),
+                                                   nn.Dropout(),
+                                                   nn.Linear(self.inputSize, 2)
+                                                   )
+    def forward(self, inp): # [N, input_size]
+        factor = self.adaptiveMemRegression(inp)
+        return factor
+        # 取值范围的约束？
+
+#
+class LJCH2(nn.Module):
+    def __init__(self, maxLen):
+        super(LJCH2, self).__init__()
+        ## 呵呵 附庸风雅
+        self.reduced_size = 128
+        self.hidden_size = 32
+        # frame wise conv
+        TIME_INTERVAL = conf.ADJACENT_INTERVAL
+        self.ann = ANN(4608 + 256, self.reduced_size, 1)
+        self.rnn = nn.GRU(self.reduced_size, self.hidden_size, batch_first=True, bidirectional=True,dropout=0.5)
+        self.time_interval = TIME_INTERVAL
+        self.q = nn.Linear(self.hidden_size * 2, 1)
+        self.maxLen = maxLen
+        self.memPramReg = memPramReg()
+
+
+    def _get_initial_state(self, batch_size, device):
+        h0 = torch.zeros(2, batch_size, self.hidden_size, device=device)
+        return h0
+
+
+
+
+    def forward(self, motionFeat, inputLength, featContent, featDistort):
+        totalFeat = torch.cat([featContent, featDistort,motionFeat], dim=-1)
+        scores = self.ann(totalFeat)
+        validLen = inputLength - 2 * (self.time_interval // 2) - 1 # idx = len-1
+        pack = nn_utils.rnn.pack_padded_sequence(scores, validLen, batch_first=True,enforce_sorted=False)
+
+
+        outputs, hid = self.rnn(pack, self._get_initial_state(scores.size(0), scores.device))
+        outputs, inpLen = nn_utils.rnn.pad_packed_sequence(outputs,batch_first=True)
+
+
+        '''
+              前着你那个
+
+              hid[1,3,:] # outputs[3,0,32:] batch3号的最后一个元素的去向
+              tensor([-0.9136,  0.8916,  0.0931,  0.2071, -0.5570, -0.2541, -0.6761,  0.9255,
+                      -0.8166,  0.7803, -0.9827,  0.4119,  0.9509, -0.5924, -0.7002,  0.8857,
+                      -0.9185, -0.4454,  0.1220, -0.9689,  0.9960, -0.9828, -0.6659, -0.8052,
+                       0.8664, -0.9838,  0.9877,  0.9687, -0.3757, -0.1598, -0.3387, -0.8694],
+                     device='cuda:0', grad_fn=<SliceBackward>)
+              hid[0,3,:] # outputs[3,188,:32] batch3号的最后一个元素的去向
+        '''
+        # 抽取最后状态或者开头状态,用它们来回归印象参数 -- content adaptive memory 如果不行再试试单向的
+
+        lastHidForwardLi = list()
+        lastHidBackwardLi = list()
+
+        for i in range(outputs.shape[0]):
+            lastHidForwardLi.append(outputs[i,int(validLen[i]-1),:32])
+            lastHidBackwardLi.append(outputs[i,0,32:])
+        lastHidForward = torch.stack(lastHidForwardLi)
+        lastHidBackward = torch.stack(lastHidBackwardLi)
+
+
+        # 计算每帧的分数
+        q = self.q(outputs)  # 基于帧的分数
+        param = torch.sigmoid(self.memPramReg(torch.cat([lastHidForward,lastHidBackward],dim= -1)))
+        #
+
+
+
+
+
+        ## score 的 batch-wise 循环-- temporal pooling inputLength# [16]
+        score = torch.zeros([motionFeat.shape[0]]).cuda()
+        for i in range(motionFeat.shape[0]):
+            qi = q[i, :int(validLen[i])]  # q[N,T]
+            qi = TP2(qi,param[i,:])
             score[i] = torch.mean(qi)  # video overall quality
         return score
+
 
 
 # 本人算法尝试1
@@ -499,7 +628,8 @@ class MultiScaleRecall(nn.Module):
         self.w1 = nn.Parameter(torch.FloatTensor(np.random.normal(0,1e-2,[1,1,3])),requires_grad=True)
         self.w2 = nn.Parameter(torch.FloatTensor(np.random.normal(0,1e-2,[1,1,5])),requires_grad=True)
         self.w3 = nn.Parameter(torch.FloatTensor(np.random.normal(0,1e-2,[1,1,7])),requires_grad=True)
-        self.wFusion = nn.Parameter(torch.FloatTensor(np.random.normal(0,1e-2,[3+5+7,3])),requires_grad=True)
+        # self.wFusion = nn.Parameter(torch.FloatTensor(np.random.normal(0,1e-2,[3+5+7,3+5+7])),requires_grad=True)
+        # self.wFusion1 = nn.Parameter(torch.FloatTensor(np.random.normal(0,1e-2,[3+5+7,3])),requires_grad=True)
     def forward(self,x,length):
         finalQScoresList =  list()
         for i in range(int(length.shape[0])):
@@ -518,10 +648,11 @@ class MultiScaleRecall(nn.Module):
             kernelInfo = torch.cat([self.w1.view([1,-1]),self.w2.view([1,-1]),self.w3.view([1,-1])],dim=-1)
 
             # learnt form the kernel weight distribution
-            fusionRate = torch.softmax(F.leaky_relu(torch.mm(kernelInfo,self.wFusion).squeeze()),dim=-1)
+            # fusionRate = torch.softmax(F.leaky_relu(torch.mm(kernelInfo,self.wFusion).squeeze()),dim=-1)
 
             # final fused score
-            fusedScore = fusionRate[0]*(torch.sum(qw1 * q)) + fusionRate[1]*(torch.sum(qw2 * q)) + fusionRate[2]*(torch.sum(qw3 * q))
+            # fusedScore = fusionRate[0]*(torch.sum(qw1 * q)) + fusionRate[1]*(torch.sum(qw2 * q)) + fusionRate[2]*(torch.sum(qw3 * q))
+            fusedScore = (torch.sum(qw1 * q))/3 + (torch.sum(qw2 * q))/3 + (torch.sum(qw3 * q)) / 3
             fusedScore = fusedScore.view([1,-1])
             finalQScoresList.append(fusedScore)
         finalQScore = torch.cat(finalQScoresList,dim=0)
@@ -670,3 +801,16 @@ if __name__ == '__main__':
     test2()
 
 
+'''
+前着你那个
+
+hid[1,3,:] # outputs[3,0,32:] batch3号的最后一个元素的去向
+tensor([-0.9136,  0.8916,  0.0931,  0.2071, -0.5570, -0.2541, -0.6761,  0.9255,
+        -0.8166,  0.7803, -0.9827,  0.4119,  0.9509, -0.5924, -0.7002,  0.8857,
+        -0.9185, -0.4454,  0.1220, -0.9689,  0.9960, -0.9828, -0.6659, -0.8052,
+         0.8664, -0.9838,  0.9877,  0.9687, -0.3757, -0.1598, -0.3387, -0.8694],
+       device='cuda:0', grad_fn=<SliceBackward>)
+hid[0,3,:] # outputs[3,188,:32] batch3号的最后一个元素的去向
+
+
+'''

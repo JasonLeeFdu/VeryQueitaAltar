@@ -1,0 +1,4160 @@
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline3_0
+数据集KoNViD
+模型名称Baseline3_0
+==========================================================================
+Brand new model
+
+--------------------------- EPOCH:1/4000 ---------------------------
+Python 3.5.6 |Anaconda, Inc.| (default, Aug 26 2018, 21:41:56) 
+[GCC 7.3.0] on linux
+[tensor(2.4318, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4318, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4318, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4312, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4300, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3551, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3515, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3515, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3515, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2967, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2752, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2555, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2720, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2720, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2720, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2720, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2724, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2898, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2898, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2898, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2898, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2898, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2898, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2898, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3170, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3170, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3410, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3410, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3410, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3410, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3410, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3410, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3410, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3410, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3410, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3410, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3410, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3410, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3410, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3046, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2920, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2920, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2900, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3820, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3912, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3912, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3912, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3912, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3912, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3912, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3912, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3912, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3912, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4282, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4351, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4346, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4346, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4215, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3814, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4264, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4287, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4361, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4361, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4361, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4361, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4361, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4361, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4361, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4361, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4779, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4779, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4825, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4825, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4320, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4320, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4320, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.4229, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3755, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3606, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3230, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3230, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3230, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.3230, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2450, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2335, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2122, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.2122, device='cuda:0', grad_fn=<SelectBackward>), tensor(2.1419, device='cuda:0', grad_fn=<SelectBackward>), tensor(1.9941, device='cuda:0', grad_fn=<SelectBackward>), tensor(1.7480, device='cuda:0', grad_fn=<SelectBackward>), tensor(1.4584, device='cuda:0', grad_fn=<SelectBackward>), tensor(0.9587, device='cuda:0', grad_fn=<SelectBackward>)]
+torch.Size([1, 1, 189])
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline3_0
+数据集KoNViD
+模型名称Baseline3_0
+==========================================================================
+Brand new model
+
+--------------------------- EPOCH:1/4000 ---------------------------
+Python 3.5.6 |Anaconda, Inc.| (default, Aug 26 2018, 21:41:56) 
+[GCC 7.3.0] on linux
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline3_0
+数据集KoNViD
+模型名称Baseline3_0
+==========================================================================
+Brand new model
+
+--------------------------- EPOCH:1/4000 ---------------------------
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline3_0
+数据集KoNViD
+模型名称Baseline3_0
+==========================================================================
+Brand new model
+
+--------------------------- EPOCH:1/4000 ---------------------------
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline3_0
+数据集KoNViD
+模型名称Baseline3_0
+==========================================================================
+Brand new model
+
+--------------------------- EPOCH:1/4000 ---------------------------
+tensor([[[0.7817, 0.7814, 0.7774, 0.7763, 0.7741, 0.7722, 0.7613, 0.7657,
+          0.7696, 0.7730, 0.7787, 0.7825, 0.7829, 0.7844, 0.7888, 0.7915,
+          0.7941, 0.7962, 0.7972, 0.7991, 0.8008, 0.7992, 0.7989, 0.7956,
+          0.7882, 0.7798, 0.7747, 0.7701, 0.7646, 0.7612, 0.7541, 0.7492,
+          0.7437, 0.7356, 0.7241, 0.7143, 0.7067, 0.7029, 0.7031, 0.7047,
+          0.7060, 0.6922, 0.6948, 0.6942, 0.6841, 0.6501, 0.6538, 0.6557,
+          0.6553, 0.6563, 0.6552, 0.6528, 0.6554, 0.6593, 0.6620, 0.6639,
+          0.6672, 0.6731, 0.6788, 0.6807, 0.6848, 0.6913, 0.6952, 0.6980,
+          0.6967, 0.6951, 0.6930, 0.6919, 0.6910, 0.7048, 0.7036, 0.7043,
+          0.7145, 0.7148, 0.7161, 0.7184, 0.7179, 0.7180, 0.7206, 0.7235,
+          0.7251, 0.7261, 0.7260, 0.7260, 0.7509, 0.7567, 0.7850, 0.7828,
+          0.7819, 0.7820, 0.7815, 0.7789, 0.7797, 0.7785, 0.7791, 0.7772,
+          0.7757, 0.7743, 0.7694, 0.7676, 0.7649, 0.7623, 0.7580, 0.7546,
+          0.7486, 0.7441, 0.7304, 0.7311, 0.7298, 0.6987, 0.7031, 0.7047,
+          0.7060, 0.7035, 0.7032, 0.7026, 0.7058, 0.7076, 0.7086, 0.7065,
+          0.7081, 0.7080, 0.7054, 0.7026, 0.7007, 0.7046, 0.7052, 0.7033,
+          0.6957, 0.6918, 0.6878, 0.6870, 0.6858, 0.6854, 0.6851, 0.6893,
+          0.6933, 0.6941, 0.6814, 0.6618, 0.6725, 0.6809, 0.6906, 0.6936,
+          0.6962, 0.6964, 0.6954, 0.6934, 0.6925, 0.6916, 0.6902, 0.6883,
+          0.6843, 0.6789, 0.6733, 0.6693, 0.6674, 0.6716, 0.6773, 0.6778,
+          0.6730, 0.6710, 0.6666, 0.6851, 0.6869, 0.7127, 0.6992, 0.6994,
+          0.6955, 0.6859, 0.6760, 0.6684, 0.6625, 0.6582, 0.6569, 0.6537,
+          0.6507, 0.6500, 0.6497, 0.6380, 0.6186, 0.6284, 0.6371, 0.6399,
+          0.6475, 0.6541, 0.6595, 0.6647, 0.6678, 0.6709, 0.6732, 0.6735,
+          0.6699, 0.6615, 0.6563, 0.6519, 0.6502, 0.6480, 0.6417, 0.6397,
+          0.6408, 0.6408, 0.6427, 0.6431, 0.6408, 0.6391, 0.6407, 0.6630,
+          0.6703, 0.6758, 0.6898, 0.7002, 0.7081, 0.7181, 0.7261, 0.7352,
+          0.7440, 0.7632, 0.7760, 0.7883, 0.7999, 0.8050, 0.8061, 0.8044,
+          0.7960, 0.7574, 0.7525, 0.7487, 0.7433, 0.7347, 0.7244, 0.7106,
+          0.6906, 0.6696, 0.6398, 0.5961, 0.4250]]], device='cuda:0',
+       grad_fn=<AddBackward0>)
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline3_0
+数据集KoNViD
+模型名称Baseline3_0
+==========================================================================
+Brand new model
+
+--------------------------- EPOCH:1/4000 ---------------------------
+Iter: 0, Loss: 1.012283
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline3_0
+数据集KoNViD
+模型名称Baseline3_0
+==========================================================================
+Brand new model
+
+--------------------------- EPOCH:1/4000 ---------------------------
+Iter: 0, Loss: 0.659044
+Iter: 10, Loss: 0.167318
+Iter: 20, Loss: 0.252878
+Iter: 30, Loss: 0.116932
+Iter: 40, Loss: 0.086003
+--------------------------- EPOCH:2/4000 ---------------------------
+Iter: 0, Loss: 0.092623
+Iter: 10, Loss: 0.112364
+Iter: 20, Loss: 0.151206
+Iter: 30, Loss: 0.113483
+Iter: 40, Loss: 0.109491
+--------------------------- EPOCH:3/4000 ---------------------------
+Iter: 0, Loss: 0.121236
+Iter: 10, Loss: 0.116407
+Iter: 20, Loss: 0.111028
+Iter: 30, Loss: 0.104696
+Iter: 40, Loss: 0.103939
+--------------------------- EPOCH:4/4000 ---------------------------
+Iter: 0, Loss: 0.104016
+Iter: 10, Loss: 0.102974
+Iter: 20, Loss: 0.125165
+Iter: 30, Loss: 0.103758
+Iter: 40, Loss: 0.108124
+--------------------------- EPOCH:5/4000 ---------------------------
+Iter: 0, Loss: 0.098774
+Iter: 10, Loss: 0.128874
+Iter: 20, Loss: 0.072019
+Iter: 30, Loss: 0.101253
+Iter: 40, Loss: 0.090960
+--------------------------- EPOCH:6/4000 ---------------------------
+Iter: 0, Loss: 0.095860
+=============================== 本次训练信息 ==============================
+实验模型名称: Baseline3_0
+数据集KoNViD
+模型名称Baseline3_0
+==========================================================================
+The model has been trained in Epoch:5, GlobalIteration:264
+Model Path:/home/winston/workSpace/PycharmProjects/VQA/Ours/Models/VQA_Baseline3_0/model/model_5_44.mdl
+
+--------------------------- EPOCH:6/4000 ---------------------------
+Iter: 0, Loss: 0.081978
+Iter: 10, Loss: 0.123769
+Iter: 20, Loss: 0.101848
+Iter: 30, Loss: 0.093663
+Iter: 40, Loss: 0.089791
+--------------------------- EPOCH:7/4000 ---------------------------
+Iter: 0, Loss: 0.081911
+Iter: 10, Loss: 0.105795
+Iter: 20, Loss: 0.110433
+Iter: 30, Loss: 0.094429
+Iter: 40, Loss: 0.136596
+--------------------------- EPOCH:8/4000 ---------------------------
+Iter: 0, Loss: 0.091186
+Iter: 10, Loss: 0.109103
+Iter: 20, Loss: 0.098087
+Iter: 30, Loss: 0.149656
+Iter: 40, Loss: 0.096274
+--------------------------- EPOCH:9/4000 ---------------------------
+Iter: 0, Loss: 0.119597
+Iter: 10, Loss: 0.086487
+Iter: 20, Loss: 0.120205
+Iter: 30, Loss: 0.104513
+Iter: 40, Loss: 0.104864
+--------------------------- EPOCH:10/4000 ---------------------------
+Iter: 0, Loss: 0.148336
+Iter: 10, Loss: 0.101517
+Iter: 20, Loss: 0.112101
+Iter: 30, Loss: 0.133135
+Iter: 40, Loss: 0.108193
+--------------------------- EPOCH:11/4000 ---------------------------
+Iter: 0, Loss: 0.118191
+Iter: 10, Loss: 0.115893
+Iter: 20, Loss: 0.159058
+Iter: 30, Loss: 0.080421
+Iter: 40, Loss: 0.068507
+--------------------------- EPOCH:12/4000 ---------------------------
+Iter: 0, Loss: 0.090586
+Iter: 10, Loss: 0.131438
+Iter: 20, Loss: 0.126914
+Iter: 30, Loss: 0.110924
+Iter: 40, Loss: 0.109487
+--------------------------- EPOCH:13/4000 ---------------------------
+Iter: 0, Loss: 0.086526
+Iter: 10, Loss: 0.100106
+Iter: 20, Loss: 0.111015
+Iter: 30, Loss: 0.080608
+Iter: 40, Loss: 0.056563
+--------------------------- EPOCH:14/4000 ---------------------------
+Iter: 0, Loss: 0.078078
+Iter: 10, Loss: 0.094553
+Iter: 20, Loss: 0.119826
+Iter: 30, Loss: 0.107182
+Iter: 40, Loss: 0.087752
+--------------------------- EPOCH:15/4000 ---------------------------
+Iter: 0, Loss: 0.084011
+Iter: 10, Loss: 0.097790
+Iter: 20, Loss: 0.093076
+Iter: 30, Loss: 0.091210
+Iter: 40, Loss: 0.106216
+--------------------------- EPOCH:16/4000 ---------------------------
+Iter: 0, Loss: 0.111000
+Iter: 10, Loss: 0.070772
+Iter: 20, Loss: 0.082152
+Iter: 30, Loss: 0.112428
+Iter: 40, Loss: 0.088319
+--------------------------- EPOCH:17/4000 ---------------------------
+Iter: 0, Loss: 0.134961
+Iter: 10, Loss: 0.099557
+Iter: 20, Loss: 0.094295
+Iter: 30, Loss: 0.080840
+Iter: 40, Loss: 0.112887
+--------------------------- EPOCH:18/4000 ---------------------------
+Iter: 0, Loss: 0.132691
+Iter: 10, Loss: 0.128509
+Iter: 20, Loss: 0.135762
+Iter: 30, Loss: 0.107319
+Iter: 40, Loss: 0.095007
+--------------------------- EPOCH:19/4000 ---------------------------
+Iter: 0, Loss: 0.106345
+Iter: 10, Loss: 0.121887
+Iter: 20, Loss: 0.105156
+Iter: 30, Loss: 0.093499
+Iter: 40, Loss: 0.112393
+--------------------------- EPOCH:20/4000 ---------------------------
+Iter: 0, Loss: 0.098538
+Iter: 10, Loss: 0.106002
+Iter: 20, Loss: 0.127006
+Iter: 30, Loss: 0.128068
+Iter: 40, Loss: 0.116748
+--------------------------- EPOCH:21/4000 ---------------------------
+Iter: 0, Loss: 0.097029
+Iter: 10, Loss: 0.106527
+Iter: 20, Loss: 0.108177
+Iter: 30, Loss: 0.092841
+Iter: 40, Loss: 0.131504
+--------------------------- EPOCH:22/4000 ---------------------------
+Iter: 0, Loss: 0.105269
+Iter: 10, Loss: 0.090582
+Iter: 20, Loss: 0.151575
+Iter: 30, Loss: 0.092799
+Iter: 40, Loss: 0.090068
+--------------------------- EPOCH:23/4000 ---------------------------
+Iter: 0, Loss: 0.113392
+Iter: 10, Loss: 0.055382
+Iter: 20, Loss: 0.098697
+Iter: 30, Loss: 0.100057
+Iter: 40, Loss: 0.116273
+--------------------------- EPOCH:24/4000 ---------------------------
+Iter: 0, Loss: 0.114792
+Iter: 10, Loss: 0.078602
+Iter: 20, Loss: 0.097728
+Iter: 30, Loss: 0.089111
+Iter: 40, Loss: 0.133995
+--------------------------- EPOCH:25/4000 ---------------------------
+Iter: 0, Loss: 0.114251
+Iter: 10, Loss: 0.097915
+Iter: 20, Loss: 0.122357
+Iter: 30, Loss: 0.103866
+Iter: 40, Loss: 0.090485
+--------------------------- EPOCH:26/4000 ---------------------------
+Iter: 0, Loss: 0.066898
+Iter: 10, Loss: 0.112294
+Iter: 20, Loss: 0.088463
+Iter: 30, Loss: 0.063749
+Iter: 40, Loss: 0.110679
+--------------------------- EPOCH:27/4000 ---------------------------
+Iter: 0, Loss: 0.069330
+Iter: 10, Loss: 0.088709
+Iter: 20, Loss: 0.139407
+Iter: 30, Loss: 0.156242
+Iter: 40, Loss: 0.107796
+--------------------------- EPOCH:28/4000 ---------------------------
+Iter: 0, Loss: 0.143211
+Iter: 10, Loss: 0.102380
+Iter: 20, Loss: 0.105465
+Iter: 30, Loss: 0.097922
+Iter: 40, Loss: 0.094643
+--------------------------- EPOCH:29/4000 ---------------------------
+Iter: 0, Loss: 0.139271
+Iter: 10, Loss: 0.094662
+Iter: 20, Loss: 0.074237
+Iter: 30, Loss: 0.082932
+Iter: 40, Loss: 0.155088
+--------------------------- EPOCH:30/4000 ---------------------------
+Iter: 0, Loss: 0.094339
+Iter: 10, Loss: 0.103125
+Iter: 20, Loss: 0.081027
+Iter: 30, Loss: 0.116179
+Iter: 40, Loss: 0.103173
+--------------------------- EPOCH:31/4000 ---------------------------
+Iter: 0, Loss: 0.102398
+Iter: 10, Loss: 0.093636
+Iter: 20, Loss: 0.085810
+Iter: 30, Loss: 0.077120
+Iter: 40, Loss: 0.119529
+--------------------------- EPOCH:32/4000 ---------------------------
+Iter: 0, Loss: 0.095693
+Iter: 10, Loss: 0.145430
+Iter: 20, Loss: 0.103581
+Iter: 30, Loss: 0.095467
+Iter: 40, Loss: 0.097483
+--------------------------- EPOCH:33/4000 ---------------------------
+Iter: 0, Loss: 0.120126
+Iter: 10, Loss: 0.080768
+Iter: 20, Loss: 0.094541
+Iter: 30, Loss: 0.082805
+Iter: 40, Loss: 0.069084
+--------------------------- EPOCH:34/4000 ---------------------------
+Iter: 0, Loss: 0.067189
+Iter: 10, Loss: 0.136106
+Iter: 20, Loss: 0.079403
+Iter: 30, Loss: 0.088327
+Iter: 40, Loss: 0.091113
+--------------------------- EPOCH:35/4000 ---------------------------
+Iter: 0, Loss: 0.120125
+Iter: 10, Loss: 0.111387
+Iter: 20, Loss: 0.080014
+Iter: 30, Loss: 0.102830
+Iter: 40, Loss: 0.081082
+--------------------------- EPOCH:36/4000 ---------------------------
+Iter: 0, Loss: 0.094559
+Iter: 10, Loss: 0.052685
+Iter: 20, Loss: 0.077744
+Iter: 30, Loss: 0.069140
+Iter: 40, Loss: 0.093517
+--------------------------- EPOCH:37/4000 ---------------------------
+Iter: 0, Loss: 0.105435
+Iter: 10, Loss: 0.078882
+Iter: 20, Loss: 0.102282
+Iter: 30, Loss: 0.107924
+Iter: 40, Loss: 0.063578
+--------------------------- EPOCH:38/4000 ---------------------------
+Iter: 0, Loss: 0.087786
+Iter: 10, Loss: 0.077085
+Iter: 20, Loss: 0.102846
+Iter: 30, Loss: 0.091734
+Iter: 40, Loss: 0.071214
+--------------------------- EPOCH:39/4000 ---------------------------
+Iter: 0, Loss: 0.101216
+Iter: 10, Loss: 0.070890
+Iter: 20, Loss: 0.122060
+Iter: 30, Loss: 0.113422
+Iter: 40, Loss: 0.096758
+--------------------------- EPOCH:40/4000 ---------------------------
+Iter: 0, Loss: 0.115448
+Iter: 10, Loss: 0.100680
+Iter: 20, Loss: 0.108659
+Iter: 30, Loss: 0.071465
+Iter: 40, Loss: 0.080669
+--------------------------- EPOCH:41/4000 ---------------------------
+Iter: 0, Loss: 0.052292
+Iter: 10, Loss: 0.089753
+Iter: 20, Loss: 0.104638
+Iter: 30, Loss: 0.095439
+Iter: 40, Loss: 0.080214
+--------------------------- EPOCH:42/4000 ---------------------------
+Iter: 0, Loss: 0.156295
+Iter: 10, Loss: 0.122255
+Iter: 20, Loss: 0.103083
+Iter: 30, Loss: 0.092023
+Iter: 40, Loss: 0.081148
+--------------------------- EPOCH:43/4000 ---------------------------
+Iter: 0, Loss: 0.077178
+Iter: 10, Loss: 0.098847
+Iter: 20, Loss: 0.105133
+Iter: 30, Loss: 0.099467
+Iter: 40, Loss: 0.097768
+--------------------------- EPOCH:44/4000 ---------------------------
+Iter: 0, Loss: 0.090670
+Iter: 10, Loss: 0.171209
+Iter: 20, Loss: 0.077805
+Iter: 30, Loss: 0.095313
+Iter: 40, Loss: 0.091452
+--------------------------- EPOCH:45/4000 ---------------------------
+Iter: 0, Loss: 0.133821
+Iter: 10, Loss: 0.110407
+Iter: 20, Loss: 0.106208
+Iter: 30, Loss: 0.067423
+Iter: 40, Loss: 0.098463
+--------------------------- EPOCH:46/4000 ---------------------------
+Iter: 0, Loss: 0.096909
+Iter: 10, Loss: 0.088817
+Iter: 20, Loss: 0.080023
+Iter: 30, Loss: 0.063656
+Iter: 40, Loss: 0.069747
+--------------------------- EPOCH:47/4000 ---------------------------
+Iter: 0, Loss: 0.080692
+Iter: 10, Loss: 0.098429
+Iter: 20, Loss: 0.116874
+Iter: 30, Loss: 0.109472
+Iter: 40, Loss: 0.111651
+--------------------------- EPOCH:48/4000 ---------------------------
+Iter: 0, Loss: 0.132334
+Iter: 10, Loss: 0.111888
+Iter: 20, Loss: 0.108088
+Iter: 30, Loss: 0.065184
+Iter: 40, Loss: 0.105550
+--------------------------- EPOCH:49/4000 ---------------------------
+Iter: 0, Loss: 0.087036
+Iter: 10, Loss: 0.068719
+Iter: 20, Loss: 0.109307
+Iter: 30, Loss: 0.129249
+Iter: 40, Loss: 0.125460
+--------------------------- EPOCH:50/4000 ---------------------------
+Iter: 0, Loss: 0.091610
+Iter: 10, Loss: 0.101500
+Iter: 20, Loss: 0.115804
+Iter: 30, Loss: 0.133846
+Iter: 40, Loss: 0.071685
+--------------------------- EPOCH:51/4000 ---------------------------
+Iter: 0, Loss: 0.068959
+Iter: 10, Loss: 0.078344
+Iter: 20, Loss: 0.082592
+Iter: 30, Loss: 0.114962
+Iter: 40, Loss: 0.077939
+--------------------------- EPOCH:52/4000 ---------------------------
+Iter: 0, Loss: 0.091523
+Iter: 10, Loss: 0.091873
+Iter: 20, Loss: 0.111714
+Iter: 30, Loss: 0.077896
+Iter: 40, Loss: 0.104069
+--------------------------- EPOCH:53/4000 ---------------------------
+Iter: 0, Loss: 0.108519
+Iter: 10, Loss: 0.070405
+Iter: 20, Loss: 0.095470
+Iter: 30, Loss: 0.087975
+Iter: 40, Loss: 0.105868
+--------------------------- EPOCH:54/4000 ---------------------------
+Iter: 0, Loss: 0.071218
+Iter: 10, Loss: 0.101267
+Iter: 20, Loss: 0.098952
+Iter: 30, Loss: 0.108809
+Iter: 40, Loss: 0.101871
+--------------------------- EPOCH:55/4000 ---------------------------
+Iter: 0, Loss: 0.102174
+Iter: 10, Loss: 0.124323
+Iter: 20, Loss: 0.088223
+Iter: 30, Loss: 0.106659
+Iter: 40, Loss: 0.108826
+--------------------------- EPOCH:56/4000 ---------------------------
+Iter: 0, Loss: 0.089384
+Iter: 10, Loss: 0.094811
+Iter: 20, Loss: 0.075324
+Iter: 30, Loss: 0.069445
+Iter: 40, Loss: 0.083047
+--------------------------- EPOCH:57/4000 ---------------------------
+Iter: 0, Loss: 0.094439
+Iter: 10, Loss: 0.076936
+Iter: 20, Loss: 0.086422
+Iter: 30, Loss: 0.091953
+Iter: 40, Loss: 0.098127
+--------------------------- EPOCH:58/4000 ---------------------------
+Iter: 0, Loss: 0.094703
+Iter: 10, Loss: 0.103802
+Iter: 20, Loss: 0.078183
+Iter: 30, Loss: 0.087636
+Iter: 40, Loss: 0.091799
+--------------------------- EPOCH:59/4000 ---------------------------
+Iter: 0, Loss: 0.098904
+Iter: 10, Loss: 0.089910
+Iter: 20, Loss: 0.079780
+Iter: 30, Loss: 0.108392
+Iter: 40, Loss: 0.102938
+--------------------------- EPOCH:60/4000 ---------------------------
+Iter: 0, Loss: 0.085057
+Iter: 10, Loss: 0.106776
+Iter: 20, Loss: 0.088347
+Iter: 30, Loss: 0.059232
+Iter: 40, Loss: 0.114619
+--------------------------- EPOCH:61/4000 ---------------------------
+Iter: 0, Loss: 0.108853
+Iter: 10, Loss: 0.077155
+Iter: 20, Loss: 0.071523
+Iter: 30, Loss: 0.128721
+Iter: 40, Loss: 0.088712
+--------------------------- EPOCH:62/4000 ---------------------------
+Iter: 0, Loss: 0.110828
+Iter: 10, Loss: 0.084006
+Iter: 20, Loss: 0.104374
+Iter: 30, Loss: 0.082413
+Iter: 40, Loss: 0.089879
+--------------------------- EPOCH:63/4000 ---------------------------
+Iter: 0, Loss: 0.108095
+Iter: 10, Loss: 0.077035
+Iter: 20, Loss: 0.067411
+Iter: 30, Loss: 0.165767
+Iter: 40, Loss: 0.081471
+--------------------------- EPOCH:64/4000 ---------------------------
+Iter: 0, Loss: 0.070525
+Iter: 10, Loss: 0.133461
+Iter: 20, Loss: 0.126212
+Iter: 30, Loss: 0.119125
+Iter: 40, Loss: 0.125152
+--------------------------- EPOCH:65/4000 ---------------------------
+Iter: 0, Loss: 0.061458
+Iter: 10, Loss: 0.075831
+Iter: 20, Loss: 0.089104
+Iter: 30, Loss: 0.087957
+Iter: 40, Loss: 0.101235
+--------------------------- EPOCH:66/4000 ---------------------------
+Iter: 0, Loss: 0.062984
+Iter: 10, Loss: 0.068990
+Iter: 20, Loss: 0.060292
+Iter: 30, Loss: 0.075461
+Iter: 40, Loss: 0.108321
+--------------------------- EPOCH:67/4000 ---------------------------
+Iter: 0, Loss: 0.111337
+Iter: 10, Loss: 0.119564
+Iter: 20, Loss: 0.081734
+Iter: 30, Loss: 0.074768
+Iter: 40, Loss: 0.078810
+--------------------------- EPOCH:68/4000 ---------------------------
+Iter: 0, Loss: 0.064497
+Iter: 10, Loss: 0.109322
+Iter: 20, Loss: 0.106098
+Iter: 30, Loss: 0.089141
+Iter: 40, Loss: 0.094713
+--------------------------- EPOCH:69/4000 ---------------------------
+Iter: 0, Loss: 0.104909
+Iter: 10, Loss: 0.085839
+Iter: 20, Loss: 0.089973
+Iter: 30, Loss: 0.101114
+Iter: 40, Loss: 0.085628
+--------------------------- EPOCH:70/4000 ---------------------------
+Iter: 0, Loss: 0.100083
+Iter: 10, Loss: 0.079595
+Iter: 20, Loss: 0.081998
+Iter: 30, Loss: 0.106321
+Iter: 40, Loss: 0.094694
+--------------------------- EPOCH:71/4000 ---------------------------
+Iter: 0, Loss: 0.075220
+Iter: 10, Loss: 0.087305
+Iter: 20, Loss: 0.087071
+Iter: 30, Loss: 0.098132
+Iter: 40, Loss: 0.078152
+--------------------------- EPOCH:72/4000 ---------------------------
+Iter: 0, Loss: 0.098070
+Iter: 10, Loss: 0.058324
+Iter: 20, Loss: 0.076131
+Iter: 30, Loss: 0.090975
+Iter: 40, Loss: 0.074780
+--------------------------- EPOCH:73/4000 ---------------------------
+Iter: 0, Loss: 0.100158
+Iter: 10, Loss: 0.103906
+Iter: 20, Loss: 0.095870
+Iter: 30, Loss: 0.072163
+Iter: 40, Loss: 0.050412
+--------------------------- EPOCH:74/4000 ---------------------------
+Iter: 0, Loss: 0.093741
+Iter: 10, Loss: 0.059402
+Iter: 20, Loss: 0.086488
+Iter: 30, Loss: 0.142114
+Iter: 40, Loss: 0.086116
+--------------------------- EPOCH:75/4000 ---------------------------
+Iter: 0, Loss: 0.101318
+Iter: 10, Loss: 0.112118
+Iter: 20, Loss: 0.095376
+Iter: 30, Loss: 0.065990
+Iter: 40, Loss: 0.120235
+--------------------------- EPOCH:76/4000 ---------------------------
+Iter: 0, Loss: 0.075048
+Iter: 10, Loss: 0.107098
+Iter: 20, Loss: 0.074549
+Iter: 30, Loss: 0.075103
+Iter: 40, Loss: 0.085342
+--------------------------- EPOCH:77/4000 ---------------------------
+Iter: 0, Loss: 0.119306
+Iter: 10, Loss: 0.066062
+Iter: 20, Loss: 0.101880
+Iter: 30, Loss: 0.075993
+Iter: 40, Loss: 0.091362
+--------------------------- EPOCH:78/4000 ---------------------------
+Iter: 0, Loss: 0.085429
+Iter: 10, Loss: 0.080556
+Iter: 20, Loss: 0.074578
+Iter: 30, Loss: 0.081759
+Iter: 40, Loss: 0.111609
+--------------------------- EPOCH:79/4000 ---------------------------
+Iter: 0, Loss: 0.110596
+Iter: 10, Loss: 0.063557
+Iter: 20, Loss: 0.089283
+Iter: 30, Loss: 0.096764
+Iter: 40, Loss: 0.059837
+--------------------------- EPOCH:80/4000 ---------------------------
+Iter: 0, Loss: 0.084176
+Iter: 10, Loss: 0.094447
+Iter: 20, Loss: 0.089704
+Iter: 30, Loss: 0.115220
+Iter: 40, Loss: 0.062196
+--------------------------- EPOCH:81/4000 ---------------------------
+Iter: 0, Loss: 0.077677
+Iter: 10, Loss: 0.097984
+Iter: 20, Loss: 0.073401
+Iter: 30, Loss: 0.082376
+Iter: 40, Loss: 0.086850
+--------------------------- EPOCH:82/4000 ---------------------------
+Iter: 0, Loss: 0.101966
+Iter: 10, Loss: 0.083997
+Iter: 20, Loss: 0.093787
+Iter: 30, Loss: 0.092613
+Iter: 40, Loss: 0.097109
+--------------------------- EPOCH:83/4000 ---------------------------
+Iter: 0, Loss: 0.101206
+Iter: 10, Loss: 0.102667
+Iter: 20, Loss: 0.075559
+Iter: 30, Loss: 0.080958
+Iter: 40, Loss: 0.116606
+--------------------------- EPOCH:84/4000 ---------------------------
+Iter: 0, Loss: 0.083816
+Iter: 10, Loss: 0.119155
+Iter: 20, Loss: 0.115959
+Iter: 30, Loss: 0.101804
+Iter: 40, Loss: 0.079534
+--------------------------- EPOCH:85/4000 ---------------------------
+Iter: 0, Loss: 0.088465
+Iter: 10, Loss: 0.079868
+Iter: 20, Loss: 0.080532
+Iter: 30, Loss: 0.100688
+Iter: 40, Loss: 0.104156
+--------------------------- EPOCH:86/4000 ---------------------------
+Iter: 0, Loss: 0.073933
+Iter: 10, Loss: 0.073367
+Iter: 20, Loss: 0.066061
+Iter: 30, Loss: 0.076418
+Iter: 40, Loss: 0.104502
+--------------------------- EPOCH:87/4000 ---------------------------
+Iter: 0, Loss: 0.063214
+Iter: 10, Loss: 0.094790
+Iter: 20, Loss: 0.105368
+Iter: 30, Loss: 0.102489
+Iter: 40, Loss: 0.101225
+--------------------------- EPOCH:88/4000 ---------------------------
+Iter: 0, Loss: 0.097692
+Iter: 10, Loss: 0.080758
+Iter: 20, Loss: 0.121925
+Iter: 30, Loss: 0.068675
+Iter: 40, Loss: 0.096102
+--------------------------- EPOCH:89/4000 ---------------------------
+Iter: 0, Loss: 0.090016
+Iter: 10, Loss: 0.068691
+Iter: 20, Loss: 0.070033
+Iter: 30, Loss: 0.095460
+Iter: 40, Loss: 0.106910
+--------------------------- EPOCH:90/4000 ---------------------------
+Iter: 0, Loss: 0.065268
+Iter: 10, Loss: 0.077108
+Iter: 20, Loss: 0.086291
+Iter: 30, Loss: 0.070179
+Iter: 40, Loss: 0.098603
+--------------------------- EPOCH:91/4000 ---------------------------
+Iter: 0, Loss: 0.081370
+Iter: 10, Loss: 0.129069
+Iter: 20, Loss: 0.103148
+Iter: 30, Loss: 0.101096
+Iter: 40, Loss: 0.074727
+--------------------------- EPOCH:92/4000 ---------------------------
+Iter: 0, Loss: 0.086602
+Iter: 10, Loss: 0.070763
+Iter: 20, Loss: 0.095228
+Iter: 30, Loss: 0.078515
+Iter: 40, Loss: 0.099030
+--------------------------- EPOCH:93/4000 ---------------------------
+Iter: 0, Loss: 0.081437
+Iter: 10, Loss: 0.081712
+Iter: 20, Loss: 0.085495
+Iter: 30, Loss: 0.122455
+Iter: 40, Loss: 0.101662
+--------------------------- EPOCH:94/4000 ---------------------------
+Iter: 0, Loss: 0.094950
+Iter: 10, Loss: 0.081359
+Iter: 20, Loss: 0.083764
+Iter: 30, Loss: 0.106492
+Iter: 40, Loss: 0.056193
+--------------------------- EPOCH:95/4000 ---------------------------
+Iter: 0, Loss: 0.076671
+Iter: 10, Loss: 0.100058
+Iter: 20, Loss: 0.094703
+Iter: 30, Loss: 0.096909
+Iter: 40, Loss: 0.062142
+--------------------------- EPOCH:96/4000 ---------------------------
+Iter: 0, Loss: 0.080579
+Iter: 10, Loss: 0.062074
+Iter: 20, Loss: 0.098491
+Iter: 30, Loss: 0.114605
+Iter: 40, Loss: 0.089542
+--------------------------- EPOCH:97/4000 ---------------------------
+Iter: 0, Loss: 0.049858
+Iter: 10, Loss: 0.072204
+Iter: 20, Loss: 0.094859
+Iter: 30, Loss: 0.106232
+Iter: 40, Loss: 0.080892
+--------------------------- EPOCH:98/4000 ---------------------------
+Iter: 0, Loss: 0.082151
+Iter: 10, Loss: 0.131837
+Iter: 20, Loss: 0.069880
+Iter: 30, Loss: 0.120880
+Iter: 40, Loss: 0.104620
+--------------------------- EPOCH:99/4000 ---------------------------
+Iter: 0, Loss: 0.086980
+Iter: 10, Loss: 0.128544
+Iter: 20, Loss: 0.087929
+Iter: 30, Loss: 0.104116
+Iter: 40, Loss: 0.101267
+--------------------------- EPOCH:100/4000 ---------------------------
+Iter: 0, Loss: 0.107788
+Iter: 10, Loss: 0.127836
+Iter: 20, Loss: 0.087229
+Iter: 30, Loss: 0.089175
+Iter: 40, Loss: 0.055777
+--------------------------- EPOCH:101/4000 ---------------------------
+Iter: 0, Loss: 0.117241
+Iter: 10, Loss: 0.072566
+Iter: 20, Loss: 0.075731
+Iter: 30, Loss: 0.084803
+Iter: 40, Loss: 0.097117
+--------------------------- EPOCH:102/4000 ---------------------------
+Iter: 0, Loss: 0.082208
+Iter: 10, Loss: 0.072843
+Iter: 20, Loss: 0.123776
+Iter: 30, Loss: 0.099839
+Iter: 40, Loss: 0.085494
+--------------------------- EPOCH:103/4000 ---------------------------
+Iter: 0, Loss: 0.084852
+Iter: 10, Loss: 0.075247
+Iter: 20, Loss: 0.084808
+Iter: 30, Loss: 0.092222
+Iter: 40, Loss: 0.092277
+--------------------------- EPOCH:104/4000 ---------------------------
+Iter: 0, Loss: 0.067238
+Iter: 10, Loss: 0.094447
+Iter: 20, Loss: 0.108970
+Iter: 30, Loss: 0.070086
+Iter: 40, Loss: 0.086127
+--------------------------- EPOCH:105/4000 ---------------------------
+Iter: 0, Loss: 0.106706
+Iter: 10, Loss: 0.080306
+Iter: 20, Loss: 0.090637
+Iter: 30, Loss: 0.080262
+Iter: 40, Loss: 0.099709
+--------------------------- EPOCH:106/4000 ---------------------------
+Iter: 0, Loss: 0.080359
+Iter: 10, Loss: 0.093348
+Iter: 20, Loss: 0.079736
+Iter: 30, Loss: 0.093489
+Iter: 40, Loss: 0.076564
+--------------------------- EPOCH:107/4000 ---------------------------
+Iter: 0, Loss: 0.093391
+Iter: 10, Loss: 0.080531
+Iter: 20, Loss: 0.087002
+Iter: 30, Loss: 0.086053
+Iter: 40, Loss: 0.093374
+--------------------------- EPOCH:108/4000 ---------------------------
+Iter: 0, Loss: 0.084328
+Iter: 10, Loss: 0.074562
+Iter: 20, Loss: 0.098089
+Iter: 30, Loss: 0.089496
+Iter: 40, Loss: 0.072101
+--------------------------- EPOCH:109/4000 ---------------------------
+Iter: 0, Loss: 0.087709
+Iter: 10, Loss: 0.072283
+Iter: 20, Loss: 0.082077
+Iter: 30, Loss: 0.088436
+Iter: 40, Loss: 0.092729
+--------------------------- EPOCH:110/4000 ---------------------------
+Iter: 0, Loss: 0.087734
+Iter: 10, Loss: 0.082276
+Iter: 20, Loss: 0.101658
+Iter: 30, Loss: 0.093912
+Iter: 40, Loss: 0.089058
+--------------------------- EPOCH:111/4000 ---------------------------
+Iter: 0, Loss: 0.067474
+Iter: 10, Loss: 0.087698
+Iter: 20, Loss: 0.073534
+Iter: 30, Loss: 0.102325
+Iter: 40, Loss: 0.075088
+--------------------------- EPOCH:112/4000 ---------------------------
+Iter: 0, Loss: 0.071578
+Iter: 10, Loss: 0.063192
+Iter: 20, Loss: 0.104233
+Iter: 30, Loss: 0.071554
+Iter: 40, Loss: 0.080549
+--------------------------- EPOCH:113/4000 ---------------------------
+Iter: 0, Loss: 0.075203
+Iter: 10, Loss: 0.102489
+Iter: 20, Loss: 0.048733
+Iter: 30, Loss: 0.100358
+Iter: 40, Loss: 0.102736
+--------------------------- EPOCH:114/4000 ---------------------------
+Iter: 0, Loss: 0.071167
+Iter: 10, Loss: 0.086304
+Iter: 20, Loss: 0.072080
+Iter: 30, Loss: 0.082304
+Iter: 40, Loss: 0.088603
+--------------------------- EPOCH:115/4000 ---------------------------
+Iter: 0, Loss: 0.083324
+Iter: 10, Loss: 0.116382
+Iter: 20, Loss: 0.076237
+Iter: 30, Loss: 0.082118
+Iter: 40, Loss: 0.113710
+--------------------------- EPOCH:116/4000 ---------------------------
+Iter: 0, Loss: 0.089258
+Iter: 10, Loss: 0.103313
+Iter: 20, Loss: 0.073981
+Iter: 30, Loss: 0.117774
+Iter: 40, Loss: 0.064716
+--------------------------- EPOCH:117/4000 ---------------------------
+Iter: 0, Loss: 0.058037
+Iter: 10, Loss: 0.071306
+Iter: 20, Loss: 0.081584
+Iter: 30, Loss: 0.079660
+Iter: 40, Loss: 0.103099
+--------------------------- EPOCH:118/4000 ---------------------------
+Iter: 0, Loss: 0.082685
+Iter: 10, Loss: 0.105878
+Iter: 20, Loss: 0.087769
+Iter: 30, Loss: 0.055777
+Iter: 40, Loss: 0.113186
+--------------------------- EPOCH:119/4000 ---------------------------
+Iter: 0, Loss: 0.080030
+Iter: 10, Loss: 0.080196
+Iter: 20, Loss: 0.127548
+Iter: 30, Loss: 0.103103
+Iter: 40, Loss: 0.089800
+--------------------------- EPOCH:120/4000 ---------------------------
+Iter: 0, Loss: 0.086538
+Iter: 10, Loss: 0.120657
+Iter: 20, Loss: 0.082668
+Iter: 30, Loss: 0.128183
+Iter: 40, Loss: 0.055521
+--------------------------- EPOCH:121/4000 ---------------------------
+Iter: 0, Loss: 0.050026
+Iter: 10, Loss: 0.105695
+Iter: 20, Loss: 0.104457
+Iter: 30, Loss: 0.088269
+Iter: 40, Loss: 0.092233
+--------------------------- EPOCH:122/4000 ---------------------------
+Iter: 0, Loss: 0.100648
+Iter: 10, Loss: 0.065654
+Iter: 20, Loss: 0.079234
+Iter: 30, Loss: 0.055048
+Iter: 40, Loss: 0.077360
+--------------------------- EPOCH:123/4000 ---------------------------
+Iter: 0, Loss: 0.078358
+Iter: 10, Loss: 0.078784
+Iter: 20, Loss: 0.098109
+Iter: 30, Loss: 0.101181
+Iter: 40, Loss: 0.074043
+--------------------------- EPOCH:124/4000 ---------------------------
+Iter: 0, Loss: 0.074677
+Iter: 10, Loss: 0.072919
+Iter: 20, Loss: 0.078664
+Iter: 30, Loss: 0.087975
+Iter: 40, Loss: 0.065801
+--------------------------- EPOCH:125/4000 ---------------------------
+Iter: 0, Loss: 0.105848
+Iter: 10, Loss: 0.071808
+Iter: 20, Loss: 0.068365
+Iter: 30, Loss: 0.104409
+Iter: 40, Loss: 0.123040
+--------------------------- EPOCH:126/4000 ---------------------------
+Iter: 0, Loss: 0.122752
+Iter: 10, Loss: 0.085089
+Iter: 20, Loss: 0.109507
+Iter: 30, Loss: 0.079906
+Iter: 40, Loss: 0.072722
+--------------------------- EPOCH:127/4000 ---------------------------
+Iter: 0, Loss: 0.069026
+Iter: 10, Loss: 0.079176
+Iter: 20, Loss: 0.089724
+Iter: 30, Loss: 0.082419
+Iter: 40, Loss: 0.092902
+--------------------------- EPOCH:128/4000 ---------------------------
+Iter: 0, Loss: 0.070068
+Iter: 10, Loss: 0.086796
+Iter: 20, Loss: 0.083747
+Iter: 30, Loss: 0.063962
+Iter: 40, Loss: 0.064193
+--------------------------- EPOCH:129/4000 ---------------------------
+Iter: 0, Loss: 0.080166
+Iter: 10, Loss: 0.075555
+Iter: 20, Loss: 0.067343
+Iter: 30, Loss: 0.040079
+Iter: 40, Loss: 0.080637
+--------------------------- EPOCH:130/4000 ---------------------------
+Iter: 0, Loss: 0.077509
+Iter: 10, Loss: 0.047392
+Iter: 20, Loss: 0.110313
+Iter: 30, Loss: 0.067068
+Iter: 40, Loss: 0.096115
+--------------------------- EPOCH:131/4000 ---------------------------
+Iter: 0, Loss: 0.068428
+Iter: 10, Loss: 0.079068
+Iter: 20, Loss: 0.070652
+Iter: 30, Loss: 0.058831
+Iter: 40, Loss: 0.087652
+--------------------------- EPOCH:132/4000 ---------------------------
+Iter: 0, Loss: 0.068204
+Iter: 10, Loss: 0.095517
+Iter: 20, Loss: 0.089074
+Iter: 30, Loss: 0.089004
+Iter: 40, Loss: 0.135627
+--------------------------- EPOCH:133/4000 ---------------------------
+Iter: 0, Loss: 0.094407
+Iter: 10, Loss: 0.095923
+Iter: 20, Loss: 0.069299
+Iter: 30, Loss: 0.081005
+Iter: 40, Loss: 0.126970
+--------------------------- EPOCH:134/4000 ---------------------------
+Iter: 0, Loss: 0.122484
+Iter: 10, Loss: 0.091609
+Iter: 20, Loss: 0.088196
+Iter: 30, Loss: 0.069705
+Iter: 40, Loss: 0.087275
+--------------------------- EPOCH:135/4000 ---------------------------
+Iter: 0, Loss: 0.063086
+Iter: 10, Loss: 0.061089
+Iter: 20, Loss: 0.067320
+Iter: 30, Loss: 0.109309
+Iter: 40, Loss: 0.085662
+--------------------------- EPOCH:136/4000 ---------------------------
+Iter: 0, Loss: 0.049653
+Iter: 10, Loss: 0.082781
+Iter: 20, Loss: 0.089859
+Iter: 30, Loss: 0.097137
+Iter: 40, Loss: 0.076945
+--------------------------- EPOCH:137/4000 ---------------------------
+Iter: 0, Loss: 0.081048
+Iter: 10, Loss: 0.090740
+Iter: 20, Loss: 0.067379
+Iter: 30, Loss: 0.094433
+Iter: 40, Loss: 0.077896
+--------------------------- EPOCH:138/4000 ---------------------------
+Iter: 0, Loss: 0.071393
+Iter: 10, Loss: 0.096636
+Iter: 20, Loss: 0.079953
+Iter: 30, Loss: 0.083383
+Iter: 40, Loss: 0.065034
+--------------------------- EPOCH:139/4000 ---------------------------
+Iter: 0, Loss: 0.068605
+Iter: 10, Loss: 0.093832
+Iter: 20, Loss: 0.133311
+Iter: 30, Loss: 0.078295
+Iter: 40, Loss: 0.064305
+--------------------------- EPOCH:140/4000 ---------------------------
+Iter: 0, Loss: 0.062427
+Iter: 10, Loss: 0.121727
+Iter: 20, Loss: 0.079804
+Iter: 30, Loss: 0.080129
+Iter: 40, Loss: 0.096497
+--------------------------- EPOCH:141/4000 ---------------------------
+Iter: 0, Loss: 0.103776
+Iter: 10, Loss: 0.096580
+Iter: 20, Loss: 0.065004
+Iter: 30, Loss: 0.056838
+Iter: 40, Loss: 0.078843
+--------------------------- EPOCH:142/4000 ---------------------------
+Iter: 0, Loss: 0.041155
+Iter: 10, Loss: 0.117533
+Iter: 20, Loss: 0.072898
+Iter: 30, Loss: 0.072593
+Iter: 40, Loss: 0.088509
+--------------------------- EPOCH:143/4000 ---------------------------
+Iter: 0, Loss: 0.069626
+Iter: 10, Loss: 0.089863
+Iter: 20, Loss: 0.061581
+Iter: 30, Loss: 0.088521
+Iter: 40, Loss: 0.074968
+--------------------------- EPOCH:144/4000 ---------------------------
+Iter: 0, Loss: 0.060342
+Iter: 10, Loss: 0.114970
+Iter: 20, Loss: 0.088459
+Iter: 30, Loss: 0.079849
+Iter: 40, Loss: 0.064337
+--------------------------- EPOCH:145/4000 ---------------------------
+Iter: 0, Loss: 0.116247
+Iter: 10, Loss: 0.087721
+Iter: 20, Loss: 0.093123
+Iter: 30, Loss: 0.065930
+Iter: 40, Loss: 0.082053
+--------------------------- EPOCH:146/4000 ---------------------------
+Iter: 0, Loss: 0.067401
+Iter: 10, Loss: 0.070009
+Iter: 20, Loss: 0.102714
+Iter: 30, Loss: 0.076467
+Iter: 40, Loss: 0.057090
+--------------------------- EPOCH:147/4000 ---------------------------
+Iter: 0, Loss: 0.081887
+Iter: 10, Loss: 0.067114
+Iter: 20, Loss: 0.063582
+Iter: 30, Loss: 0.142530
+Iter: 40, Loss: 0.074576
+--------------------------- EPOCH:148/4000 ---------------------------
+Iter: 0, Loss: 0.092033
+Iter: 10, Loss: 0.089935
+Iter: 20, Loss: 0.112926
+Iter: 30, Loss: 0.070252
+Iter: 40, Loss: 0.101610
+--------------------------- EPOCH:149/4000 ---------------------------
+Iter: 0, Loss: 0.088037
+Iter: 10, Loss: 0.062295
+Iter: 20, Loss: 0.079140
+Iter: 30, Loss: 0.056747
+Iter: 40, Loss: 0.089543
+--------------------------- EPOCH:150/4000 ---------------------------
+Iter: 0, Loss: 0.066399
+Iter: 10, Loss: 0.101003
+Iter: 20, Loss: 0.081828
+Iter: 30, Loss: 0.100903
+Iter: 40, Loss: 0.096844
+--------------------------- EPOCH:151/4000 ---------------------------
+Iter: 0, Loss: 0.099384
+Iter: 10, Loss: 0.066356
+Iter: 20, Loss: 0.113286
+Iter: 30, Loss: 0.077752
+Iter: 40, Loss: 0.097454
+--------------------------- EPOCH:152/4000 ---------------------------
+Iter: 0, Loss: 0.064640
+Iter: 10, Loss: 0.096642
+Iter: 20, Loss: 0.061737
+Iter: 30, Loss: 0.062601
+Iter: 40, Loss: 0.091237
+--------------------------- EPOCH:153/4000 ---------------------------
+Iter: 0, Loss: 0.083068
+Iter: 10, Loss: 0.064905
+Iter: 20, Loss: 0.071861
+Iter: 30, Loss: 0.068638
+Iter: 40, Loss: 0.125547
+--------------------------- EPOCH:154/4000 ---------------------------
+Iter: 0, Loss: 0.069569
+Iter: 10, Loss: 0.088960
+Iter: 20, Loss: 0.081765
+Iter: 30, Loss: 0.066358
+Iter: 40, Loss: 0.072505
+--------------------------- EPOCH:155/4000 ---------------------------
+Iter: 0, Loss: 0.046799
+Iter: 10, Loss: 0.067661
+Iter: 20, Loss: 0.082615
+Iter: 30, Loss: 0.105243
+Iter: 40, Loss: 0.089686
+--------------------------- EPOCH:156/4000 ---------------------------
+Iter: 0, Loss: 0.078991
+Iter: 10, Loss: 0.086872
+Iter: 20, Loss: 0.098387
+Iter: 30, Loss: 0.088871
+Iter: 40, Loss: 0.059035
+--------------------------- EPOCH:157/4000 ---------------------------
+Iter: 0, Loss: 0.078285
+Iter: 10, Loss: 0.062718
+Iter: 20, Loss: 0.064006
+Iter: 30, Loss: 0.074239
+Iter: 40, Loss: 0.102554
+--------------------------- EPOCH:158/4000 ---------------------------
+Iter: 0, Loss: 0.097094
+Iter: 10, Loss: 0.060498
+Iter: 20, Loss: 0.105354
+Iter: 30, Loss: 0.063190
+Iter: 40, Loss: 0.079861
+--------------------------- EPOCH:159/4000 ---------------------------
+Iter: 0, Loss: 0.088700
+Iter: 10, Loss: 0.102467
+Iter: 20, Loss: 0.113362
+Iter: 30, Loss: 0.067653
+Iter: 40, Loss: 0.054827
+--------------------------- EPOCH:160/4000 ---------------------------
+Iter: 0, Loss: 0.069555
+Iter: 10, Loss: 0.080470
+Iter: 20, Loss: 0.068989
+Iter: 30, Loss: 0.088776
+Iter: 40, Loss: 0.069081
+--------------------------- EPOCH:161/4000 ---------------------------
+Iter: 0, Loss: 0.083572
+Iter: 10, Loss: 0.068423
+Iter: 20, Loss: 0.081299
+Iter: 30, Loss: 0.118510
+Iter: 40, Loss: 0.075121
+--------------------------- EPOCH:162/4000 ---------------------------
+Iter: 0, Loss: 0.079454
+Iter: 10, Loss: 0.067552
+Iter: 20, Loss: 0.084351
+Iter: 30, Loss: 0.114207
+Iter: 40, Loss: 0.068821
+--------------------------- EPOCH:163/4000 ---------------------------
+Iter: 0, Loss: 0.070746
+Iter: 10, Loss: 0.057531
+Iter: 20, Loss: 0.079510
+Iter: 30, Loss: 0.106923
+Iter: 40, Loss: 0.090141
+--------------------------- EPOCH:164/4000 ---------------------------
+Iter: 0, Loss: 0.083529
+Iter: 10, Loss: 0.095816
+Iter: 20, Loss: 0.080522
+Iter: 30, Loss: 0.074857
+Iter: 40, Loss: 0.109060
+--------------------------- EPOCH:165/4000 ---------------------------
+Iter: 0, Loss: 0.069124
+Iter: 10, Loss: 0.069033
+Iter: 20, Loss: 0.074083
+Iter: 30, Loss: 0.084518
+Iter: 40, Loss: 0.075243
+--------------------------- EPOCH:166/4000 ---------------------------
+Iter: 0, Loss: 0.103709
+Iter: 10, Loss: 0.092617
+Iter: 20, Loss: 0.065071
+Iter: 30, Loss: 0.092559
+Iter: 40, Loss: 0.081196
+--------------------------- EPOCH:167/4000 ---------------------------
+Iter: 0, Loss: 0.078103
+Iter: 10, Loss: 0.057283
+Iter: 20, Loss: 0.091510
+Iter: 30, Loss: 0.081041
+Iter: 40, Loss: 0.087040
+--------------------------- EPOCH:168/4000 ---------------------------
+Iter: 0, Loss: 0.084179
+Iter: 10, Loss: 0.059128
+Iter: 20, Loss: 0.075128
+Iter: 30, Loss: 0.103788
+Iter: 40, Loss: 0.072815
+--------------------------- EPOCH:169/4000 ---------------------------
+Iter: 0, Loss: 0.061028
+Iter: 10, Loss: 0.079602
+Iter: 20, Loss: 0.088264
+Iter: 30, Loss: 0.091365
+Iter: 40, Loss: 0.081768
+--------------------------- EPOCH:170/4000 ---------------------------
+Iter: 0, Loss: 0.107376
+Iter: 10, Loss: 0.081939
+Iter: 20, Loss: 0.064323
+Iter: 30, Loss: 0.067955
+Iter: 40, Loss: 0.063449
+--------------------------- EPOCH:171/4000 ---------------------------
+Iter: 0, Loss: 0.078049
+Iter: 10, Loss: 0.090877
+Iter: 20, Loss: 0.100060
+Iter: 30, Loss: 0.073235
+Iter: 40, Loss: 0.066679
+--------------------------- EPOCH:172/4000 ---------------------------
+Iter: 0, Loss: 0.079451
+Iter: 10, Loss: 0.088064
+Iter: 20, Loss: 0.114466
+Iter: 30, Loss: 0.099423
+Iter: 40, Loss: 0.099743
+--------------------------- EPOCH:173/4000 ---------------------------
+Iter: 0, Loss: 0.099029
+Iter: 10, Loss: 0.099598
+Iter: 20, Loss: 0.070090
+Iter: 30, Loss: 0.087732
+Iter: 40, Loss: 0.051597
+--------------------------- EPOCH:174/4000 ---------------------------
+Iter: 0, Loss: 0.058156
+Iter: 10, Loss: 0.064561
+Iter: 20, Loss: 0.088171
+Iter: 30, Loss: 0.072365
+Iter: 40, Loss: 0.097838
+--------------------------- EPOCH:175/4000 ---------------------------
+Iter: 0, Loss: 0.101756
+Iter: 10, Loss: 0.080349
+Iter: 20, Loss: 0.065269
+Iter: 30, Loss: 0.098806
+Iter: 40, Loss: 0.088937
+--------------------------- EPOCH:176/4000 ---------------------------
+Iter: 0, Loss: 0.058587
+Iter: 10, Loss: 0.087163
+Iter: 20, Loss: 0.109783
+Iter: 30, Loss: 0.101183
+Iter: 40, Loss: 0.084206
+--------------------------- EPOCH:177/4000 ---------------------------
+Iter: 0, Loss: 0.090771
+Iter: 10, Loss: 0.059034
+Iter: 20, Loss: 0.072892
+Iter: 30, Loss: 0.092718
+Iter: 40, Loss: 0.097161
+--------------------------- EPOCH:178/4000 ---------------------------
+Iter: 0, Loss: 0.063710
+Iter: 10, Loss: 0.095750
+Iter: 20, Loss: 0.101623
+Iter: 30, Loss: 0.063263
+Iter: 40, Loss: 0.098304
+--------------------------- EPOCH:179/4000 ---------------------------
+Iter: 0, Loss: 0.070099
+Iter: 10, Loss: 0.084531
+Iter: 20, Loss: 0.082999
+Iter: 30, Loss: 0.069008
+Iter: 40, Loss: 0.069564
+--------------------------- EPOCH:180/4000 ---------------------------
+Iter: 0, Loss: 0.077512
+Iter: 10, Loss: 0.080671
+Iter: 20, Loss: 0.075137
+Iter: 30, Loss: 0.071769
+Iter: 40, Loss: 0.053240
+--------------------------- EPOCH:181/4000 ---------------------------
+Iter: 0, Loss: 0.106054
+Iter: 10, Loss: 0.064851
+Iter: 20, Loss: 0.077473
+Iter: 30, Loss: 0.064623
+Iter: 40, Loss: 0.107122
+--------------------------- EPOCH:182/4000 ---------------------------
+Iter: 0, Loss: 0.065434
+Iter: 10, Loss: 0.087742
+Iter: 20, Loss: 0.063834
+Iter: 30, Loss: 0.084396
+Iter: 40, Loss: 0.077622
+--------------------------- EPOCH:183/4000 ---------------------------
+Iter: 0, Loss: 0.063697
+Iter: 10, Loss: 0.071840
+Iter: 20, Loss: 0.070687
+Iter: 30, Loss: 0.052103
+Iter: 40, Loss: 0.093469
+--------------------------- EPOCH:184/4000 ---------------------------
+Iter: 0, Loss: 0.104472
+Iter: 10, Loss: 0.055218
+Iter: 20, Loss: 0.050115
+Iter: 30, Loss: 0.076078
+Iter: 40, Loss: 0.102627
+--------------------------- EPOCH:185/4000 ---------------------------
+Iter: 0, Loss: 0.090825
+Iter: 10, Loss: 0.080723
+Iter: 20, Loss: 0.061504
+Iter: 30, Loss: 0.057971
+Iter: 40, Loss: 0.090684
+--------------------------- EPOCH:186/4000 ---------------------------
+Iter: 0, Loss: 0.092611
+Iter: 10, Loss: 0.087434
+Iter: 20, Loss: 0.078729
+Iter: 30, Loss: 0.091811
+Iter: 40, Loss: 0.099348
+--------------------------- EPOCH:187/4000 ---------------------------
+Iter: 0, Loss: 0.082936
+Iter: 10, Loss: 0.069760
+Iter: 20, Loss: 0.062294
+Iter: 30, Loss: 0.103365
+Iter: 40, Loss: 0.070963
+--------------------------- EPOCH:188/4000 ---------------------------
+Iter: 0, Loss: 0.077054
+Iter: 10, Loss: 0.082460
+Iter: 20, Loss: 0.066015
+Iter: 30, Loss: 0.050255
+Iter: 40, Loss: 0.054066
+--------------------------- EPOCH:189/4000 ---------------------------
+Iter: 0, Loss: 0.083853
+Iter: 10, Loss: 0.097258
+Iter: 20, Loss: 0.066347
+Iter: 30, Loss: 0.089189
+Iter: 40, Loss: 0.051221
+--------------------------- EPOCH:190/4000 ---------------------------
+Iter: 0, Loss: 0.091294
+Iter: 10, Loss: 0.087417
+Iter: 20, Loss: 0.060225
+Iter: 30, Loss: 0.100755
+Iter: 40, Loss: 0.097037
+--------------------------- EPOCH:191/4000 ---------------------------
+Iter: 0, Loss: 0.090874
+Iter: 10, Loss: 0.059138
+Iter: 20, Loss: 0.064177
+Iter: 30, Loss: 0.060844
+Iter: 40, Loss: 0.061110
+--------------------------- EPOCH:192/4000 ---------------------------
+Iter: 0, Loss: 0.089068
+Iter: 10, Loss: 0.090737
+Iter: 20, Loss: 0.072869
+Iter: 30, Loss: 0.112722
+Iter: 40, Loss: 0.101936
+--------------------------- EPOCH:193/4000 ---------------------------
+Iter: 0, Loss: 0.056718
+Iter: 10, Loss: 0.160593
+Iter: 20, Loss: 0.094538
+Iter: 30, Loss: 0.055190
+Iter: 40, Loss: 0.066697
+--------------------------- EPOCH:194/4000 ---------------------------
+Iter: 0, Loss: 0.062110
+Iter: 10, Loss: 0.079200
+Iter: 20, Loss: 0.071739
+Iter: 30, Loss: 0.099268
+Iter: 40, Loss: 0.073323
+--------------------------- EPOCH:195/4000 ---------------------------
+Iter: 0, Loss: 0.053557
+Iter: 10, Loss: 0.064374
+Iter: 20, Loss: 0.097624
+Iter: 30, Loss: 0.082889
+Iter: 40, Loss: 0.077392
+--------------------------- EPOCH:196/4000 ---------------------------
+Iter: 0, Loss: 0.071158
+Iter: 10, Loss: 0.075596
+Iter: 20, Loss: 0.096255
+Iter: 30, Loss: 0.102805
+Iter: 40, Loss: 0.090218
+--------------------------- EPOCH:197/4000 ---------------------------
+Iter: 0, Loss: 0.067730
+Iter: 10, Loss: 0.075934
+Iter: 20, Loss: 0.079254
+Iter: 30, Loss: 0.088856
+Iter: 40, Loss: 0.086931
+--------------------------- EPOCH:198/4000 ---------------------------
+Iter: 0, Loss: 0.118319
+Iter: 10, Loss: 0.073112
+Iter: 20, Loss: 0.088076
+Iter: 30, Loss: 0.049597
+Iter: 40, Loss: 0.085623
+--------------------------- EPOCH:199/4000 ---------------------------
+Iter: 0, Loss: 0.080428
+Iter: 10, Loss: 0.097180
+Iter: 20, Loss: 0.071828
+Iter: 30, Loss: 0.078081
+Iter: 40, Loss: 0.096463
+--------------------------- EPOCH:200/4000 ---------------------------
+Iter: 0, Loss: 0.069093
+Iter: 10, Loss: 0.141264
+Iter: 20, Loss: 0.091473
+Iter: 30, Loss: 0.084189
+Iter: 40, Loss: 0.066606
+--------------------------- EPOCH:201/4000 ---------------------------
+Iter: 0, Loss: 0.091877
+Iter: 10, Loss: 0.060671
+Iter: 20, Loss: 0.082103
+Iter: 30, Loss: 0.040905
+Iter: 40, Loss: 0.078811
+--------------------------- EPOCH:202/4000 ---------------------------
+Iter: 0, Loss: 0.090555
+Iter: 10, Loss: 0.078120
+Iter: 20, Loss: 0.076695
+Iter: 30, Loss: 0.067421
+Iter: 40, Loss: 0.072480
+--------------------------- EPOCH:203/4000 ---------------------------
+Iter: 0, Loss: 0.045760
+Iter: 10, Loss: 0.077912
+Iter: 20, Loss: 0.087868
+Iter: 30, Loss: 0.118665
+Iter: 40, Loss: 0.072084
+--------------------------- EPOCH:204/4000 ---------------------------
+Iter: 0, Loss: 0.131634
+Iter: 10, Loss: 0.071305
+Iter: 20, Loss: 0.095811
+Iter: 30, Loss: 0.067743
+Iter: 40, Loss: 0.049535
+--------------------------- EPOCH:205/4000 ---------------------------
+Iter: 0, Loss: 0.089448
+Iter: 10, Loss: 0.051996
+Iter: 20, Loss: 0.056176
+Iter: 30, Loss: 0.044318
+Iter: 40, Loss: 0.089774
+--------------------------- EPOCH:206/4000 ---------------------------
+Iter: 0, Loss: 0.088775
+Iter: 10, Loss: 0.072800
+Iter: 20, Loss: 0.088360
+Iter: 30, Loss: 0.055780
+Iter: 40, Loss: 0.091134
+--------------------------- EPOCH:207/4000 ---------------------------
+Iter: 0, Loss: 0.071392
+Iter: 10, Loss: 0.078736
+Iter: 20, Loss: 0.086184
+Iter: 30, Loss: 0.107496
+Iter: 40, Loss: 0.084958
+--------------------------- EPOCH:208/4000 ---------------------------
+Iter: 0, Loss: 0.117211
+Iter: 10, Loss: 0.091767
+Iter: 20, Loss: 0.073092
+Iter: 30, Loss: 0.067440
+Iter: 40, Loss: 0.051841
+--------------------------- EPOCH:209/4000 ---------------------------
+Iter: 0, Loss: 0.069151
+Iter: 10, Loss: 0.105701
+Iter: 20, Loss: 0.113447
+Iter: 30, Loss: 0.063949
+Iter: 40, Loss: 0.067517
+--------------------------- EPOCH:210/4000 ---------------------------
+Iter: 0, Loss: 0.077384
+Iter: 10, Loss: 0.115528
+Iter: 20, Loss: 0.065012
+Iter: 30, Loss: 0.086107
+Iter: 40, Loss: 0.087407
+--------------------------- EPOCH:211/4000 ---------------------------
+Iter: 0, Loss: 0.081533
+Iter: 10, Loss: 0.130089
+Iter: 20, Loss: 0.067394
+Iter: 30, Loss: 0.073415
+Iter: 40, Loss: 0.054869
+--------------------------- EPOCH:212/4000 ---------------------------
+Iter: 0, Loss: 0.056126
+Iter: 10, Loss: 0.063961
+Iter: 20, Loss: 0.065237
+Iter: 30, Loss: 0.061841
+Iter: 40, Loss: 0.076726
+--------------------------- EPOCH:213/4000 ---------------------------
+Iter: 0, Loss: 0.060134
+Iter: 10, Loss: 0.088035
+Iter: 20, Loss: 0.076015
+Iter: 30, Loss: 0.099759
+Iter: 40, Loss: 0.111632
+--------------------------- EPOCH:214/4000 ---------------------------
+Iter: 0, Loss: 0.101811
+Iter: 10, Loss: 0.068921
+Iter: 20, Loss: 0.070060
+Iter: 30, Loss: 0.111306
+Iter: 40, Loss: 0.070561
+--------------------------- EPOCH:215/4000 ---------------------------
+Iter: 0, Loss: 0.099686
+Iter: 10, Loss: 0.054458
+Iter: 20, Loss: 0.049588
+Iter: 30, Loss: 0.078443
+Iter: 40, Loss: 0.081964
+--------------------------- EPOCH:216/4000 ---------------------------
+Iter: 0, Loss: 0.075833
+Iter: 10, Loss: 0.071535
+Iter: 20, Loss: 0.088314
+Iter: 30, Loss: 0.074071
+Iter: 40, Loss: 0.055183
+--------------------------- EPOCH:217/4000 ---------------------------
+Iter: 0, Loss: 0.068505
+Iter: 10, Loss: 0.074205
+Iter: 20, Loss: 0.084374
+Iter: 30, Loss: 0.056082
+Iter: 40, Loss: 0.064059
+--------------------------- EPOCH:218/4000 ---------------------------
+Iter: 0, Loss: 0.067534
+Iter: 10, Loss: 0.070348
+Iter: 20, Loss: 0.070482
+Iter: 30, Loss: 0.082496
+Iter: 40, Loss: 0.092361
+--------------------------- EPOCH:219/4000 ---------------------------
+Iter: 0, Loss: 0.090098
+Iter: 10, Loss: 0.041474
+Iter: 20, Loss: 0.101567
+Iter: 30, Loss: 0.051904
+Iter: 40, Loss: 0.094960
+--------------------------- EPOCH:220/4000 ---------------------------
+Iter: 0, Loss: 0.066560
+Iter: 10, Loss: 0.059778
+Iter: 20, Loss: 0.047320
+Iter: 30, Loss: 0.067182
+Iter: 40, Loss: 0.080653
+--------------------------- EPOCH:221/4000 ---------------------------
+Iter: 0, Loss: 0.071965
+Iter: 10, Loss: 0.096750
+Iter: 20, Loss: 0.095282
+Iter: 30, Loss: 0.068476
+Iter: 40, Loss: 0.073025
+--------------------------- EPOCH:222/4000 ---------------------------
+Iter: 0, Loss: 0.092010
+Iter: 10, Loss: 0.071260
+Iter: 20, Loss: 0.068329
+Iter: 30, Loss: 0.085921
+Iter: 40, Loss: 0.064320
+--------------------------- EPOCH:223/4000 ---------------------------
+Iter: 0, Loss: 0.085197
+Iter: 10, Loss: 0.077868
+Iter: 20, Loss: 0.113166
+Iter: 30, Loss: 0.061997
+Iter: 40, Loss: 0.064345
+--------------------------- EPOCH:224/4000 ---------------------------
+Iter: 0, Loss: 0.069754
+Iter: 10, Loss: 0.069933
+Iter: 20, Loss: 0.089530
+Iter: 30, Loss: 0.080551
+Iter: 40, Loss: 0.098499
+--------------------------- EPOCH:225/4000 ---------------------------
+Iter: 0, Loss: 0.054485
+Iter: 10, Loss: 0.070833
+Iter: 20, Loss: 0.072444
+Iter: 30, Loss: 0.073118
+Iter: 40, Loss: 0.062690
+--------------------------- EPOCH:226/4000 ---------------------------
+Iter: 0, Loss: 0.063872
+Iter: 10, Loss: 0.070244
+Iter: 20, Loss: 0.055172
+Iter: 30, Loss: 0.067595
+Iter: 40, Loss: 0.067517
+--------------------------- EPOCH:227/4000 ---------------------------
+Iter: 0, Loss: 0.077381
+Iter: 10, Loss: 0.060887
+Iter: 20, Loss: 0.078052
+Iter: 30, Loss: 0.084437
+Iter: 40, Loss: 0.067304
+--------------------------- EPOCH:228/4000 ---------------------------
+Iter: 0, Loss: 0.063339
+Iter: 10, Loss: 0.098261
+Iter: 20, Loss: 0.065927
+Iter: 30, Loss: 0.094604
+Iter: 40, Loss: 0.068926
+--------------------------- EPOCH:229/4000 ---------------------------
+Iter: 0, Loss: 0.103593
+Iter: 10, Loss: 0.064848
+Iter: 20, Loss: 0.072531
+Iter: 30, Loss: 0.066702
+Iter: 40, Loss: 0.086585
+--------------------------- EPOCH:230/4000 ---------------------------
+Iter: 0, Loss: 0.056338
+Iter: 10, Loss: 0.052423
+Iter: 20, Loss: 0.077737
+Iter: 30, Loss: 0.076371
+Iter: 40, Loss: 0.064599
+--------------------------- EPOCH:231/4000 ---------------------------
+Iter: 0, Loss: 0.068802
+Iter: 10, Loss: 0.080413
+Iter: 20, Loss: 0.086222
+Iter: 30, Loss: 0.065272
+Iter: 40, Loss: 0.068960
+--------------------------- EPOCH:232/4000 ---------------------------
+Iter: 0, Loss: 0.079760
+Iter: 10, Loss: 0.062837
+Iter: 20, Loss: 0.090163
+Iter: 30, Loss: 0.062515
+Iter: 40, Loss: 0.086549
+--------------------------- EPOCH:233/4000 ---------------------------
+Iter: 0, Loss: 0.082251
+Iter: 10, Loss: 0.083470
+Iter: 20, Loss: 0.068271
+Iter: 30, Loss: 0.090838
+Iter: 40, Loss: 0.096241
+--------------------------- EPOCH:234/4000 ---------------------------
+Iter: 0, Loss: 0.069527
+Iter: 10, Loss: 0.090217
+Iter: 20, Loss: 0.058740
+Iter: 30, Loss: 0.050795
+Iter: 40, Loss: 0.069826
+--------------------------- EPOCH:235/4000 ---------------------------
+Iter: 0, Loss: 0.074379
+Iter: 10, Loss: 0.071268
+Iter: 20, Loss: 0.086104
+Iter: 30, Loss: 0.076394
+Iter: 40, Loss: 0.102213
+--------------------------- EPOCH:236/4000 ---------------------------
+Iter: 0, Loss: 0.076320
+Iter: 10, Loss: 0.065391
+Iter: 20, Loss: 0.065999
+Iter: 30, Loss: 0.063614
+Iter: 40, Loss: 0.062629
+--------------------------- EPOCH:237/4000 ---------------------------
+Iter: 0, Loss: 0.081474
+Iter: 10, Loss: 0.063207
+Iter: 20, Loss: 0.078198
+Iter: 30, Loss: 0.084431
+Iter: 40, Loss: 0.086004
+--------------------------- EPOCH:238/4000 ---------------------------
+Iter: 0, Loss: 0.065010
+Iter: 10, Loss: 0.092031
+Iter: 20, Loss: 0.068825
+Iter: 30, Loss: 0.078975
+Iter: 40, Loss: 0.042629
+--------------------------- EPOCH:239/4000 ---------------------------
+Iter: 0, Loss: 0.072518
+Iter: 10, Loss: 0.053313
+Iter: 20, Loss: 0.041303
+Iter: 30, Loss: 0.056723
+Iter: 40, Loss: 0.048757
+--------------------------- EPOCH:240/4000 ---------------------------
+Iter: 0, Loss: 0.093984
+Iter: 10, Loss: 0.064280
+Iter: 20, Loss: 0.098017
+Iter: 30, Loss: 0.077007
+Iter: 40, Loss: 0.075242
+--------------------------- EPOCH:241/4000 ---------------------------
+Iter: 0, Loss: 0.071600
+Iter: 10, Loss: 0.103724
+Iter: 20, Loss: 0.067409
+Iter: 30, Loss: 0.061319
+Iter: 40, Loss: 0.081817
+--------------------------- EPOCH:242/4000 ---------------------------
+Iter: 0, Loss: 0.060559
+Iter: 10, Loss: 0.077028
+Iter: 20, Loss: 0.062413
+Iter: 30, Loss: 0.062243
+Iter: 40, Loss: 0.056398
+--------------------------- EPOCH:243/4000 ---------------------------
+Iter: 0, Loss: 0.090439
+Iter: 10, Loss: 0.088222
+Iter: 20, Loss: 0.083478
+Iter: 30, Loss: 0.114348
+Iter: 40, Loss: 0.053336
+--------------------------- EPOCH:244/4000 ---------------------------
+Iter: 0, Loss: 0.095885
+Iter: 10, Loss: 0.078920
+Iter: 20, Loss: 0.077773
+Iter: 30, Loss: 0.077891
+Iter: 40, Loss: 0.072263
+--------------------------- EPOCH:245/4000 ---------------------------
+Iter: 0, Loss: 0.078704
+Iter: 10, Loss: 0.084895
+Iter: 20, Loss: 0.076423
+Iter: 30, Loss: 0.086047
+Iter: 40, Loss: 0.086086
+--------------------------- EPOCH:246/4000 ---------------------------
+Iter: 0, Loss: 0.066594
+Iter: 10, Loss: 0.050505
+Iter: 20, Loss: 0.090019
+Iter: 30, Loss: 0.083736
+Iter: 40, Loss: 0.090419
+--------------------------- EPOCH:247/4000 ---------------------------
+Iter: 0, Loss: 0.094925
+Iter: 10, Loss: 0.066585
+Iter: 20, Loss: 0.054494
+Iter: 30, Loss: 0.075212
+Iter: 40, Loss: 0.047124
+--------------------------- EPOCH:248/4000 ---------------------------
+Iter: 0, Loss: 0.086323
+Iter: 10, Loss: 0.125704
+Iter: 20, Loss: 0.082544
+Iter: 30, Loss: 0.080849
+Iter: 40, Loss: 0.066086
+--------------------------- EPOCH:249/4000 ---------------------------
+Iter: 0, Loss: 0.096983
+Iter: 10, Loss: 0.063854
+Iter: 20, Loss: 0.100459
+Iter: 30, Loss: 0.074212
+Iter: 40, Loss: 0.087970
+--------------------------- EPOCH:250/4000 ---------------------------
+Iter: 0, Loss: 0.076700
+Iter: 10, Loss: 0.056284
+Iter: 20, Loss: 0.080197
+Iter: 30, Loss: 0.092141
+Iter: 40, Loss: 0.075052
+--------------------------- EPOCH:251/4000 ---------------------------
+Iter: 0, Loss: 0.077942
+Iter: 10, Loss: 0.058464
+Iter: 20, Loss: 0.059252
+Iter: 30, Loss: 0.126759
+Iter: 40, Loss: 0.087296
+--------------------------- EPOCH:252/4000 ---------------------------
+Iter: 0, Loss: 0.102251
+Iter: 10, Loss: 0.093679
+Iter: 20, Loss: 0.097750
+Iter: 30, Loss: 0.056394
+Iter: 40, Loss: 0.147165
+--------------------------- EPOCH:253/4000 ---------------------------
+Iter: 0, Loss: 0.091257
+Iter: 10, Loss: 0.076260
+Iter: 20, Loss: 0.063692
+Iter: 30, Loss: 0.072153
+Iter: 40, Loss: 0.090741
+--------------------------- EPOCH:254/4000 ---------------------------
+Iter: 0, Loss: 0.073268
+Iter: 10, Loss: 0.084854
+Iter: 20, Loss: 0.057067
+Iter: 30, Loss: 0.057852
+Iter: 40, Loss: 0.071456
+--------------------------- EPOCH:255/4000 ---------------------------
+Iter: 0, Loss: 0.076187
+Iter: 10, Loss: 0.069785
+Iter: 20, Loss: 0.087349
+Iter: 30, Loss: 0.089330
+Iter: 40, Loss: 0.063989
+--------------------------- EPOCH:256/4000 ---------------------------
+Iter: 0, Loss: 0.077723
+Iter: 10, Loss: 0.057574
+Iter: 20, Loss: 0.071083
+Iter: 30, Loss: 0.046960
+Iter: 40, Loss: 0.073293
+--------------------------- EPOCH:257/4000 ---------------------------
+Iter: 0, Loss: 0.075592
+Iter: 10, Loss: 0.078327
+Iter: 20, Loss: 0.077471
+Iter: 30, Loss: 0.097658
+Iter: 40, Loss: 0.095339
+--------------------------- EPOCH:258/4000 ---------------------------
+Iter: 0, Loss: 0.091938
+Iter: 10, Loss: 0.079984
+Iter: 20, Loss: 0.046775
+Iter: 30, Loss: 0.064023
+Iter: 40, Loss: 0.079011
+--------------------------- EPOCH:259/4000 ---------------------------
+Iter: 0, Loss: 0.082339
+Iter: 10, Loss: 0.089973
+Iter: 20, Loss: 0.032501
+Iter: 30, Loss: 0.068767
+Iter: 40, Loss: 0.096770
+--------------------------- EPOCH:260/4000 ---------------------------
+Iter: 0, Loss: 0.085119
+Iter: 10, Loss: 0.078218
+Iter: 20, Loss: 0.066688
+Iter: 30, Loss: 0.054458
+Iter: 40, Loss: 0.066935
+--------------------------- EPOCH:261/4000 ---------------------------
+Iter: 0, Loss: 0.059888
+Iter: 10, Loss: 0.080186
+Iter: 20, Loss: 0.073218
+Iter: 30, Loss: 0.044636
+Iter: 40, Loss: 0.044611
+--------------------------- EPOCH:262/4000 ---------------------------
+Iter: 0, Loss: 0.065714
+Iter: 10, Loss: 0.050208
+Iter: 20, Loss: 0.045874
+Iter: 30, Loss: 0.074152
+Iter: 40, Loss: 0.090403
+--------------------------- EPOCH:263/4000 ---------------------------
+Iter: 0, Loss: 0.070171
+Iter: 10, Loss: 0.066042
+Iter: 20, Loss: 0.050072
+Iter: 30, Loss: 0.067172
+Iter: 40, Loss: 0.087059
+--------------------------- EPOCH:264/4000 ---------------------------
+Iter: 0, Loss: 0.097716
+Iter: 10, Loss: 0.077790
+Iter: 20, Loss: 0.108068
+Iter: 30, Loss: 0.074013
+Iter: 40, Loss: 0.078858
+--------------------------- EPOCH:265/4000 ---------------------------
+Iter: 0, Loss: 0.065872
+Iter: 10, Loss: 0.093096
+Iter: 20, Loss: 0.076530
+Iter: 30, Loss: 0.093096
+Iter: 40, Loss: 0.068927
+--------------------------- EPOCH:266/4000 ---------------------------
+Iter: 0, Loss: 0.143297
+Iter: 10, Loss: 0.110960
+Iter: 20, Loss: 0.084149
+Iter: 30, Loss: 0.108888
+Iter: 40, Loss: 0.065780
+--------------------------- EPOCH:267/4000 ---------------------------
+Iter: 0, Loss: 0.090935
+Iter: 10, Loss: 0.058466
+Iter: 20, Loss: 0.134124
+Iter: 30, Loss: 0.050504
+Iter: 40, Loss: 0.087363
+--------------------------- EPOCH:268/4000 ---------------------------
+Iter: 0, Loss: 0.094843
+Iter: 10, Loss: 0.082305
+Iter: 20, Loss: 0.058195
+Iter: 30, Loss: 0.052517
+Iter: 40, Loss: 0.083904
+--------------------------- EPOCH:269/4000 ---------------------------
+Iter: 0, Loss: 0.062923
+Iter: 10, Loss: 0.057018
+Iter: 20, Loss: 0.080312
+Iter: 30, Loss: 0.075882
+Iter: 40, Loss: 0.108236
+--------------------------- EPOCH:270/4000 ---------------------------
+Iter: 0, Loss: 0.083984
+Iter: 10, Loss: 0.057965
+Iter: 20, Loss: 0.056465
+Iter: 30, Loss: 0.078934
+Iter: 40, Loss: 0.075614
+--------------------------- EPOCH:271/4000 ---------------------------
+Iter: 0, Loss: 0.053851
+Iter: 10, Loss: 0.075030
+Iter: 20, Loss: 0.049544
+Iter: 30, Loss: 0.099070
+Iter: 40, Loss: 0.045992
+--------------------------- EPOCH:272/4000 ---------------------------
+Iter: 0, Loss: 0.069671
+Iter: 10, Loss: 0.085076
+Iter: 20, Loss: 0.069592
+Iter: 30, Loss: 0.065262
+Iter: 40, Loss: 0.069118
+--------------------------- EPOCH:273/4000 ---------------------------
+Iter: 0, Loss: 0.079351
+Iter: 10, Loss: 0.074787
+Iter: 20, Loss: 0.079711
+Iter: 30, Loss: 0.077536
+Iter: 40, Loss: 0.053481
+--------------------------- EPOCH:274/4000 ---------------------------
+Iter: 0, Loss: 0.063111
+Iter: 10, Loss: 0.072916
+Iter: 20, Loss: 0.053126
+Iter: 30, Loss: 0.067261
+Iter: 40, Loss: 0.045683
+--------------------------- EPOCH:275/4000 ---------------------------
+Iter: 0, Loss: 0.057539
+Iter: 10, Loss: 0.082020
+Iter: 20, Loss: 0.116964
+Iter: 30, Loss: 0.072836
+Iter: 40, Loss: 0.057641
+--------------------------- EPOCH:276/4000 ---------------------------
+Iter: 0, Loss: 0.080349
+Iter: 10, Loss: 0.071179
+Iter: 20, Loss: 0.086063
+Iter: 30, Loss: 0.095895
+Iter: 40, Loss: 0.036720
+--------------------------- EPOCH:277/4000 ---------------------------
+Iter: 0, Loss: 0.100064
+Iter: 10, Loss: 0.080345
+Iter: 20, Loss: 0.114109
+Iter: 30, Loss: 0.050317
+Iter: 40, Loss: 0.100453
+--------------------------- EPOCH:278/4000 ---------------------------
+Iter: 0, Loss: 0.066582
+Iter: 10, Loss: 0.084199
+Iter: 20, Loss: 0.054600
+Iter: 30, Loss: 0.067228
+Iter: 40, Loss: 0.071956
+--------------------------- EPOCH:279/4000 ---------------------------
+Iter: 0, Loss: 0.105276
+Iter: 10, Loss: 0.068315
+Iter: 20, Loss: 0.088853
+Iter: 30, Loss: 0.045578
+Iter: 40, Loss: 0.081759
+--------------------------- EPOCH:280/4000 ---------------------------
+Iter: 0, Loss: 0.097209
+Iter: 10, Loss: 0.103154
+Iter: 20, Loss: 0.033149
+Iter: 30, Loss: 0.093560
+Iter: 40, Loss: 0.064260
+--------------------------- EPOCH:281/4000 ---------------------------
+Iter: 0, Loss: 0.050315
+Iter: 10, Loss: 0.065194
+Iter: 20, Loss: 0.062196
+Iter: 30, Loss: 0.072712
+Iter: 40, Loss: 0.038226
+--------------------------- EPOCH:282/4000 ---------------------------
+Iter: 0, Loss: 0.067947
+Iter: 10, Loss: 0.072682
+Iter: 20, Loss: 0.073257
+Iter: 30, Loss: 0.073080
+Iter: 40, Loss: 0.089902
+--------------------------- EPOCH:283/4000 ---------------------------
+Iter: 0, Loss: 0.097619
+Iter: 10, Loss: 0.092198
+Iter: 20, Loss: 0.072908
+Iter: 30, Loss: 0.045538
+Iter: 40, Loss: 0.082239
+--------------------------- EPOCH:284/4000 ---------------------------
+Iter: 0, Loss: 0.055502
+Iter: 10, Loss: 0.046761
+Iter: 20, Loss: 0.087307
+Iter: 30, Loss: 0.079394
+Iter: 40, Loss: 0.084498
+--------------------------- EPOCH:285/4000 ---------------------------
+Iter: 0, Loss: 0.090769
+Iter: 10, Loss: 0.074205
+Iter: 20, Loss: 0.073734
+Iter: 30, Loss: 0.060556
+Iter: 40, Loss: 0.071286
+--------------------------- EPOCH:286/4000 ---------------------------
+Iter: 0, Loss: 0.070755
+Iter: 10, Loss: 0.066969
+Iter: 20, Loss: 0.079062
+Iter: 30, Loss: 0.066478
+Iter: 40, Loss: 0.076764
+--------------------------- EPOCH:287/4000 ---------------------------
+Iter: 0, Loss: 0.058213
+Iter: 10, Loss: 0.055020
+Iter: 20, Loss: 0.070938
+Iter: 30, Loss: 0.055647
+Iter: 40, Loss: 0.098929
+--------------------------- EPOCH:288/4000 ---------------------------
+Iter: 0, Loss: 0.103192
+Iter: 10, Loss: 0.082795
+Iter: 20, Loss: 0.062138
+Iter: 30, Loss: 0.069230
+Iter: 40, Loss: 0.079039
+--------------------------- EPOCH:289/4000 ---------------------------
+Iter: 0, Loss: 0.083787
+Iter: 10, Loss: 0.075564
+Iter: 20, Loss: 0.077475
+Iter: 30, Loss: 0.066096
+Iter: 40, Loss: 0.063749
+--------------------------- EPOCH:290/4000 ---------------------------
+Iter: 0, Loss: 0.061367
+Iter: 10, Loss: 0.075741
+Iter: 20, Loss: 0.054178
+Iter: 30, Loss: 0.081798
+Iter: 40, Loss: 0.087248
+--------------------------- EPOCH:291/4000 ---------------------------
+Iter: 0, Loss: 0.077435
+Iter: 10, Loss: 0.083711
+Iter: 20, Loss: 0.061163
+Iter: 30, Loss: 0.072868
+Iter: 40, Loss: 0.053252
+--------------------------- EPOCH:292/4000 ---------------------------
+Iter: 0, Loss: 0.090966
+Iter: 10, Loss: 0.082148
+Iter: 20, Loss: 0.065974
+Iter: 30, Loss: 0.064829
+Iter: 40, Loss: 0.080350
+--------------------------- EPOCH:293/4000 ---------------------------
+Iter: 0, Loss: 0.073722
+Iter: 10, Loss: 0.073557
+Iter: 20, Loss: 0.060573
+Iter: 30, Loss: 0.081344
+Iter: 40, Loss: 0.048805
+--------------------------- EPOCH:294/4000 ---------------------------
+Iter: 0, Loss: 0.098087
+Iter: 10, Loss: 0.059847
+Iter: 20, Loss: 0.057946
+Iter: 30, Loss: 0.080293
+Iter: 40, Loss: 0.077824
+--------------------------- EPOCH:295/4000 ---------------------------
+Iter: 0, Loss: 0.063264
+Iter: 10, Loss: 0.073678
+Iter: 20, Loss: 0.095265
+Iter: 30, Loss: 0.060939
+Iter: 40, Loss: 0.107981
+--------------------------- EPOCH:296/4000 ---------------------------
+Iter: 0, Loss: 0.089441
+Iter: 10, Loss: 0.071872
+Iter: 20, Loss: 0.067674
+Iter: 30, Loss: 0.071052
+Iter: 40, Loss: 0.092174
+--------------------------- EPOCH:297/4000 ---------------------------
+Iter: 0, Loss: 0.082085
+Iter: 10, Loss: 0.065871
+Iter: 20, Loss: 0.100466
+Iter: 30, Loss: 0.088625
+Iter: 40, Loss: 0.091424
+--------------------------- EPOCH:298/4000 ---------------------------
+Iter: 0, Loss: 0.065183
+Iter: 10, Loss: 0.075293
+Iter: 20, Loss: 0.062301
+Iter: 30, Loss: 0.076356
+Iter: 40, Loss: 0.064556
+--------------------------- EPOCH:299/4000 ---------------------------
+Iter: 0, Loss: 0.071643
+Iter: 10, Loss: 0.092294
+Iter: 20, Loss: 0.067264
+Iter: 30, Loss: 0.097972
+Iter: 40, Loss: 0.075774
+--------------------------- EPOCH:300/4000 ---------------------------
+Iter: 0, Loss: 0.065425
+Iter: 10, Loss: 0.042716
+Iter: 20, Loss: 0.040419
+Iter: 30, Loss: 0.091992
+Iter: 40, Loss: 0.081613
+--------------------------- EPOCH:301/4000 ---------------------------
+Iter: 0, Loss: 0.055344
+Iter: 10, Loss: 0.074059
+Iter: 20, Loss: 0.073162
+Iter: 30, Loss: 0.081540
+Iter: 40, Loss: 0.061355
+--------------------------- EPOCH:302/4000 ---------------------------
+Iter: 0, Loss: 0.055974
+Iter: 10, Loss: 0.077457
+Iter: 20, Loss: 0.088893
+Iter: 30, Loss: 0.089218
+Iter: 40, Loss: 0.063997
+--------------------------- EPOCH:303/4000 ---------------------------
+Iter: 0, Loss: 0.083100
+Iter: 10, Loss: 0.066164
+Iter: 20, Loss: 0.060575
+Iter: 30, Loss: 0.074782
+Iter: 40, Loss: 0.081117
+--------------------------- EPOCH:304/4000 ---------------------------
+Iter: 0, Loss: 0.070467
+Iter: 10, Loss: 0.057751
+Iter: 20, Loss: 0.059263
+Iter: 30, Loss: 0.073808
+Iter: 40, Loss: 0.088125
+--------------------------- EPOCH:305/4000 ---------------------------
+Iter: 0, Loss: 0.051588
+Iter: 10, Loss: 0.069773
+Iter: 20, Loss: 0.070150
+Iter: 30, Loss: 0.074671
+Iter: 40, Loss: 0.124876
+--------------------------- EPOCH:306/4000 ---------------------------
+Iter: 0, Loss: 0.073000
+Iter: 10, Loss: 0.055944
+Iter: 20, Loss: 0.062216
+Iter: 30, Loss: 0.065768
+Iter: 40, Loss: 0.079305
+--------------------------- EPOCH:307/4000 ---------------------------
+Iter: 0, Loss: 0.101894
+Iter: 10, Loss: 0.075091
+Iter: 20, Loss: 0.121487
+Iter: 30, Loss: 0.079442
+Iter: 40, Loss: 0.060373
+--------------------------- EPOCH:308/4000 ---------------------------
+Iter: 0, Loss: 0.068955
+Iter: 10, Loss: 0.058524
+Iter: 20, Loss: 0.061669
+Iter: 30, Loss: 0.058562
+Iter: 40, Loss: 0.047653
+--------------------------- EPOCH:309/4000 ---------------------------
+Iter: 0, Loss: 0.036300
+Iter: 10, Loss: 0.065594
+Iter: 20, Loss: 0.054896
+Iter: 30, Loss: 0.043993
+Iter: 40, Loss: 0.048142
+--------------------------- EPOCH:310/4000 ---------------------------
+Iter: 0, Loss: 0.058602
+Iter: 10, Loss: 0.112197
+Iter: 20, Loss: 0.073175
+Iter: 30, Loss: 0.061560
+Iter: 40, Loss: 0.051113
+--------------------------- EPOCH:311/4000 ---------------------------
+Iter: 0, Loss: 0.047015
+Iter: 10, Loss: 0.093308
+Iter: 20, Loss: 0.073954
+Iter: 30, Loss: 0.059047
+Iter: 40, Loss: 0.054908
+--------------------------- EPOCH:312/4000 ---------------------------
+Iter: 0, Loss: 0.070357
+Iter: 10, Loss: 0.068081
+Iter: 20, Loss: 0.052361
+Iter: 30, Loss: 0.060507
+Iter: 40, Loss: 0.090835
+--------------------------- EPOCH:313/4000 ---------------------------
+Iter: 0, Loss: 0.055851
+Iter: 10, Loss: 0.080351
+Iter: 20, Loss: 0.083332
+Iter: 30, Loss: 0.059549
+Iter: 40, Loss: 0.060575
+--------------------------- EPOCH:314/4000 ---------------------------
+Iter: 0, Loss: 0.118664
+Iter: 10, Loss: 0.097810
+Iter: 20, Loss: 0.081384
+Iter: 30, Loss: 0.052402
+Iter: 40, Loss: 0.080591
+--------------------------- EPOCH:315/4000 ---------------------------
+Iter: 0, Loss: 0.074354
+Iter: 10, Loss: 0.103115
+Iter: 20, Loss: 0.072745
+Iter: 30, Loss: 0.102494
+Iter: 40, Loss: 0.079196
+--------------------------- EPOCH:316/4000 ---------------------------
+Iter: 0, Loss: 0.065466
+Iter: 10, Loss: 0.103994
+Iter: 20, Loss: 0.057314
+Iter: 30, Loss: 0.077024
+Iter: 40, Loss: 0.075560
+--------------------------- EPOCH:317/4000 ---------------------------
+Iter: 0, Loss: 0.086117
+Iter: 10, Loss: 0.073267
+Iter: 20, Loss: 0.081226
+Iter: 30, Loss: 0.070341
+Iter: 40, Loss: 0.066885
+--------------------------- EPOCH:318/4000 ---------------------------
+Iter: 0, Loss: 0.094516
+Iter: 10, Loss: 0.063824
+Iter: 20, Loss: 0.058314
+Iter: 30, Loss: 0.116126
+Iter: 40, Loss: 0.060348
+--------------------------- EPOCH:319/4000 ---------------------------
+Iter: 0, Loss: 0.056394
+Iter: 10, Loss: 0.076116
+Iter: 20, Loss: 0.066227
+Iter: 30, Loss: 0.064557
+Iter: 40, Loss: 0.053782
+--------------------------- EPOCH:320/4000 ---------------------------
+Iter: 0, Loss: 0.067402
+Iter: 10, Loss: 0.052886
+Iter: 20, Loss: 0.112098
+Iter: 30, Loss: 0.100180
+Iter: 40, Loss: 0.083324
+--------------------------- EPOCH:321/4000 ---------------------------
+Iter: 0, Loss: 0.071308
+Iter: 10, Loss: 0.060424
+Iter: 20, Loss: 0.087372
+Iter: 30, Loss: 0.094941
+Iter: 40, Loss: 0.055358
+--------------------------- EPOCH:322/4000 ---------------------------
+Iter: 0, Loss: 0.063503
+Iter: 10, Loss: 0.067886
+Iter: 20, Loss: 0.094674
+Iter: 30, Loss: 0.061930
+Iter: 40, Loss: 0.052776
+--------------------------- EPOCH:323/4000 ---------------------------
+Iter: 0, Loss: 0.067107
+Iter: 10, Loss: 0.086196
+Iter: 20, Loss: 0.092921
+Iter: 30, Loss: 0.060320
+Iter: 40, Loss: 0.072625
+--------------------------- EPOCH:324/4000 ---------------------------
+Iter: 0, Loss: 0.064101
+Iter: 10, Loss: 0.113179
+Iter: 20, Loss: 0.043523
+Iter: 30, Loss: 0.092153
+Iter: 40, Loss: 0.066718
+--------------------------- EPOCH:325/4000 ---------------------------
+Iter: 0, Loss: 0.095664
+Iter: 10, Loss: 0.081772
+Iter: 20, Loss: 0.078991
+Iter: 30, Loss: 0.071403
+Iter: 40, Loss: 0.078600
+--------------------------- EPOCH:326/4000 ---------------------------
+Iter: 0, Loss: 0.071958
+Iter: 10, Loss: 0.056250
+Iter: 20, Loss: 0.074300
+Iter: 30, Loss: 0.063543
+Iter: 40, Loss: 0.064695
+--------------------------- EPOCH:327/4000 ---------------------------
+Iter: 0, Loss: 0.066969
+Iter: 10, Loss: 0.094108
+Iter: 20, Loss: 0.115847
+Iter: 30, Loss: 0.088246
+Iter: 40, Loss: 0.081781
+--------------------------- EPOCH:328/4000 ---------------------------
+Iter: 0, Loss: 0.067622
+Iter: 10, Loss: 0.064899
+Iter: 20, Loss: 0.077157
+Iter: 30, Loss: 0.057935
+Iter: 40, Loss: 0.058829
+--------------------------- EPOCH:329/4000 ---------------------------
+Iter: 0, Loss: 0.099608
+Iter: 10, Loss: 0.084549
+Iter: 20, Loss: 0.066013
+Iter: 30, Loss: 0.045577
+Iter: 40, Loss: 0.087994
+--------------------------- EPOCH:330/4000 ---------------------------
+Iter: 0, Loss: 0.117155
+Iter: 10, Loss: 0.071714
+Iter: 20, Loss: 0.066372
+Iter: 30, Loss: 0.073151
+Iter: 40, Loss: 0.070899
+--------------------------- EPOCH:331/4000 ---------------------------
+Iter: 0, Loss: 0.073371
+Iter: 10, Loss: 0.069888
+Iter: 20, Loss: 0.067056
+Iter: 30, Loss: 0.069067
+Iter: 40, Loss: 0.097050
+--------------------------- EPOCH:332/4000 ---------------------------
+Iter: 0, Loss: 0.043664
+Iter: 10, Loss: 0.073929
+Iter: 20, Loss: 0.083252
+Iter: 30, Loss: 0.070736
+Iter: 40, Loss: 0.050012
+--------------------------- EPOCH:333/4000 ---------------------------
+Iter: 0, Loss: 0.072223
+Iter: 10, Loss: 0.063300
+Iter: 20, Loss: 0.048360
+Iter: 30, Loss: 0.059207
+Iter: 40, Loss: 0.051533
+--------------------------- EPOCH:334/4000 ---------------------------
+Iter: 0, Loss: 0.073920
+Iter: 10, Loss: 0.055416
+Iter: 20, Loss: 0.046614
+Iter: 30, Loss: 0.064876
+Iter: 40, Loss: 0.057883
+--------------------------- EPOCH:335/4000 ---------------------------
+Iter: 0, Loss: 0.086716
+Iter: 10, Loss: 0.088546
+Iter: 20, Loss: 0.090684
+Iter: 30, Loss: 0.071301
+Iter: 40, Loss: 0.094212
+--------------------------- EPOCH:336/4000 ---------------------------
+Iter: 0, Loss: 0.057343
+Iter: 10, Loss: 0.058649
+Iter: 20, Loss: 0.074127
+Iter: 30, Loss: 0.093295
+Iter: 40, Loss: 0.060811
+--------------------------- EPOCH:337/4000 ---------------------------
+Iter: 0, Loss: 0.082761
+Iter: 10, Loss: 0.055188
+Iter: 20, Loss: 0.057384
+Iter: 30, Loss: 0.078734
+Iter: 40, Loss: 0.061451
+--------------------------- EPOCH:338/4000 ---------------------------
+Iter: 0, Loss: 0.051901
+Iter: 10, Loss: 0.076576
+Iter: 20, Loss: 0.084729
+Iter: 30, Loss: 0.073430
+Iter: 40, Loss: 0.100058
+--------------------------- EPOCH:339/4000 ---------------------------
+Iter: 0, Loss: 0.072344
+Iter: 10, Loss: 0.065855
+Iter: 20, Loss: 0.053180
+Iter: 30, Loss: 0.066221
+Iter: 40, Loss: 0.035042
+--------------------------- EPOCH:340/4000 ---------------------------
+Iter: 0, Loss: 0.072165
+Iter: 10, Loss: 0.041833
+Iter: 20, Loss: 0.070763
+Iter: 30, Loss: 0.065905
+Iter: 40, Loss: 0.091424
+--------------------------- EPOCH:341/4000 ---------------------------
+Iter: 0, Loss: 0.090873
+Iter: 10, Loss: 0.087011
+Iter: 20, Loss: 0.060541
+Iter: 30, Loss: 0.080467
+Iter: 40, Loss: 0.067056
+--------------------------- EPOCH:342/4000 ---------------------------
+Iter: 0, Loss: 0.064651
+Iter: 10, Loss: 0.056208
+Iter: 20, Loss: 0.056214
+Iter: 30, Loss: 0.059072
+Iter: 40, Loss: 0.079696
+--------------------------- EPOCH:343/4000 ---------------------------
+Iter: 0, Loss: 0.047390
+Iter: 10, Loss: 0.081377
+Iter: 20, Loss: 0.064454
+Iter: 30, Loss: 0.086872
+Iter: 40, Loss: 0.067906
+--------------------------- EPOCH:344/4000 ---------------------------
+Iter: 0, Loss: 0.066895
+Iter: 10, Loss: 0.076174
+Iter: 20, Loss: 0.059279
+Iter: 30, Loss: 0.051459
+Iter: 40, Loss: 0.044718
+--------------------------- EPOCH:345/4000 ---------------------------
+Iter: 0, Loss: 0.062065
+Iter: 10, Loss: 0.078138
+Iter: 20, Loss: 0.078041
+Iter: 30, Loss: 0.068997
+Iter: 40, Loss: 0.041580
+--------------------------- EPOCH:346/4000 ---------------------------
+Iter: 0, Loss: 0.052245
+Iter: 10, Loss: 0.073694
+Iter: 20, Loss: 0.073341
+Iter: 30, Loss: 0.070143
+Iter: 40, Loss: 0.074785
+--------------------------- EPOCH:347/4000 ---------------------------
+Iter: 0, Loss: 0.077519
+Iter: 10, Loss: 0.071143
+Iter: 20, Loss: 0.065817
+Iter: 30, Loss: 0.050182
+Iter: 40, Loss: 0.111732
+--------------------------- EPOCH:348/4000 ---------------------------
+Iter: 0, Loss: 0.081210
+Iter: 10, Loss: 0.088686
+Iter: 20, Loss: 0.060474
+Iter: 30, Loss: 0.079085
+Iter: 40, Loss: 0.077011
+--------------------------- EPOCH:349/4000 ---------------------------
+Iter: 0, Loss: 0.097697
+Iter: 10, Loss: 0.080881
+Iter: 20, Loss: 0.086124
+Iter: 30, Loss: 0.052508
+Iter: 40, Loss: 0.064505
+--------------------------- EPOCH:350/4000 ---------------------------
+Iter: 0, Loss: 0.041160
+Iter: 10, Loss: 0.056583
+Iter: 20, Loss: 0.057718
+Iter: 30, Loss: 0.076462
+Iter: 40, Loss: 0.080144
+--------------------------- EPOCH:351/4000 ---------------------------
+Iter: 0, Loss: 0.048871
+Iter: 10, Loss: 0.071430
+Iter: 20, Loss: 0.059873
+Iter: 30, Loss: 0.076334
+Iter: 40, Loss: 0.063370
+--------------------------- EPOCH:352/4000 ---------------------------
+Iter: 0, Loss: 0.074226
+Iter: 10, Loss: 0.063210
+Iter: 20, Loss: 0.099347
+Iter: 30, Loss: 0.032974
+Iter: 40, Loss: 0.076573
+--------------------------- EPOCH:353/4000 ---------------------------
+Iter: 0, Loss: 0.062469
+Iter: 10, Loss: 0.064761
+Iter: 20, Loss: 0.068123
+Iter: 30, Loss: 0.037035
+Iter: 40, Loss: 0.061682
+--------------------------- EPOCH:354/4000 ---------------------------
+Iter: 0, Loss: 0.050284
+Iter: 10, Loss: 0.067175
+Iter: 20, Loss: 0.064541
+Iter: 30, Loss: 0.079280
+Iter: 40, Loss: 0.070264
+--------------------------- EPOCH:355/4000 ---------------------------
+Iter: 0, Loss: 0.092034
+Iter: 10, Loss: 0.063560
+Iter: 20, Loss: 0.076725
+Iter: 30, Loss: 0.056773
+Iter: 40, Loss: 0.076747
+--------------------------- EPOCH:356/4000 ---------------------------
+Iter: 0, Loss: 0.086485
+Iter: 10, Loss: 0.073378
+Iter: 20, Loss: 0.065120
+Iter: 30, Loss: 0.085529
+Iter: 40, Loss: 0.087375
+--------------------------- EPOCH:357/4000 ---------------------------
+Iter: 0, Loss: 0.128230
+Iter: 10, Loss: 0.121251
+Iter: 20, Loss: 0.059820
+Iter: 30, Loss: 0.074388
+Iter: 40, Loss: 0.091385
+--------------------------- EPOCH:358/4000 ---------------------------
+Iter: 0, Loss: 0.052095
+Iter: 10, Loss: 0.056420
+Iter: 20, Loss: 0.074470
+Iter: 30, Loss: 0.090630
+Iter: 40, Loss: 0.050339
+--------------------------- EPOCH:359/4000 ---------------------------
+Iter: 0, Loss: 0.082764
+Iter: 10, Loss: 0.081450
+Iter: 20, Loss: 0.073714
+Iter: 30, Loss: 0.083026
+Iter: 40, Loss: 0.140404
+--------------------------- EPOCH:360/4000 ---------------------------
+Iter: 0, Loss: 0.058073
+Iter: 10, Loss: 0.049894
+Iter: 20, Loss: 0.061621
+Iter: 30, Loss: 0.073583
+Iter: 40, Loss: 0.071521
+--------------------------- EPOCH:361/4000 ---------------------------
+Iter: 0, Loss: 0.093025
+Iter: 10, Loss: 0.084411
+Iter: 20, Loss: 0.086173
+Iter: 30, Loss: 0.063391
+Iter: 40, Loss: 0.042336
+--------------------------- EPOCH:362/4000 ---------------------------
+Iter: 0, Loss: 0.081982
+Iter: 10, Loss: 0.035053
+Iter: 20, Loss: 0.096734
+Iter: 30, Loss: 0.078785
+Iter: 40, Loss: 0.074876
+--------------------------- EPOCH:363/4000 ---------------------------
+Iter: 0, Loss: 0.065683
+Iter: 10, Loss: 0.095244
+Iter: 20, Loss: 0.050897
+Iter: 30, Loss: 0.096216
+Iter: 40, Loss: 0.066456
+--------------------------- EPOCH:364/4000 ---------------------------
+Iter: 0, Loss: 0.073781
+Iter: 10, Loss: 0.062418
+Iter: 20, Loss: 0.077416
+Iter: 30, Loss: 0.048298
+Iter: 40, Loss: 0.060146
+--------------------------- EPOCH:365/4000 ---------------------------
+Iter: 0, Loss: 0.051270
+Iter: 10, Loss: 0.067898
+Iter: 20, Loss: 0.053196
+Iter: 30, Loss: 0.071664
+Iter: 40, Loss: 0.055522
+--------------------------- EPOCH:366/4000 ---------------------------
+Iter: 0, Loss: 0.060933
+Iter: 10, Loss: 0.064531
+Iter: 20, Loss: 0.094558
+Iter: 30, Loss: 0.060604
+Iter: 40, Loss: 0.066047
+--------------------------- EPOCH:367/4000 ---------------------------
+Iter: 0, Loss: 0.097695
+Iter: 10, Loss: 0.081838
+Iter: 20, Loss: 0.064902
+Iter: 30, Loss: 0.060543
+Iter: 40, Loss: 0.069717
+--------------------------- EPOCH:368/4000 ---------------------------
+Iter: 0, Loss: 0.060644
+Iter: 10, Loss: 0.073242
+Iter: 20, Loss: 0.068112
+Iter: 30, Loss: 0.051676
+Iter: 40, Loss: 0.056456
+--------------------------- EPOCH:369/4000 ---------------------------
+Iter: 0, Loss: 0.057399
+Iter: 10, Loss: 0.064951
+Iter: 20, Loss: 0.087898
+Iter: 30, Loss: 0.057853
+Iter: 40, Loss: 0.056924
+--------------------------- EPOCH:370/4000 ---------------------------
+Iter: 0, Loss: 0.062732
+Iter: 10, Loss: 0.059751
+Iter: 20, Loss: 0.059601
+Iter: 30, Loss: 0.044198
+Iter: 40, Loss: 0.065192
+--------------------------- EPOCH:371/4000 ---------------------------
+Iter: 0, Loss: 0.075722
+Iter: 10, Loss: 0.043674
+Iter: 20, Loss: 0.064283
+Iter: 30, Loss: 0.083836
+Iter: 40, Loss: 0.049035
+--------------------------- EPOCH:372/4000 ---------------------------
+Iter: 0, Loss: 0.069194
+Iter: 10, Loss: 0.052320
+Iter: 20, Loss: 0.067730
+Iter: 30, Loss: 0.076165
+Iter: 40, Loss: 0.114049
+--------------------------- EPOCH:373/4000 ---------------------------
+Iter: 0, Loss: 0.046249
+Iter: 10, Loss: 0.045511
+Iter: 20, Loss: 0.058938
+Iter: 30, Loss: 0.049619
+Iter: 40, Loss: 0.091152
+--------------------------- EPOCH:374/4000 ---------------------------
+Iter: 0, Loss: 0.085663
+Iter: 10, Loss: 0.052752
+Iter: 20, Loss: 0.047329
+Iter: 30, Loss: 0.117755
+Iter: 40, Loss: 0.071959
+--------------------------- EPOCH:375/4000 ---------------------------
+Iter: 0, Loss: 0.054900
+Iter: 10, Loss: 0.072919
+Iter: 20, Loss: 0.054882
+Iter: 30, Loss: 0.070902
+Iter: 40, Loss: 0.066528
+--------------------------- EPOCH:376/4000 ---------------------------
+Iter: 0, Loss: 0.077967
+Iter: 10, Loss: 0.047902
+Iter: 20, Loss: 0.071080
+Iter: 30, Loss: 0.041192
+Iter: 40, Loss: 0.044721
+--------------------------- EPOCH:377/4000 ---------------------------
+Iter: 0, Loss: 0.063592
+Iter: 10, Loss: 0.060813
+Iter: 20, Loss: 0.089344
+Iter: 30, Loss: 0.047346
+Iter: 40, Loss: 0.048137
+--------------------------- EPOCH:378/4000 ---------------------------
+Iter: 0, Loss: 0.073632
+Iter: 10, Loss: 0.116423
+Iter: 20, Loss: 0.089858
+Iter: 30, Loss: 0.087354
+Iter: 40, Loss: 0.060227
+--------------------------- EPOCH:379/4000 ---------------------------
+Iter: 0, Loss: 0.074917
+Iter: 10, Loss: 0.041402
+Iter: 20, Loss: 0.080345
+Iter: 30, Loss: 0.063076
+Iter: 40, Loss: 0.068382
+--------------------------- EPOCH:380/4000 ---------------------------
+Iter: 0, Loss: 0.068395
+Iter: 10, Loss: 0.065928
+Iter: 20, Loss: 0.068602
+Iter: 30, Loss: 0.068452
+Iter: 40, Loss: 0.074499
+--------------------------- EPOCH:381/4000 ---------------------------
+Iter: 0, Loss: 0.059926
+Iter: 10, Loss: 0.065940
+Iter: 20, Loss: 0.077028
+Iter: 30, Loss: 0.049568
+Iter: 40, Loss: 0.051453
+--------------------------- EPOCH:382/4000 ---------------------------
+Iter: 0, Loss: 0.078950
+Iter: 10, Loss: 0.062263
+Iter: 20, Loss: 0.071986
+Iter: 30, Loss: 0.121566
+Iter: 40, Loss: 0.077306
+--------------------------- EPOCH:383/4000 ---------------------------
+Iter: 0, Loss: 0.115427
+Iter: 10, Loss: 0.117315
+Iter: 20, Loss: 0.069827
+Iter: 30, Loss: 0.086448
+Iter: 40, Loss: 0.065708
+--------------------------- EPOCH:384/4000 ---------------------------
+Iter: 0, Loss: 0.047396
+Iter: 10, Loss: 0.050717
+Iter: 20, Loss: 0.076846
+Iter: 30, Loss: 0.074440
+Iter: 40, Loss: 0.064971
+--------------------------- EPOCH:385/4000 ---------------------------
+Iter: 0, Loss: 0.051306
+Iter: 10, Loss: 0.068431
+Iter: 20, Loss: 0.075208
+Iter: 30, Loss: 0.077116
+Iter: 40, Loss: 0.056353
+--------------------------- EPOCH:386/4000 ---------------------------
+Iter: 0, Loss: 0.064163
+Iter: 10, Loss: 0.073028
+Iter: 20, Loss: 0.041636
+Iter: 30, Loss: 0.103445
+Iter: 40, Loss: 0.076859
+--------------------------- EPOCH:387/4000 ---------------------------
+Iter: 0, Loss: 0.050061
+Iter: 10, Loss: 0.074053
+Iter: 20, Loss: 0.059298
+Iter: 30, Loss: 0.063818
+Iter: 40, Loss: 0.080323
+--------------------------- EPOCH:388/4000 ---------------------------
+Iter: 0, Loss: 0.065621
+Iter: 10, Loss: 0.059340
+Iter: 20, Loss: 0.053760
+Iter: 30, Loss: 0.069902
+Iter: 40, Loss: 0.065779
+--------------------------- EPOCH:389/4000 ---------------------------
+Iter: 0, Loss: 0.055960
+Iter: 10, Loss: 0.059832
+Iter: 20, Loss: 0.053252
+Iter: 30, Loss: 0.050308
+Iter: 40, Loss: 0.069441
+--------------------------- EPOCH:390/4000 ---------------------------
+Iter: 0, Loss: 0.051819
+Iter: 10, Loss: 0.046415
+Iter: 20, Loss: 0.067971
+Iter: 30, Loss: 0.090449
+Iter: 40, Loss: 0.068913
+--------------------------- EPOCH:391/4000 ---------------------------
+Iter: 0, Loss: 0.063334
+Iter: 10, Loss: 0.097318
+Iter: 20, Loss: 0.065128
+Iter: 30, Loss: 0.060860
+Iter: 40, Loss: 0.060055
+--------------------------- EPOCH:392/4000 ---------------------------
+Iter: 0, Loss: 0.059844
+Iter: 10, Loss: 0.081718
+Iter: 20, Loss: 0.057445
+Iter: 30, Loss: 0.052783
+Iter: 40, Loss: 0.049507
+--------------------------- EPOCH:393/4000 ---------------------------
+Iter: 0, Loss: 0.039692
+Iter: 10, Loss: 0.088459
+Iter: 20, Loss: 0.104998
+Iter: 30, Loss: 0.082735
+Iter: 40, Loss: 0.047928
+--------------------------- EPOCH:394/4000 ---------------------------
+Iter: 0, Loss: 0.089115
+Iter: 10, Loss: 0.074029
+Iter: 20, Loss: 0.069480
+Iter: 30, Loss: 0.073528
+Iter: 40, Loss: 0.049941
+--------------------------- EPOCH:395/4000 ---------------------------
+Iter: 0, Loss: 0.065472
+Iter: 10, Loss: 0.077094
+Iter: 20, Loss: 0.070153
+Iter: 30, Loss: 0.050064
+Iter: 40, Loss: 0.072094
+--------------------------- EPOCH:396/4000 ---------------------------
+Iter: 0, Loss: 0.052721
+Iter: 10, Loss: 0.080752
+Iter: 20, Loss: 0.097800
+Iter: 30, Loss: 0.094384
+Iter: 40, Loss: 0.130171
+--------------------------- EPOCH:397/4000 ---------------------------
+Iter: 0, Loss: 0.092926
+Iter: 10, Loss: 0.069187
+Iter: 20, Loss: 0.052800
+Iter: 30, Loss: 0.069045
+Iter: 40, Loss: 0.070656
+--------------------------- EPOCH:398/4000 ---------------------------
+Iter: 0, Loss: 0.091119
+Iter: 10, Loss: 0.055129
+Iter: 20, Loss: 0.069015
+Iter: 30, Loss: 0.068896
+Iter: 40, Loss: 0.065060
+--------------------------- EPOCH:399/4000 ---------------------------
+Iter: 0, Loss: 0.059863
+Iter: 10, Loss: 0.062004
+Iter: 20, Loss: 0.054567
+Iter: 30, Loss: 0.047608
+Iter: 40, Loss: 0.060837
+--------------------------- EPOCH:400/4000 ---------------------------
+Iter: 0, Loss: 0.051332
+Iter: 10, Loss: 0.062976
+Iter: 20, Loss: 0.032598
+Iter: 30, Loss: 0.057819
+Iter: 40, Loss: 0.052559
+--------------------------- EPOCH:401/4000 ---------------------------
+Iter: 0, Loss: 0.057968
+Iter: 10, Loss: 0.051526
+Iter: 20, Loss: 0.056672
+Iter: 30, Loss: 0.115013
+Iter: 40, Loss: 0.073475
+--------------------------- EPOCH:402/4000 ---------------------------
+Iter: 0, Loss: 0.077192
+Iter: 10, Loss: 0.071346
+Iter: 20, Loss: 0.055905
+Iter: 30, Loss: 0.096038
+Iter: 40, Loss: 0.078559
+--------------------------- EPOCH:403/4000 ---------------------------
+Iter: 0, Loss: 0.064028
+Iter: 10, Loss: 0.050980
+Iter: 20, Loss: 0.091966
+Iter: 30, Loss: 0.057502
+Iter: 40, Loss: 0.054943
+--------------------------- EPOCH:404/4000 ---------------------------
+Iter: 0, Loss: 0.068951
+Iter: 10, Loss: 0.089751
+Iter: 20, Loss: 0.057618
+Iter: 30, Loss: 0.063513
+Iter: 40, Loss: 0.069140
+--------------------------- EPOCH:405/4000 ---------------------------
+Iter: 0, Loss: 0.053210
+Iter: 10, Loss: 0.062934
+Iter: 20, Loss: 0.066736
+Iter: 30, Loss: 0.052162
+Iter: 40, Loss: 0.089420
+--------------------------- EPOCH:406/4000 ---------------------------
+Iter: 0, Loss: 0.078207
+Iter: 10, Loss: 0.114040
+Iter: 20, Loss: 0.059799
+Iter: 30, Loss: 0.055576
+Iter: 40, Loss: 0.086516
+--------------------------- EPOCH:407/4000 ---------------------------
+Iter: 0, Loss: 0.071323
+Iter: 10, Loss: 0.050511
+Iter: 20, Loss: 0.033187
+Iter: 30, Loss: 0.099357
+Iter: 40, Loss: 0.074959
+--------------------------- EPOCH:408/4000 ---------------------------
+Iter: 0, Loss: 0.079962
+Iter: 10, Loss: 0.066065
+Iter: 20, Loss: 0.046866
+Iter: 30, Loss: 0.085397
+Iter: 40, Loss: 0.055428
+--------------------------- EPOCH:409/4000 ---------------------------
+Iter: 0, Loss: 0.046871
+Iter: 10, Loss: 0.058871
+Iter: 20, Loss: 0.064139
+Iter: 30, Loss: 0.069022
+Iter: 40, Loss: 0.087117
+--------------------------- EPOCH:410/4000 ---------------------------
+Iter: 0, Loss: 0.051887
+Iter: 10, Loss: 0.057015
+Iter: 20, Loss: 0.045259
+Iter: 30, Loss: 0.050260
+Iter: 40, Loss: 0.081504
+--------------------------- EPOCH:411/4000 ---------------------------
+Iter: 0, Loss: 0.054028
+Iter: 10, Loss: 0.064515
+Iter: 20, Loss: 0.080810
+Iter: 30, Loss: 0.063203
+Iter: 40, Loss: 0.079876
+--------------------------- EPOCH:412/4000 ---------------------------
+Iter: 0, Loss: 0.045583
+Iter: 10, Loss: 0.091806
+Iter: 20, Loss: 0.105465
+Iter: 30, Loss: 0.073723
+Iter: 40, Loss: 0.053530
+--------------------------- EPOCH:413/4000 ---------------------------
+Iter: 0, Loss: 0.070030
+Iter: 10, Loss: 0.065478
+Iter: 20, Loss: 0.054044
+Iter: 30, Loss: 0.085880
+Iter: 40, Loss: 0.083007
+--------------------------- EPOCH:414/4000 ---------------------------
+Iter: 0, Loss: 0.075244
+Iter: 10, Loss: 0.084454
+Iter: 20, Loss: 0.064065
+Iter: 30, Loss: 0.062520
+Iter: 40, Loss: 0.056320
+--------------------------- EPOCH:415/4000 ---------------------------
+Iter: 0, Loss: 0.068767
+Iter: 10, Loss: 0.064940
+Iter: 20, Loss: 0.075172
+Iter: 30, Loss: 0.067867
+Iter: 40, Loss: 0.061997
+--------------------------- EPOCH:416/4000 ---------------------------
+Iter: 0, Loss: 0.057142
+Iter: 10, Loss: 0.094543
+Iter: 20, Loss: 0.050940
+Iter: 30, Loss: 0.075582
+Iter: 40, Loss: 0.091222
+--------------------------- EPOCH:417/4000 ---------------------------
+Iter: 0, Loss: 0.061482
+Iter: 10, Loss: 0.073347
+Iter: 20, Loss: 0.072837
+Iter: 30, Loss: 0.059828
+Iter: 40, Loss: 0.059050
+--------------------------- EPOCH:418/4000 ---------------------------
+Iter: 0, Loss: 0.089172
+Iter: 10, Loss: 0.073315
+Iter: 20, Loss: 0.070422
+Iter: 30, Loss: 0.069576
+Iter: 40, Loss: 0.107383
+--------------------------- EPOCH:419/4000 ---------------------------
+Iter: 0, Loss: 0.068934
+Iter: 10, Loss: 0.093968
+Iter: 20, Loss: 0.057631
+Iter: 30, Loss: 0.048125
+Iter: 40, Loss: 0.045992
+--------------------------- EPOCH:420/4000 ---------------------------
+Iter: 0, Loss: 0.058276
+Iter: 10, Loss: 0.070169
+Iter: 20, Loss: 0.064044
+Iter: 30, Loss: 0.034216
+Iter: 40, Loss: 0.090191
+--------------------------- EPOCH:421/4000 ---------------------------
+Iter: 0, Loss: 0.065973
+Iter: 10, Loss: 0.054244
+Iter: 20, Loss: 0.053983
+Iter: 30, Loss: 0.083805
+Iter: 40, Loss: 0.072396
+--------------------------- EPOCH:422/4000 ---------------------------
+Iter: 0, Loss: 0.045833
+Iter: 10, Loss: 0.056825
+Iter: 20, Loss: 0.081612
+Iter: 30, Loss: 0.056560
+Iter: 40, Loss: 0.066203
+--------------------------- EPOCH:423/4000 ---------------------------
+Iter: 0, Loss: 0.055228
+Iter: 10, Loss: 0.044272
+Iter: 20, Loss: 0.052697
+Iter: 30, Loss: 0.055417
+Iter: 40, Loss: 0.043957
+--------------------------- EPOCH:424/4000 ---------------------------
+Iter: 0, Loss: 0.082732
+Iter: 10, Loss: 0.054451
+Iter: 20, Loss: 0.067666
+Iter: 30, Loss: 0.064647
+Iter: 40, Loss: 0.067903
+--------------------------- EPOCH:425/4000 ---------------------------
+Iter: 0, Loss: 0.096827
+Iter: 10, Loss: 0.050688
+Iter: 20, Loss: 0.069904
+Iter: 30, Loss: 0.062865
+Iter: 40, Loss: 0.057482
+--------------------------- EPOCH:426/4000 ---------------------------
+Iter: 0, Loss: 0.084689
+Iter: 10, Loss: 0.051404
+Iter: 20, Loss: 0.052163
+Iter: 30, Loss: 0.078122
+Iter: 40, Loss: 0.050064
+--------------------------- EPOCH:427/4000 ---------------------------
+Iter: 0, Loss: 0.051343
+Iter: 10, Loss: 0.074361
+Iter: 20, Loss: 0.049894
+Iter: 30, Loss: 0.059312
+Iter: 40, Loss: 0.073969
+--------------------------- EPOCH:428/4000 ---------------------------
+Iter: 0, Loss: 0.056937
+Iter: 10, Loss: 0.085967
+Iter: 20, Loss: 0.075360
+Iter: 30, Loss: 0.083954
+Iter: 40, Loss: 0.078411
+--------------------------- EPOCH:429/4000 ---------------------------
+Iter: 0, Loss: 0.082879
+Iter: 10, Loss: 0.091904
+Iter: 20, Loss: 0.047656
+Iter: 30, Loss: 0.083221
+Iter: 40, Loss: 0.050765
+--------------------------- EPOCH:430/4000 ---------------------------
+Iter: 0, Loss: 0.049983
+Iter: 10, Loss: 0.079946
+Iter: 20, Loss: 0.091287
+Iter: 30, Loss: 0.063201
+Iter: 40, Loss: 0.097374
+--------------------------- EPOCH:431/4000 ---------------------------
+Iter: 0, Loss: 0.081705
+Iter: 10, Loss: 0.076959
+Iter: 20, Loss: 0.075634
+Iter: 30, Loss: 0.072752
+Iter: 40, Loss: 0.043873
+--------------------------- EPOCH:432/4000 ---------------------------
+Iter: 0, Loss: 0.041273
+Iter: 10, Loss: 0.066471
+Iter: 20, Loss: 0.074565
+Iter: 30, Loss: 0.048544
+Iter: 40, Loss: 0.093289
+--------------------------- EPOCH:433/4000 ---------------------------
+Iter: 0, Loss: 0.091588
+Iter: 10, Loss: 0.084253
+Iter: 20, Loss: 0.056184
+Iter: 30, Loss: 0.049861
+Iter: 40, Loss: 0.073596
+--------------------------- EPOCH:434/4000 ---------------------------
+Iter: 0, Loss: 0.070505
+Iter: 10, Loss: 0.055219
+Iter: 20, Loss: 0.043103
+Iter: 30, Loss: 0.047239
+Iter: 40, Loss: 0.080938
+--------------------------- EPOCH:435/4000 ---------------------------
+Iter: 0, Loss: 0.059914
+Iter: 10, Loss: 0.087817
+Iter: 20, Loss: 0.061248
+Iter: 30, Loss: 0.059849
+Iter: 40, Loss: 0.052450
+--------------------------- EPOCH:436/4000 ---------------------------
+Iter: 0, Loss: 0.077842
+Iter: 10, Loss: 0.065703
+Iter: 20, Loss: 0.058003
+Iter: 30, Loss: 0.066439
+Iter: 40, Loss: 0.061762
+--------------------------- EPOCH:437/4000 ---------------------------
+Iter: 0, Loss: 0.062965
+Iter: 10, Loss: 0.060304
+Iter: 20, Loss: 0.058089
+Iter: 30, Loss: 0.059399
+Iter: 40, Loss: 0.066732
+--------------------------- EPOCH:438/4000 ---------------------------
+Iter: 0, Loss: 0.059430
+Iter: 10, Loss: 0.069093
+Iter: 20, Loss: 0.093876
+Iter: 30, Loss: 0.060092
+Iter: 40, Loss: 0.046867
+--------------------------- EPOCH:439/4000 ---------------------------
+Iter: 0, Loss: 0.057529
+Iter: 10, Loss: 0.049536
+Iter: 20, Loss: 0.074177
+Iter: 30, Loss: 0.060250
+Iter: 40, Loss: 0.074371
+--------------------------- EPOCH:440/4000 ---------------------------
+Iter: 0, Loss: 0.065799
+Iter: 10, Loss: 0.079849
+Iter: 20, Loss: 0.072761
+Iter: 30, Loss: 0.053412
+Iter: 40, Loss: 0.074545
+--------------------------- EPOCH:441/4000 ---------------------------
+Iter: 0, Loss: 0.040938
+Iter: 10, Loss: 0.077951
+Iter: 20, Loss: 0.057742
+Iter: 30, Loss: 0.071574
+Iter: 40, Loss: 0.055263
+--------------------------- EPOCH:442/4000 ---------------------------
+Iter: 0, Loss: 0.061315
+Iter: 10, Loss: 0.060123
+Iter: 20, Loss: 0.064127
+Iter: 30, Loss: 0.056395
+Iter: 40, Loss: 0.076494
+--------------------------- EPOCH:443/4000 ---------------------------
+Iter: 0, Loss: 0.075931
+Iter: 10, Loss: 0.078755
+Iter: 20, Loss: 0.091010
+Iter: 30, Loss: 0.074409
+Iter: 40, Loss: 0.080782
+--------------------------- EPOCH:444/4000 ---------------------------
+Iter: 0, Loss: 0.084442
+Iter: 10, Loss: 0.045568
+Iter: 20, Loss: 0.063664
+Iter: 30, Loss: 0.058530
+Iter: 40, Loss: 0.053244
+--------------------------- EPOCH:445/4000 ---------------------------
+Iter: 0, Loss: 0.069144
+Iter: 10, Loss: 0.036072
+Iter: 20, Loss: 0.071431
+Iter: 30, Loss: 0.074889
+Iter: 40, Loss: 0.049235
+--------------------------- EPOCH:446/4000 ---------------------------
+Iter: 0, Loss: 0.054167
+Iter: 10, Loss: 0.068924
+Iter: 20, Loss: 0.070457
+Iter: 30, Loss: 0.050452
+Iter: 40, Loss: 0.052668
+--------------------------- EPOCH:447/4000 ---------------------------
+Iter: 0, Loss: 0.061088
+Iter: 10, Loss: 0.061973
+Iter: 20, Loss: 0.050775
+Iter: 30, Loss: 0.063797
+Iter: 40, Loss: 0.080412
+--------------------------- EPOCH:448/4000 ---------------------------
+Iter: 0, Loss: 0.054959
+Iter: 10, Loss: 0.077969
+Iter: 20, Loss: 0.077885
+Iter: 30, Loss: 0.077470
+Iter: 40, Loss: 0.078087
+--------------------------- EPOCH:449/4000 ---------------------------
+Iter: 0, Loss: 0.076136
+Iter: 10, Loss: 0.051802
+Iter: 20, Loss: 0.082860
+Iter: 30, Loss: 0.104111
+Iter: 40, Loss: 0.061919
+--------------------------- EPOCH:450/4000 ---------------------------
+Iter: 0, Loss: 0.071582
+Iter: 10, Loss: 0.041898
+Iter: 20, Loss: 0.060215
+Iter: 30, Loss: 0.074495
+Iter: 40, Loss: 0.087013
+--------------------------- EPOCH:451/4000 ---------------------------
+Iter: 0, Loss: 0.053104
+Iter: 10, Loss: 0.059393
+Iter: 20, Loss: 0.064827
+Iter: 30, Loss: 0.082044
+Iter: 40, Loss: 0.056760
+--------------------------- EPOCH:452/4000 ---------------------------
+Iter: 0, Loss: 0.070735
+Iter: 10, Loss: 0.051548
+Iter: 20, Loss: 0.066044
+Iter: 30, Loss: 0.081047
+Iter: 40, Loss: 0.055085
+--------------------------- EPOCH:453/4000 ---------------------------
+Iter: 0, Loss: 0.109701
+Iter: 10, Loss: 0.055885
+Iter: 20, Loss: 0.050299
+Iter: 30, Loss: 0.065108
+Iter: 40, Loss: 0.070440
+--------------------------- EPOCH:454/4000 ---------------------------
+Iter: 0, Loss: 0.067353
+Iter: 10, Loss: 0.048442
+Iter: 20, Loss: 0.077918
+Iter: 30, Loss: 0.101403
+Iter: 40, Loss: 0.093816
+--------------------------- EPOCH:455/4000 ---------------------------
+Iter: 0, Loss: 0.078016
+Iter: 10, Loss: 0.057110
+Iter: 20, Loss: 0.055572
+Iter: 30, Loss: 0.060756
+Iter: 40, Loss: 0.058326
+--------------------------- EPOCH:456/4000 ---------------------------
+Iter: 0, Loss: 0.058281
+Iter: 10, Loss: 0.056936
+Iter: 20, Loss: 0.044616
+Iter: 30, Loss: 0.053766
+Iter: 40, Loss: 0.042408
+--------------------------- EPOCH:457/4000 ---------------------------
+Iter: 0, Loss: 0.051632
+Iter: 10, Loss: 0.090715
+Iter: 20, Loss: 0.053878
+Iter: 30, Loss: 0.054225
+Iter: 40, Loss: 0.103782
+--------------------------- EPOCH:458/4000 ---------------------------
+Iter: 0, Loss: 0.058408
+Iter: 10, Loss: 0.079650
+Iter: 20, Loss: 0.062669
+Iter: 30, Loss: 0.080579
+Iter: 40, Loss: 0.039811
+--------------------------- EPOCH:459/4000 ---------------------------
+Iter: 0, Loss: 0.071185
+Iter: 10, Loss: 0.054577
+Iter: 20, Loss: 0.064621
+Iter: 30, Loss: 0.055521
+Iter: 40, Loss: 0.060232
+--------------------------- EPOCH:460/4000 ---------------------------
+Iter: 0, Loss: 0.051823
+Iter: 10, Loss: 0.057235
+Iter: 20, Loss: 0.067412
+Iter: 30, Loss: 0.053715
+Iter: 40, Loss: 0.050508
+--------------------------- EPOCH:461/4000 ---------------------------
+Iter: 0, Loss: 0.050060
+Iter: 10, Loss: 0.072347
+Iter: 20, Loss: 0.043623
+Iter: 30, Loss: 0.074455
+Iter: 40, Loss: 0.075522
+--------------------------- EPOCH:462/4000 ---------------------------
+Iter: 0, Loss: 0.071800
+Iter: 10, Loss: 0.053961
+Iter: 20, Loss: 0.076718
+Iter: 30, Loss: 0.072845
+Iter: 40, Loss: 0.041908
+--------------------------- EPOCH:463/4000 ---------------------------
+Iter: 0, Loss: 0.061712
+Iter: 10, Loss: 0.077207
+Iter: 20, Loss: 0.080909
+Iter: 30, Loss: 0.098119
+Iter: 40, Loss: 0.046991
+--------------------------- EPOCH:464/4000 ---------------------------
+Iter: 0, Loss: 0.076528
+Iter: 10, Loss: 0.053337
+Iter: 20, Loss: 0.063746
+Iter: 30, Loss: 0.073245
+Iter: 40, Loss: 0.075563
+--------------------------- EPOCH:465/4000 ---------------------------
+Iter: 0, Loss: 0.076019
+Iter: 10, Loss: 0.060271
+Iter: 20, Loss: 0.103096
+Iter: 30, Loss: 0.077572
+Iter: 40, Loss: 0.069945
+--------------------------- EPOCH:466/4000 ---------------------------
+Iter: 0, Loss: 0.057729
+Iter: 10, Loss: 0.100345
+Iter: 20, Loss: 0.064357
+Iter: 30, Loss: 0.059595
+Iter: 40, Loss: 0.068763
+--------------------------- EPOCH:467/4000 ---------------------------
+Iter: 0, Loss: 0.068938
+Iter: 10, Loss: 0.082240
+Iter: 20, Loss: 0.066099
+Iter: 30, Loss: 0.061855
+Iter: 40, Loss: 0.060820
+--------------------------- EPOCH:468/4000 ---------------------------
+Iter: 0, Loss: 0.064018
+Iter: 10, Loss: 0.055810
+Iter: 20, Loss: 0.125634
+Iter: 30, Loss: 0.087470
+Iter: 40, Loss: 0.075294
+--------------------------- EPOCH:469/4000 ---------------------------
+Iter: 0, Loss: 0.084102
+Iter: 10, Loss: 0.049445
+Iter: 20, Loss: 0.075784
+Iter: 30, Loss: 0.060646
+Iter: 40, Loss: 0.052877
+--------------------------- EPOCH:470/4000 ---------------------------
+Iter: 0, Loss: 0.099337
+Iter: 10, Loss: 0.055975
+Iter: 20, Loss: 0.064512
+Iter: 30, Loss: 0.066470
+Iter: 40, Loss: 0.067968
+--------------------------- EPOCH:471/4000 ---------------------------
+Iter: 0, Loss: 0.108882
+Iter: 10, Loss: 0.052033
+Iter: 20, Loss: 0.047813
+Iter: 30, Loss: 0.080907
+Iter: 40, Loss: 0.059657
+--------------------------- EPOCH:472/4000 ---------------------------
+Iter: 0, Loss: 0.081329
+Iter: 10, Loss: 0.065610
+Iter: 20, Loss: 0.044243
+Iter: 30, Loss: 0.047177
+Iter: 40, Loss: 0.089250
+--------------------------- EPOCH:473/4000 ---------------------------
+Iter: 0, Loss: 0.073708
+Iter: 10, Loss: 0.049628
+Iter: 20, Loss: 0.068329
+Iter: 30, Loss: 0.066837
+Iter: 40, Loss: 0.064035
+--------------------------- EPOCH:474/4000 ---------------------------
+Iter: 0, Loss: 0.051871
+Iter: 10, Loss: 0.078771
+Iter: 20, Loss: 0.056985
+Iter: 30, Loss: 0.053390
+Iter: 40, Loss: 0.061232
+--------------------------- EPOCH:475/4000 ---------------------------
+Iter: 0, Loss: 0.045566
+Iter: 10, Loss: 0.063233
+Iter: 20, Loss: 0.038992
+Iter: 30, Loss: 0.077109
+Iter: 40, Loss: 0.106920
+--------------------------- EPOCH:476/4000 ---------------------------
+Iter: 0, Loss: 0.072567
+Iter: 10, Loss: 0.092400
+Iter: 20, Loss: 0.056130
+Iter: 30, Loss: 0.073089
+Iter: 40, Loss: 0.063414
+--------------------------- EPOCH:477/4000 ---------------------------
+Iter: 0, Loss: 0.060328
+Iter: 10, Loss: 0.067309
+Iter: 20, Loss: 0.061615
+Iter: 30, Loss: 0.043725
+Iter: 40, Loss: 0.090310
+--------------------------- EPOCH:478/4000 ---------------------------
+Iter: 0, Loss: 0.085655
+Iter: 10, Loss: 0.054788
+Iter: 20, Loss: 0.042498
+Iter: 30, Loss: 0.055324
+Iter: 40, Loss: 0.064286
+--------------------------- EPOCH:479/4000 ---------------------------
+Iter: 0, Loss: 0.059298
+Iter: 10, Loss: 0.058083
+Iter: 20, Loss: 0.045407
+Iter: 30, Loss: 0.065283
+Iter: 40, Loss: 0.078353
+--------------------------- EPOCH:480/4000 ---------------------------
+Iter: 0, Loss: 0.059168
+Iter: 10, Loss: 0.054024
+Iter: 20, Loss: 0.068868
+Iter: 30, Loss: 0.079689
+Iter: 40, Loss: 0.099806
+--------------------------- EPOCH:481/4000 ---------------------------
+Iter: 0, Loss: 0.054698
+Iter: 10, Loss: 0.083278
+Iter: 20, Loss: 0.057764
+Iter: 30, Loss: 0.068246
+Iter: 40, Loss: 0.044269
+--------------------------- EPOCH:482/4000 ---------------------------
+Iter: 0, Loss: 0.078194
+Iter: 10, Loss: 0.057699
+Iter: 20, Loss: 0.080625
+Iter: 30, Loss: 0.075407
+Iter: 40, Loss: 0.053980
+--------------------------- EPOCH:483/4000 ---------------------------
+Iter: 0, Loss: 0.054028
+Iter: 10, Loss: 0.072317
+Iter: 20, Loss: 0.036947
+Iter: 30, Loss: 0.036062
+Iter: 40, Loss: 0.059080
+--------------------------- EPOCH:484/4000 ---------------------------
+Iter: 0, Loss: 0.070033
+Iter: 10, Loss: 0.064075
+Iter: 20, Loss: 0.056125
+Iter: 30, Loss: 0.077373
+Iter: 40, Loss: 0.091701
+--------------------------- EPOCH:485/4000 ---------------------------
+Iter: 0, Loss: 0.096693
+Iter: 10, Loss: 0.072060
+Iter: 20, Loss: 0.072903
+Iter: 30, Loss: 0.066287
+Iter: 40, Loss: 0.055224
+--------------------------- EPOCH:486/4000 ---------------------------
+Iter: 0, Loss: 0.091286
+Iter: 10, Loss: 0.048565
+Iter: 20, Loss: 0.070818
+Iter: 30, Loss: 0.053199
+Iter: 40, Loss: 0.046122
+--------------------------- EPOCH:487/4000 ---------------------------
+Iter: 0, Loss: 0.064402
+Iter: 10, Loss: 0.028985
+Iter: 20, Loss: 0.056302
+Iter: 30, Loss: 0.091265
+Iter: 40, Loss: 0.053344
+--------------------------- EPOCH:488/4000 ---------------------------
+Iter: 0, Loss: 0.052731
+Iter: 10, Loss: 0.076123
+Iter: 20, Loss: 0.075898
+Iter: 30, Loss: 0.079840
+Iter: 40, Loss: 0.054728
+--------------------------- EPOCH:489/4000 ---------------------------
+Iter: 0, Loss: 0.077935
+Iter: 10, Loss: 0.076425
+Iter: 20, Loss: 0.065476
+Iter: 30, Loss: 0.060076
+Iter: 40, Loss: 0.049239
+--------------------------- EPOCH:490/4000 ---------------------------
+Iter: 0, Loss: 0.079694
+Iter: 10, Loss: 0.067921
+Iter: 20, Loss: 0.066954
+Iter: 30, Loss: 0.047352
+Iter: 40, Loss: 0.078234
+--------------------------- EPOCH:491/4000 ---------------------------
+Iter: 0, Loss: 0.085764
+Iter: 10, Loss: 0.043392
+Iter: 20, Loss: 0.076546
+Iter: 30, Loss: 0.076621
+Iter: 40, Loss: 0.068175
+--------------------------- EPOCH:492/4000 ---------------------------
+Iter: 0, Loss: 0.064555
+Iter: 10, Loss: 0.041275
+Iter: 20, Loss: 0.081082
+Iter: 30, Loss: 0.069326
+Iter: 40, Loss: 0.050108
+--------------------------- EPOCH:493/4000 ---------------------------
+Iter: 0, Loss: 0.076863
+Iter: 10, Loss: 0.054477
+Iter: 20, Loss: 0.069290
+Iter: 30, Loss: 0.053574
+Iter: 40, Loss: 0.080847
+--------------------------- EPOCH:494/4000 ---------------------------
+Iter: 0, Loss: 0.108059
+Iter: 10, Loss: 0.059053
+Iter: 20, Loss: 0.054625
+Iter: 30, Loss: 0.060525
+Iter: 40, Loss: 0.043965
+--------------------------- EPOCH:495/4000 ---------------------------
+Iter: 0, Loss: 0.037460
+Iter: 10, Loss: 0.060787
+Iter: 20, Loss: 0.071487
+Iter: 30, Loss: 0.044273
+Iter: 40, Loss: 0.082905
+--------------------------- EPOCH:496/4000 ---------------------------
+Iter: 0, Loss: 0.079285
+Iter: 10, Loss: 0.050320
+Iter: 20, Loss: 0.050603
+Iter: 30, Loss: 0.065745
+Iter: 40, Loss: 0.054439
+--------------------------- EPOCH:497/4000 ---------------------------
+Iter: 0, Loss: 0.090164
+Iter: 10, Loss: 0.042171
+Iter: 20, Loss: 0.066222
+Iter: 30, Loss: 0.069185
+Iter: 40, Loss: 0.047089
+--------------------------- EPOCH:498/4000 ---------------------------
+Iter: 0, Loss: 0.039777
+Iter: 10, Loss: 0.064832
+Iter: 20, Loss: 0.041543
+Iter: 30, Loss: 0.057010
+Iter: 40, Loss: 0.099477
+--------------------------- EPOCH:499/4000 ---------------------------
+Iter: 0, Loss: 0.088163
+Iter: 10, Loss: 0.053644
+Iter: 20, Loss: 0.071509
+Iter: 30, Loss: 0.077230
+Iter: 40, Loss: 0.053553
+--------------------------- EPOCH:500/4000 ---------------------------
+Iter: 0, Loss: 0.070567
+Iter: 10, Loss: 0.073532
+Iter: 20, Loss: 0.074864
+Iter: 30, Loss: 0.059638
+Iter: 40, Loss: 0.056461
+--------------------------- EPOCH:501/4000 ---------------------------
+Iter: 0, Loss: 0.050295
+Iter: 10, Loss: 0.070961
+Iter: 20, Loss: 0.073032
+Iter: 30, Loss: 0.038369
+Iter: 40, Loss: 0.062025
+--------------------------- EPOCH:502/4000 ---------------------------
+Iter: 0, Loss: 0.050892
+Iter: 10, Loss: 0.054882
+Iter: 20, Loss: 0.067872
+Iter: 30, Loss: 0.088639
+Iter: 40, Loss: 0.104330
+--------------------------- EPOCH:503/4000 ---------------------------
+Iter: 0, Loss: 0.068429
+Iter: 10, Loss: 0.070478
+Iter: 20, Loss: 0.046122
+Iter: 30, Loss: 0.053075
+Iter: 40, Loss: 0.057454
+--------------------------- EPOCH:504/4000 ---------------------------
+Iter: 0, Loss: 0.053611
+Iter: 10, Loss: 0.066634
+Iter: 20, Loss: 0.085942
+Iter: 30, Loss: 0.052365
+Iter: 40, Loss: 0.065145
+--------------------------- EPOCH:505/4000 ---------------------------
+Iter: 0, Loss: 0.067295
+Iter: 10, Loss: 0.034961
+Iter: 20, Loss: 0.066756
+Iter: 30, Loss: 0.045845
+Iter: 40, Loss: 0.052117
+--------------------------- EPOCH:506/4000 ---------------------------
+Iter: 0, Loss: 0.043679
+Iter: 10, Loss: 0.058053
+Iter: 20, Loss: 0.085083
+Iter: 30, Loss: 0.102865
+Iter: 40, Loss: 0.056750
+--------------------------- EPOCH:507/4000 ---------------------------
+Iter: 0, Loss: 0.074798
+Iter: 10, Loss: 0.039053
+Iter: 20, Loss: 0.050483
+Iter: 30, Loss: 0.060017
+Iter: 40, Loss: 0.073116
+--------------------------- EPOCH:508/4000 ---------------------------
+Iter: 0, Loss: 0.064747
+Iter: 10, Loss: 0.048329
+Iter: 20, Loss: 0.049287
+Iter: 30, Loss: 0.051253
+Iter: 40, Loss: 0.053733
+--------------------------- EPOCH:509/4000 ---------------------------
+Iter: 0, Loss: 0.064806
+Iter: 10, Loss: 0.039816
+Iter: 20, Loss: 0.075484
+Iter: 30, Loss: 0.076521
+Iter: 40, Loss: 0.052857
+--------------------------- EPOCH:510/4000 ---------------------------
+Iter: 0, Loss: 0.069491
+Iter: 10, Loss: 0.070965
+Iter: 20, Loss: 0.062731
+Iter: 30, Loss: 0.063550
+Iter: 40, Loss: 0.064612
+--------------------------- EPOCH:511/4000 ---------------------------
+Iter: 0, Loss: 0.087425
+Iter: 10, Loss: 0.094268
+Iter: 20, Loss: 0.065306
+Iter: 30, Loss: 0.077398
+Iter: 40, Loss: 0.060446
+--------------------------- EPOCH:512/4000 ---------------------------
+Iter: 0, Loss: 0.047848
+Iter: 10, Loss: 0.076893
+Iter: 20, Loss: 0.067459
+Iter: 30, Loss: 0.082334
+Iter: 40, Loss: 0.076478
+--------------------------- EPOCH:513/4000 ---------------------------
+Iter: 0, Loss: 0.057836
+Iter: 10, Loss: 0.060116
+Iter: 20, Loss: 0.074776
+Iter: 30, Loss: 0.047499
+Iter: 40, Loss: 0.084437
+--------------------------- EPOCH:514/4000 ---------------------------
+Iter: 0, Loss: 0.043054
+Iter: 10, Loss: 0.042959
+Iter: 20, Loss: 0.062035
+Iter: 30, Loss: 0.064436
+Iter: 40, Loss: 0.059511
+--------------------------- EPOCH:515/4000 ---------------------------
+Iter: 0, Loss: 0.056333
+Iter: 10, Loss: 0.045643
+Iter: 20, Loss: 0.042187
+Iter: 30, Loss: 0.106518
+Iter: 40, Loss: 0.068468
+--------------------------- EPOCH:516/4000 ---------------------------
+Iter: 0, Loss: 0.080872
+Iter: 10, Loss: 0.040705
+Iter: 20, Loss: 0.066749
+Iter: 30, Loss: 0.066742
+Iter: 40, Loss: 0.061416
+--------------------------- EPOCH:517/4000 ---------------------------
+Iter: 0, Loss: 0.057885
+Iter: 10, Loss: 0.069006
+Iter: 20, Loss: 0.102130
+Iter: 30, Loss: 0.072158
+Iter: 40, Loss: 0.051318
+--------------------------- EPOCH:518/4000 ---------------------------
+Iter: 0, Loss: 0.067172
+Iter: 10, Loss: 0.036107
+Iter: 20, Loss: 0.066137
+Iter: 30, Loss: 0.064136
+Iter: 40, Loss: 0.091867
+--------------------------- EPOCH:519/4000 ---------------------------
+Iter: 0, Loss: 0.054222
+Iter: 10, Loss: 0.064465
+Iter: 20, Loss: 0.058374
+Iter: 30, Loss: 0.080699
+Iter: 40, Loss: 0.053229
+--------------------------- EPOCH:520/4000 ---------------------------
+Iter: 0, Loss: 0.104868
+Iter: 10, Loss: 0.065610
+Iter: 20, Loss: 0.055810
+Iter: 30, Loss: 0.066249
+Iter: 40, Loss: 0.065899
+--------------------------- EPOCH:521/4000 ---------------------------
+Iter: 0, Loss: 0.063996
+Iter: 10, Loss: 0.051615
+Iter: 20, Loss: 0.053295
+Iter: 30, Loss: 0.090611
+Iter: 40, Loss: 0.060652
+--------------------------- EPOCH:522/4000 ---------------------------
+Iter: 0, Loss: 0.050697
+Iter: 10, Loss: 0.071842
+Iter: 20, Loss: 0.059659
+Iter: 30, Loss: 0.061970
+Iter: 40, Loss: 0.060347
+--------------------------- EPOCH:523/4000 ---------------------------
+Iter: 0, Loss: 0.091493
+Iter: 10, Loss: 0.083442
+Iter: 20, Loss: 0.072629
+Iter: 30, Loss: 0.059939
+Iter: 40, Loss: 0.089735
+--------------------------- EPOCH:524/4000 ---------------------------
+Iter: 0, Loss: 0.062012
+Iter: 10, Loss: 0.079150
+Iter: 20, Loss: 0.079219
+Iter: 30, Loss: 0.065422
+Iter: 40, Loss: 0.095088
+--------------------------- EPOCH:525/4000 ---------------------------
+Iter: 0, Loss: 0.049242
+Iter: 10, Loss: 0.051225
+Iter: 20, Loss: 0.077520
+Iter: 30, Loss: 0.058282
+Iter: 40, Loss: 0.061213
+--------------------------- EPOCH:526/4000 ---------------------------
+Iter: 0, Loss: 0.074476
+Iter: 10, Loss: 0.068677
+Iter: 20, Loss: 0.068136
+Iter: 30, Loss: 0.073776
+Iter: 40, Loss: 0.047740
+--------------------------- EPOCH:527/4000 ---------------------------
+Iter: 0, Loss: 0.059374
+Iter: 10, Loss: 0.068900
+Iter: 20, Loss: 0.070921
+Iter: 30, Loss: 0.046715
+Iter: 40, Loss: 0.047615
+--------------------------- EPOCH:528/4000 ---------------------------
+Iter: 0, Loss: 0.062446
+Iter: 10, Loss: 0.076108
+Iter: 20, Loss: 0.064545
+Iter: 30, Loss: 0.060340
+Iter: 40, Loss: 0.061526
+--------------------------- EPOCH:529/4000 ---------------------------
+Iter: 0, Loss: 0.045605
+Iter: 10, Loss: 0.067147
+Iter: 20, Loss: 0.058618
+Iter: 30, Loss: 0.071887
+Iter: 40, Loss: 0.053926
+--------------------------- EPOCH:530/4000 ---------------------------
+Iter: 0, Loss: 0.093183
+Iter: 10, Loss: 0.044440
+Iter: 20, Loss: 0.050539
+Iter: 30, Loss: 0.045008
+Iter: 40, Loss: 0.053697
+--------------------------- EPOCH:531/4000 ---------------------------
+Iter: 0, Loss: 0.076076
+Iter: 10, Loss: 0.071801
+Iter: 20, Loss: 0.062537
+Iter: 30, Loss: 0.073033
+Iter: 40, Loss: 0.057861
+--------------------------- EPOCH:532/4000 ---------------------------
+Iter: 0, Loss: 0.083063
+Iter: 10, Loss: 0.070314
+Iter: 20, Loss: 0.052909
+Iter: 30, Loss: 0.053182
+Iter: 40, Loss: 0.052907
+--------------------------- EPOCH:533/4000 ---------------------------
+Iter: 0, Loss: 0.054944
+Iter: 10, Loss: 0.078258
+Iter: 20, Loss: 0.057483
+Iter: 30, Loss: 0.051150
+Iter: 40, Loss: 0.067580
+--------------------------- EPOCH:534/4000 ---------------------------
+Iter: 0, Loss: 0.063262
+Iter: 10, Loss: 0.064667
+Iter: 20, Loss: 0.064056
+Iter: 30, Loss: 0.110775
+Iter: 40, Loss: 0.073938
+--------------------------- EPOCH:535/4000 ---------------------------
+Iter: 0, Loss: 0.068244
+Iter: 10, Loss: 0.069890
+Iter: 20, Loss: 0.078934
+Iter: 30, Loss: 0.066956
+Iter: 40, Loss: 0.079697
+--------------------------- EPOCH:536/4000 ---------------------------
+Iter: 0, Loss: 0.067525
+Iter: 10, Loss: 0.051088
+Iter: 20, Loss: 0.090155
+Iter: 30, Loss: 0.057806
+Iter: 40, Loss: 0.048517
+--------------------------- EPOCH:537/4000 ---------------------------
+Iter: 0, Loss: 0.042174
+Iter: 10, Loss: 0.057981
+Iter: 20, Loss: 0.046648
+Iter: 30, Loss: 0.098158
+Iter: 40, Loss: 0.104901
+--------------------------- EPOCH:538/4000 ---------------------------
+Iter: 0, Loss: 0.074292
+Iter: 10, Loss: 0.069213
+Iter: 20, Loss: 0.049589
+Iter: 30, Loss: 0.071082
+Iter: 40, Loss: 0.043116
+--------------------------- EPOCH:539/4000 ---------------------------
+Iter: 0, Loss: 0.064207
+Iter: 10, Loss: 0.066483
+Iter: 20, Loss: 0.050526
+Iter: 30, Loss: 0.053378
+Iter: 40, Loss: 0.069390
+--------------------------- EPOCH:540/4000 ---------------------------
+Iter: 0, Loss: 0.142269
+Iter: 10, Loss: 0.069958
+Iter: 20, Loss: 0.044013
+Iter: 30, Loss: 0.090335
+Iter: 40, Loss: 0.072445
+--------------------------- EPOCH:541/4000 ---------------------------
+Iter: 0, Loss: 0.069756
+Iter: 10, Loss: 0.053067
+Iter: 20, Loss: 0.089083
+Iter: 30, Loss: 0.068543
+Iter: 40, Loss: 0.100439
+--------------------------- EPOCH:542/4000 ---------------------------
+Iter: 0, Loss: 0.128100
+Iter: 10, Loss: 0.089630
+Iter: 20, Loss: 0.060260
+Iter: 30, Loss: 0.064919
+Iter: 40, Loss: 0.049517
+--------------------------- EPOCH:543/4000 ---------------------------
+Iter: 0, Loss: 0.071286
+Iter: 10, Loss: 0.057840
+Iter: 20, Loss: 0.050049
+Iter: 30, Loss: 0.041192
+Iter: 40, Loss: 0.039378
+--------------------------- EPOCH:544/4000 ---------------------------
+Iter: 0, Loss: 0.033736
+Iter: 10, Loss: 0.067403
+Iter: 20, Loss: 0.056199
+Iter: 30, Loss: 0.075071
+Iter: 40, Loss: 0.073640
+--------------------------- EPOCH:545/4000 ---------------------------
+Iter: 0, Loss: 0.073254
+Iter: 10, Loss: 0.047506
+Iter: 20, Loss: 0.075411
+Iter: 30, Loss: 0.056676
+Iter: 40, Loss: 0.072802
+--------------------------- EPOCH:546/4000 ---------------------------
+Iter: 0, Loss: 0.052884
+Iter: 10, Loss: 0.079568
+Iter: 20, Loss: 0.060687
+Iter: 30, Loss: 0.063010
+Iter: 40, Loss: 0.080688
+--------------------------- EPOCH:547/4000 ---------------------------
+Iter: 0, Loss: 0.051666
+Iter: 10, Loss: 0.043255
+Iter: 20, Loss: 0.069349
+Iter: 30, Loss: 0.060082
+Iter: 40, Loss: 0.077533
+--------------------------- EPOCH:548/4000 ---------------------------
+Iter: 0, Loss: 0.065671
+Iter: 10, Loss: 0.073668
+Iter: 20, Loss: 0.051798
+Iter: 30, Loss: 0.083399
+Iter: 40, Loss: 0.071488
+--------------------------- EPOCH:549/4000 ---------------------------
+Iter: 0, Loss: 0.048990
+Iter: 10, Loss: 0.069574
+Iter: 20, Loss: 0.060533
+Iter: 30, Loss: 0.085482
+Iter: 40, Loss: 0.038671
+--------------------------- EPOCH:550/4000 ---------------------------
+Iter: 0, Loss: 0.065105
+Iter: 10, Loss: 0.049029
+Iter: 20, Loss: 0.048399
+Iter: 30, Loss: 0.075797
+Iter: 40, Loss: 0.074523
+--------------------------- EPOCH:551/4000 ---------------------------
+Iter: 0, Loss: 0.046950
+Iter: 10, Loss: 0.043013
+Iter: 20, Loss: 0.087875
+Iter: 30, Loss: 0.097904
+Iter: 40, Loss: 0.074507
+--------------------------- EPOCH:552/4000 ---------------------------
+Iter: 0, Loss: 0.038731
+Iter: 10, Loss: 0.055691
+Iter: 20, Loss: 0.045458
+Iter: 30, Loss: 0.072910
+Iter: 40, Loss: 0.074794
+--------------------------- EPOCH:553/4000 ---------------------------
+Iter: 0, Loss: 0.067253
+Iter: 10, Loss: 0.054294
+Iter: 20, Loss: 0.065481
+Iter: 30, Loss: 0.092879
+Iter: 40, Loss: 0.030694
+--------------------------- EPOCH:554/4000 ---------------------------
+Iter: 0, Loss: 0.052891
+Iter: 10, Loss: 0.040849
+Iter: 20, Loss: 0.055623
+Iter: 30, Loss: 0.075093
+Iter: 40, Loss: 0.058736
+--------------------------- EPOCH:555/4000 ---------------------------
+Iter: 0, Loss: 0.076400
+Iter: 10, Loss: 0.063326
+Iter: 20, Loss: 0.058842
+Iter: 30, Loss: 0.080362
+Iter: 40, Loss: 0.042026
+--------------------------- EPOCH:556/4000 ---------------------------
+Iter: 0, Loss: 0.065817
+Iter: 10, Loss: 0.052537
+Iter: 20, Loss: 0.037173
+Iter: 30, Loss: 0.060262
+Iter: 40, Loss: 0.055338
+--------------------------- EPOCH:557/4000 ---------------------------
+Iter: 0, Loss: 0.061689
+Iter: 10, Loss: 0.056439
+Iter: 20, Loss: 0.054147
+Iter: 30, Loss: 0.081453
+Iter: 40, Loss: 0.048274
+--------------------------- EPOCH:558/4000 ---------------------------
+Iter: 0, Loss: 0.067637
+Iter: 10, Loss: 0.038258
+Iter: 20, Loss: 0.049925
+Iter: 30, Loss: 0.060029
+Iter: 40, Loss: 0.084997
+--------------------------- EPOCH:559/4000 ---------------------------
+Iter: 0, Loss: 0.081902
+Iter: 10, Loss: 0.061408
+Iter: 20, Loss: 0.044615
+Iter: 30, Loss: 0.101948
+Iter: 40, Loss: 0.088423
+--------------------------- EPOCH:560/4000 ---------------------------
+Iter: 0, Loss: 0.050008
+Iter: 10, Loss: 0.048300
+Iter: 20, Loss: 0.057756
+Iter: 30, Loss: 0.084800
+Iter: 40, Loss: 0.064357
+--------------------------- EPOCH:561/4000 ---------------------------
+Iter: 0, Loss: 0.066295
+Iter: 10, Loss: 0.076619
+Iter: 20, Loss: 0.068865
+Iter: 30, Loss: 0.076825
+Iter: 40, Loss: 0.057674
+--------------------------- EPOCH:562/4000 ---------------------------
+Iter: 0, Loss: 0.074333
+Iter: 10, Loss: 0.097681
+Iter: 20, Loss: 0.058091
+Iter: 30, Loss: 0.106756
+Iter: 40, Loss: 0.053912
+--------------------------- EPOCH:563/4000 ---------------------------
+Iter: 0, Loss: 0.065068
+Iter: 10, Loss: 0.058308
+Iter: 20, Loss: 0.065201
+Iter: 30, Loss: 0.066664
+Iter: 40, Loss: 0.077947
+--------------------------- EPOCH:564/4000 ---------------------------
+Iter: 0, Loss: 0.067411
+Iter: 10, Loss: 0.063167
+Iter: 20, Loss: 0.059988
+Iter: 30, Loss: 0.051569
+Iter: 40, Loss: 0.065109
+--------------------------- EPOCH:565/4000 ---------------------------
+Iter: 0, Loss: 0.046869
+Iter: 10, Loss: 0.064229
+Iter: 20, Loss: 0.088120
+Iter: 30, Loss: 0.055943
+Iter: 40, Loss: 0.077120
+--------------------------- EPOCH:566/4000 ---------------------------
+Iter: 0, Loss: 0.064734
+Iter: 10, Loss: 0.058011
+Iter: 20, Loss: 0.069299
+Iter: 30, Loss: 0.089789
+Iter: 40, Loss: 0.088497
+--------------------------- EPOCH:567/4000 ---------------------------
+Iter: 0, Loss: 0.069542
+Iter: 10, Loss: 0.093262
+Iter: 20, Loss: 0.065201
+Iter: 30, Loss: 0.051365
+Iter: 40, Loss: 0.064037
+--------------------------- EPOCH:568/4000 ---------------------------
+Iter: 0, Loss: 0.082963
+Iter: 10, Loss: 0.045790
+Iter: 20, Loss: 0.052281
+Iter: 30, Loss: 0.045122
+Iter: 40, Loss: 0.054926
+--------------------------- EPOCH:569/4000 ---------------------------
+Iter: 0, Loss: 0.066968
+Iter: 10, Loss: 0.068133
+Iter: 20, Loss: 0.042646
+Iter: 30, Loss: 0.055668
+Iter: 40, Loss: 0.049260
+--------------------------- EPOCH:570/4000 ---------------------------
+Iter: 0, Loss: 0.057214
+Iter: 10, Loss: 0.037402
+Iter: 20, Loss: 0.071634
+Iter: 30, Loss: 0.048008
+Iter: 40, Loss: 0.041271
+--------------------------- EPOCH:571/4000 ---------------------------
+Iter: 0, Loss: 0.048269
+Iter: 10, Loss: 0.091996
+Iter: 20, Loss: 0.069276
+Iter: 30, Loss: 0.065886
+Iter: 40, Loss: 0.046383
+--------------------------- EPOCH:572/4000 ---------------------------
+Iter: 0, Loss: 0.078766
+Iter: 10, Loss: 0.077909
+Iter: 20, Loss: 0.073181
+Iter: 30, Loss: 0.054310
+Iter: 40, Loss: 0.059157
+实验Baseline3_0: 更新最佳参数，位于 Epoch 572
+Val results: val loss=0.0765, SROCC=0.6908, KROCC=0.4986, PLCC=0.7007, RMSE=0.4507
+Test results: test loss=0.0779, SROCC=0.7356, KROCC=0.5452, PLCC=0.7302, RMSE=0.4682
+--------------------------- EPOCH:573/4000 ---------------------------
+Iter: 0, Loss: 0.060144
+Iter: 10, Loss: 0.078322
+Iter: 20, Loss: 0.077944
+Iter: 30, Loss: 0.080569
+Iter: 40, Loss: 0.050822
+实验Baseline3_0: 更新最佳参数，位于 Epoch 573
+Val results: val loss=0.0771, SROCC=0.6792, KROCC=0.4863, PLCC=0.6850, RMSE=0.4544
+Test results: test loss=0.0737, SROCC=0.7434, KROCC=0.5514, PLCC=0.7369, RMSE=0.4423
+--------------------------- EPOCH:574/4000 ---------------------------
+Iter: 0, Loss: 0.051715
+Iter: 10, Loss: 0.068444
+Iter: 20, Loss: 0.067932
+Iter: 30, Loss: 0.062961
+Iter: 40, Loss: 0.042957
+--------------------------- EPOCH:575/4000 ---------------------------
+Iter: 0, Loss: 0.054298
+Iter: 10, Loss: 0.067079
+Iter: 20, Loss: 0.068407
+Iter: 30, Loss: 0.054901
+Iter: 40, Loss: 0.077273
+--------------------------- EPOCH:576/4000 ---------------------------
+Iter: 0, Loss: 0.062579
+Iter: 10, Loss: 0.095351
+Iter: 20, Loss: 0.076537
+Iter: 30, Loss: 0.069729
+Iter: 40, Loss: 0.090269
+--------------------------- EPOCH:577/4000 ---------------------------
+Iter: 0, Loss: 0.055699
+Iter: 10, Loss: 0.090766
+Iter: 20, Loss: 0.040026
+Iter: 30, Loss: 0.058170
+Iter: 40, Loss: 0.073941
+--------------------------- EPOCH:578/4000 ---------------------------
+Iter: 0, Loss: 0.050030
+Iter: 10, Loss: 0.064675
+Iter: 20, Loss: 0.050749
+Iter: 30, Loss: 0.078640
+Iter: 40, Loss: 0.047740
+--------------------------- EPOCH:579/4000 ---------------------------
+Iter: 0, Loss: 0.050177
+Iter: 10, Loss: 0.079849
+Iter: 20, Loss: 0.056426
+Iter: 30, Loss: 0.060625
+Iter: 40, Loss: 0.050431
+--------------------------- EPOCH:580/4000 ---------------------------
+Iter: 0, Loss: 0.045542
+Iter: 10, Loss: 0.084297
+Iter: 20, Loss: 0.071267
+Iter: 30, Loss: 0.066114
+Iter: 40, Loss: 0.031578
+实验Baseline3_0: 更新最佳参数，位于 Epoch 580
+Val results: val loss=0.0751, SROCC=0.6827, KROCC=0.4923, PLCC=0.6922, RMSE=0.4455
+Test results: test loss=0.0731, SROCC=0.7439, KROCC=0.5522, PLCC=0.7368, RMSE=0.4385
+--------------------------- EPOCH:581/4000 ---------------------------
+Iter: 0, Loss: 0.042135
+Iter: 10, Loss: 0.048073
+Iter: 20, Loss: 0.068139
+Iter: 30, Loss: 0.070256
+Iter: 40, Loss: 0.063402
+--------------------------- EPOCH:582/4000 ---------------------------
+Iter: 0, Loss: 0.054566
+Iter: 10, Loss: 0.037361
+Iter: 20, Loss: 0.069177
+Iter: 30, Loss: 0.065951
+Iter: 40, Loss: 0.069002
+--------------------------- EPOCH:583/4000 ---------------------------
+Iter: 0, Loss: 0.055388
+Iter: 10, Loss: 0.048654
+Iter: 20, Loss: 0.047290
+Iter: 30, Loss: 0.074924
+Iter: 40, Loss: 0.055360
+--------------------------- EPOCH:584/4000 ---------------------------
+Iter: 0, Loss: 0.055904
+Iter: 10, Loss: 0.054539
+Iter: 20, Loss: 0.064859
+Iter: 30, Loss: 0.059616
+Iter: 40, Loss: 0.092434
+--------------------------- EPOCH:585/4000 ---------------------------
+Iter: 0, Loss: 0.046661
+Iter: 10, Loss: 0.047565
+Iter: 20, Loss: 0.062252
+Iter: 30, Loss: 0.087546
+Iter: 40, Loss: 0.062554
+--------------------------- EPOCH:586/4000 ---------------------------
+Iter: 0, Loss: 0.049947
+Iter: 10, Loss: 0.084603
+Iter: 20, Loss: 0.059710
+Iter: 30, Loss: 0.049691
+Iter: 40, Loss: 0.044192
+--------------------------- EPOCH:587/4000 ---------------------------
+Iter: 0, Loss: 0.074449
+Iter: 10, Loss: 0.059451
+Iter: 20, Loss: 0.062029
+Iter: 30, Loss: 0.094471
+Iter: 40, Loss: 0.057973
+--------------------------- EPOCH:588/4000 ---------------------------
+Iter: 0, Loss: 0.076340
+Iter: 10, Loss: 0.067211
+Iter: 20, Loss: 0.084334
+Iter: 30, Loss: 0.063119
+Iter: 40, Loss: 0.062586
+--------------------------- EPOCH:589/4000 ---------------------------
+Iter: 0, Loss: 0.054674
+Iter: 10, Loss: 0.056984
+Iter: 20, Loss: 0.048417
+Iter: 30, Loss: 0.080073
+Iter: 40, Loss: 0.066967
+--------------------------- EPOCH:590/4000 ---------------------------
+Iter: 0, Loss: 0.049567
+Iter: 10, Loss: 0.044280
+Iter: 20, Loss: 0.064429
+Iter: 30, Loss: 0.068109
+Iter: 40, Loss: 0.070269
+--------------------------- EPOCH:591/4000 ---------------------------
+Iter: 0, Loss: 0.064627
+Iter: 10, Loss: 0.065492
+Iter: 20, Loss: 0.067758
+Iter: 30, Loss: 0.054635
+Iter: 40, Loss: 0.068050
+实验Baseline3_0: 更新最佳参数，位于 Epoch 591
+Val results: val loss=0.0765, SROCC=0.6850, KROCC=0.4937, PLCC=0.6922, RMSE=0.4525
+Test results: test loss=0.0732, SROCC=0.7449, KROCC=0.5509, PLCC=0.7379, RMSE=0.4369
+--------------------------- EPOCH:592/4000 ---------------------------
+Iter: 0, Loss: 0.031084
+Iter: 10, Loss: 0.073505
+Iter: 20, Loss: 0.071403
+Iter: 30, Loss: 0.054122
+Iter: 40, Loss: 0.069100
+--------------------------- EPOCH:593/4000 ---------------------------
+Iter: 0, Loss: 0.075398
+Iter: 10, Loss: 0.044608
+Iter: 20, Loss: 0.035075
+Iter: 30, Loss: 0.058181
+Iter: 40, Loss: 0.057928
+--------------------------- EPOCH:594/4000 ---------------------------
+Iter: 0, Loss: 0.046601
+Iter: 10, Loss: 0.043365
+Iter: 20, Loss: 0.058838
+Iter: 30, Loss: 0.073356
+Iter: 40, Loss: 0.057922
+--------------------------- EPOCH:595/4000 ---------------------------
+Iter: 0, Loss: 0.057546
+Iter: 10, Loss: 0.050333
+Iter: 20, Loss: 0.053591
+Iter: 30, Loss: 0.054156
+Iter: 40, Loss: 0.050135
+--------------------------- EPOCH:596/4000 ---------------------------
+Iter: 0, Loss: 0.055313
+Iter: 10, Loss: 0.073438
+Iter: 20, Loss: 0.049230
+Iter: 30, Loss: 0.063661
+Iter: 40, Loss: 0.052612
+--------------------------- EPOCH:597/4000 ---------------------------
+Iter: 0, Loss: 0.048285
+Iter: 10, Loss: 0.067793
+Iter: 20, Loss: 0.071177
+Iter: 30, Loss: 0.087665
+Iter: 40, Loss: 0.057723
+--------------------------- EPOCH:598/4000 ---------------------------
+Iter: 0, Loss: 0.067924
+Iter: 10, Loss: 0.060210
+Iter: 20, Loss: 0.037437
+Iter: 30, Loss: 0.088740
+Iter: 40, Loss: 0.077833
+--------------------------- EPOCH:599/4000 ---------------------------
+Iter: 0, Loss: 0.044262
+Iter: 10, Loss: 0.048962
+Iter: 20, Loss: 0.042699
+Iter: 30, Loss: 0.052527
+Iter: 40, Loss: 0.045313
+--------------------------- EPOCH:600/4000 ---------------------------
+Iter: 0, Loss: 0.055153
+Iter: 10, Loss: 0.053093
+Iter: 20, Loss: 0.064753
+Iter: 30, Loss: 0.069763
+Iter: 40, Loss: 0.062062
+--------------------------- EPOCH:601/4000 ---------------------------
+Iter: 0, Loss: 0.057073
+Iter: 10, Loss: 0.074111
+Iter: 20, Loss: 0.048152
+Iter: 30, Loss: 0.059161
+Iter: 40, Loss: 0.056094
+--------------------------- EPOCH:602/4000 ---------------------------
+Iter: 0, Loss: 0.062578
+Iter: 10, Loss: 0.065655
+Iter: 20, Loss: 0.043923
+Iter: 30, Loss: 0.058876
+Iter: 40, Loss: 0.057991
+--------------------------- EPOCH:603/4000 ---------------------------
+Iter: 0, Loss: 0.042808
+Iter: 10, Loss: 0.049101
+Iter: 20, Loss: 0.060855
+Iter: 30, Loss: 0.057541
+Iter: 40, Loss: 0.060455
+--------------------------- EPOCH:604/4000 ---------------------------
+Iter: 0, Loss: 0.063085
+Iter: 10, Loss: 0.073865
+Iter: 20, Loss: 0.032242
+Iter: 30, Loss: 0.080481
+Iter: 40, Loss: 0.051225
+--------------------------- EPOCH:605/4000 ---------------------------
+Iter: 0, Loss: 0.047534
+Iter: 10, Loss: 0.036730
+Iter: 20, Loss: 0.037555
+Iter: 30, Loss: 0.081406
+Iter: 40, Loss: 0.081735
+--------------------------- EPOCH:606/4000 ---------------------------
+Iter: 0, Loss: 0.051479
+Iter: 10, Loss: 0.075768
+Iter: 20, Loss: 0.074994
+Iter: 30, Loss: 0.046232
+Iter: 40, Loss: 0.054278
+--------------------------- EPOCH:607/4000 ---------------------------
+Iter: 0, Loss: 0.050489
+Iter: 10, Loss: 0.079896
+Iter: 20, Loss: 0.086289
+Iter: 30, Loss: 0.060362
+Iter: 40, Loss: 0.059543
+--------------------------- EPOCH:608/4000 ---------------------------
+Iter: 0, Loss: 0.075100
+Iter: 10, Loss: 0.081418
+Iter: 20, Loss: 0.059441
+Iter: 30, Loss: 0.081192
+Iter: 40, Loss: 0.040939
+实验Baseline3_0: 更新最佳参数，位于 Epoch 608
+Val results: val loss=0.0859, SROCC=0.6867, KROCC=0.4947, PLCC=0.6926, RMSE=0.5016
+Test results: test loss=0.0803, SROCC=0.7460, KROCC=0.5510, PLCC=0.7390, RMSE=0.4733
+--------------------------- EPOCH:609/4000 ---------------------------
+Iter: 0, Loss: 0.075646
+Iter: 10, Loss: 0.059301
+Iter: 20, Loss: 0.049227
+Iter: 30, Loss: 0.063215
+Iter: 40, Loss: 0.053785
+--------------------------- EPOCH:610/4000 ---------------------------
+Iter: 0, Loss: 0.053963
+Iter: 10, Loss: 0.049063
+Iter: 20, Loss: 0.068299
+Iter: 30, Loss: 0.054401
+Iter: 40, Loss: 0.047999
+--------------------------- EPOCH:611/4000 ---------------------------
+Iter: 0, Loss: 0.036949
+Iter: 10, Loss: 0.082196
+Iter: 20, Loss: 0.072879
+Iter: 30, Loss: 0.035451
+Iter: 40, Loss: 0.102266
+--------------------------- EPOCH:612/4000 ---------------------------
+Iter: 0, Loss: 0.064591
+Iter: 10, Loss: 0.085676
+Iter: 20, Loss: 0.057430
+Iter: 30, Loss: 0.049469
+Iter: 40, Loss: 0.086928
+--------------------------- EPOCH:613/4000 ---------------------------
+Iter: 0, Loss: 0.062717
+Iter: 10, Loss: 0.069743
+Iter: 20, Loss: 0.045046
+Iter: 30, Loss: 0.044470
+Iter: 40, Loss: 0.064375
+实验Baseline3_0: 更新最佳参数，位于 Epoch 613
+Val results: val loss=0.0829, SROCC=0.6837, KROCC=0.4907, PLCC=0.6895, RMSE=0.4845
+Test results: test loss=0.0775, SROCC=0.7462, KROCC=0.5538, PLCC=0.7386, RMSE=0.4586
+--------------------------- EPOCH:614/4000 ---------------------------
+Iter: 0, Loss: 0.058996
+Iter: 10, Loss: 0.069809
+Iter: 20, Loss: 0.043159
+Iter: 30, Loss: 0.054751
+Iter: 40, Loss: 0.090846
+--------------------------- EPOCH:615/4000 ---------------------------
+Iter: 0, Loss: 0.095859
+Iter: 10, Loss: 0.041298
+Iter: 20, Loss: 0.052686
+Iter: 30, Loss: 0.044405
+Iter: 40, Loss: 0.056024
+--------------------------- EPOCH:616/4000 ---------------------------
+Iter: 0, Loss: 0.041569
+Iter: 10, Loss: 0.053894
+Iter: 20, Loss: 0.082696
+Iter: 30, Loss: 0.048052
+Iter: 40, Loss: 0.047444
+--------------------------- EPOCH:617/4000 ---------------------------
+Iter: 0, Loss: 0.058733
+Iter: 10, Loss: 0.042208
+Iter: 20, Loss: 0.080242
+Iter: 30, Loss: 0.059627
+Iter: 40, Loss: 0.083486
+--------------------------- EPOCH:618/4000 ---------------------------
+Iter: 0, Loss: 0.047561
+Iter: 10, Loss: 0.055324
+Iter: 20, Loss: 0.040060
+Iter: 30, Loss: 0.079149
+Iter: 40, Loss: 0.070094
+--------------------------- EPOCH:619/4000 ---------------------------
+Iter: 0, Loss: 0.074603
+Iter: 10, Loss: 0.052273
+Iter: 20, Loss: 0.031666
+Iter: 30, Loss: 0.043836
+Iter: 40, Loss: 0.065746
+--------------------------- EPOCH:620/4000 ---------------------------
+Iter: 0, Loss: 0.040122
+Iter: 10, Loss: 0.034952
+Iter: 20, Loss: 0.048793
+Iter: 30, Loss: 0.064639
+Iter: 40, Loss: 0.051466
+--------------------------- EPOCH:621/4000 ---------------------------
+Iter: 0, Loss: 0.050931
+Iter: 10, Loss: 0.042045
+Iter: 20, Loss: 0.054227
+Iter: 30, Loss: 0.085247
+Iter: 40, Loss: 0.035779
+--------------------------- EPOCH:622/4000 ---------------------------
+Iter: 0, Loss: 0.046890
+Iter: 10, Loss: 0.054246
+Iter: 20, Loss: 0.039326
+Iter: 30, Loss: 0.044475
+Iter: 40, Loss: 0.076337
+--------------------------- EPOCH:623/4000 ---------------------------
+Iter: 0, Loss: 0.061863
+Iter: 10, Loss: 0.051797
+Iter: 20, Loss: 0.076174
+Iter: 30, Loss: 0.028956
+Iter: 40, Loss: 0.051427
+--------------------------- EPOCH:624/4000 ---------------------------
+Iter: 0, Loss: 0.048300
+Iter: 10, Loss: 0.038471
+Iter: 20, Loss: 0.085839
+Iter: 30, Loss: 0.078795
+Iter: 40, Loss: 0.038112
+实验Baseline3_0: 更新最佳参数，位于 Epoch 624
+Val results: val loss=0.0799, SROCC=0.6926, KROCC=0.4976, PLCC=0.7026, RMSE=0.4644
+Test results: test loss=0.0808, SROCC=0.7466, KROCC=0.5524, PLCC=0.7406, RMSE=0.4784
+--------------------------- EPOCH:625/4000 ---------------------------
+Iter: 0, Loss: 0.068298
+Iter: 10, Loss: 0.053551
+Iter: 20, Loss: 0.056757
+Iter: 30, Loss: 0.075573
+Iter: 40, Loss: 0.047272
+--------------------------- EPOCH:626/4000 ---------------------------
+Iter: 0, Loss: 0.059245
+Iter: 10, Loss: 0.060845
+Iter: 20, Loss: 0.064512
+Iter: 30, Loss: 0.053098
+Iter: 40, Loss: 0.071555
+--------------------------- EPOCH:627/4000 ---------------------------
+Iter: 0, Loss: 0.062801
+Iter: 10, Loss: 0.054473
+Iter: 20, Loss: 0.047779
+Iter: 30, Loss: 0.072587
+Iter: 40, Loss: 0.055220
+--------------------------- EPOCH:628/4000 ---------------------------
+Iter: 0, Loss: 0.072818
+Iter: 10, Loss: 0.060089
+Iter: 20, Loss: 0.058749
+Iter: 30, Loss: 0.078672
+Iter: 40, Loss: 0.072398
+--------------------------- EPOCH:629/4000 ---------------------------
+Iter: 0, Loss: 0.070864
+Iter: 10, Loss: 0.054091
+Iter: 20, Loss: 0.045369
+Iter: 30, Loss: 0.084511
+Iter: 40, Loss: 0.081296
+--------------------------- EPOCH:630/4000 ---------------------------
+Iter: 0, Loss: 0.053208
+Iter: 10, Loss: 0.064661
+Iter: 20, Loss: 0.045053
+Iter: 30, Loss: 0.053142
+Iter: 40, Loss: 0.067651
+--------------------------- EPOCH:631/4000 ---------------------------
+Iter: 0, Loss: 0.035484
+Iter: 10, Loss: 0.105748
+Iter: 20, Loss: 0.068642
+Iter: 30, Loss: 0.074806
+Iter: 40, Loss: 0.057790
+--------------------------- EPOCH:632/4000 ---------------------------
+Iter: 0, Loss: 0.032688
+Iter: 10, Loss: 0.067495
+Iter: 20, Loss: 0.064649
+Iter: 30, Loss: 0.058813
+Iter: 40, Loss: 0.035154
+--------------------------- EPOCH:633/4000 ---------------------------
+Iter: 0, Loss: 0.067967
+Iter: 10, Loss: 0.050218
+Iter: 20, Loss: 0.075778
+Iter: 30, Loss: 0.062755
+Iter: 40, Loss: 0.039272
+--------------------------- EPOCH:634/4000 ---------------------------
+Iter: 0, Loss: 0.046727
+Iter: 10, Loss: 0.071557
+Iter: 20, Loss: 0.038965
+Iter: 30, Loss: 0.065590
+Iter: 40, Loss: 0.053209
+实验Baseline3_0: 更新最佳参数，位于 Epoch 634
+Val results: val loss=0.0766, SROCC=0.6862, KROCC=0.4950, PLCC=0.6927, RMSE=0.4522
+Test results: test loss=0.0760, SROCC=0.7481, KROCC=0.5541, PLCC=0.7412, RMSE=0.4516
+--------------------------- EPOCH:635/4000 ---------------------------
+Iter: 0, Loss: 0.051354
+Iter: 10, Loss: 0.076026
+Iter: 20, Loss: 0.052292
+Iter: 30, Loss: 0.053039
+Iter: 40, Loss: 0.052659
+--------------------------- EPOCH:636/4000 ---------------------------
+Iter: 0, Loss: 0.059576
+Iter: 10, Loss: 0.047998
+Iter: 20, Loss: 0.075906
+Iter: 30, Loss: 0.063457
+Iter: 40, Loss: 0.055854
+--------------------------- EPOCH:637/4000 ---------------------------
+Iter: 0, Loss: 0.057937
+Iter: 10, Loss: 0.061283
+Iter: 20, Loss: 0.054249
+Iter: 30, Loss: 0.058853
+Iter: 40, Loss: 0.058266
+--------------------------- EPOCH:638/4000 ---------------------------
+Iter: 0, Loss: 0.085627
+Iter: 10, Loss: 0.083263
+Iter: 20, Loss: 0.072438
+Iter: 30, Loss: 0.055898
+Iter: 40, Loss: 0.079819
+--------------------------- EPOCH:639/4000 ---------------------------
+Iter: 0, Loss: 0.071329
+Iter: 10, Loss: 0.071701
+Iter: 20, Loss: 0.069853
+Iter: 30, Loss: 0.058557
+Iter: 40, Loss: 0.044681
+--------------------------- EPOCH:640/4000 ---------------------------
+Iter: 0, Loss: 0.083439
+Iter: 10, Loss: 0.053313
+Iter: 20, Loss: 0.063042
+Iter: 30, Loss: 0.067668
+Iter: 40, Loss: 0.040065
+--------------------------- EPOCH:641/4000 ---------------------------
+Iter: 0, Loss: 0.062654
+Iter: 10, Loss: 0.049307
+Iter: 20, Loss: 0.076267
+Iter: 30, Loss: 0.082196
+Iter: 40, Loss: 0.048408
+--------------------------- EPOCH:642/4000 ---------------------------
+Iter: 0, Loss: 0.066172
+Iter: 10, Loss: 0.058328
+Iter: 20, Loss: 0.072746
+Iter: 30, Loss: 0.071905
+Iter: 40, Loss: 0.058623
+--------------------------- EPOCH:643/4000 ---------------------------
+Iter: 0, Loss: 0.052556
+Iter: 10, Loss: 0.057129
+Iter: 20, Loss: 0.028504
+Iter: 30, Loss: 0.057042
+Iter: 40, Loss: 0.038504
+--------------------------- EPOCH:644/4000 ---------------------------
+Iter: 0, Loss: 0.072566
+Iter: 10, Loss: 0.084506
+Iter: 20, Loss: 0.063456
+Iter: 30, Loss: 0.082974
+Iter: 40, Loss: 0.073397
+--------------------------- EPOCH:645/4000 ---------------------------
+Iter: 0, Loss: 0.064894
+Iter: 10, Loss: 0.084448
+Iter: 20, Loss: 0.051525
+Iter: 30, Loss: 0.083833
+Iter: 40, Loss: 0.061953
+--------------------------- EPOCH:646/4000 ---------------------------
+Iter: 0, Loss: 0.049249
+Iter: 10, Loss: 0.071122
+Iter: 20, Loss: 0.061219
+Iter: 30, Loss: 0.063663
+Iter: 40, Loss: 0.046993
+--------------------------- EPOCH:647/4000 ---------------------------
+Iter: 0, Loss: 0.043894
+Iter: 10, Loss: 0.068072
+Iter: 20, Loss: 0.109063
+Iter: 30, Loss: 0.091784
+Iter: 40, Loss: 0.044112
+--------------------------- EPOCH:648/4000 ---------------------------
+Iter: 0, Loss: 0.055257
+Iter: 10, Loss: 0.061454
+Iter: 20, Loss: 0.054650
+Iter: 30, Loss: 0.056351
+Iter: 40, Loss: 0.066890
+--------------------------- EPOCH:649/4000 ---------------------------
+Iter: 0, Loss: 0.059031
+Iter: 10, Loss: 0.040777
+Iter: 20, Loss: 0.054947
+Iter: 30, Loss: 0.053180
+Iter: 40, Loss: 0.061544
+--------------------------- EPOCH:650/4000 ---------------------------
+Iter: 0, Loss: 0.067132
+Iter: 10, Loss: 0.066218
+Iter: 20, Loss: 0.035972
+Iter: 30, Loss: 0.058511
+Iter: 40, Loss: 0.057051
+--------------------------- EPOCH:651/4000 ---------------------------
+Iter: 0, Loss: 0.060529
+Iter: 10, Loss: 0.055993
+Iter: 20, Loss: 0.049922
+Iter: 30, Loss: 0.055886
+Iter: 40, Loss: 0.056242
+--------------------------- EPOCH:652/4000 ---------------------------
+Iter: 0, Loss: 0.076434
+Iter: 10, Loss: 0.059540
+Iter: 20, Loss: 0.065641
+Iter: 30, Loss: 0.062793
+Iter: 40, Loss: 0.046345
+--------------------------- EPOCH:653/4000 ---------------------------
+Iter: 0, Loss: 0.046878
+Iter: 10, Loss: 0.040140
+Iter: 20, Loss: 0.074418
+Iter: 30, Loss: 0.067534
+Iter: 40, Loss: 0.051441
+--------------------------- EPOCH:654/4000 ---------------------------
+Iter: 0, Loss: 0.042132
+Iter: 10, Loss: 0.070035
+Iter: 20, Loss: 0.071660
+Iter: 30, Loss: 0.087959
+Iter: 40, Loss: 0.038231
+--------------------------- EPOCH:655/4000 ---------------------------
+Iter: 0, Loss: 0.057968
+Iter: 10, Loss: 0.069322
+Iter: 20, Loss: 0.034912
+Iter: 30, Loss: 0.070418
+Iter: 40, Loss: 0.085678
+--------------------------- EPOCH:656/4000 ---------------------------
+Iter: 0, Loss: 0.062735
+Iter: 10, Loss: 0.092212
+Iter: 20, Loss: 0.067638
+Iter: 30, Loss: 0.034159
+Iter: 40, Loss: 0.055496
+--------------------------- EPOCH:657/4000 ---------------------------
+Iter: 0, Loss: 0.055364
+Iter: 10, Loss: 0.061058
+Iter: 20, Loss: 0.051708
+Iter: 30, Loss: 0.064430
+Iter: 40, Loss: 0.052635
+--------------------------- EPOCH:658/4000 ---------------------------
+Iter: 0, Loss: 0.079870
+Iter: 10, Loss: 0.044818
+Iter: 20, Loss: 0.049670
+Iter: 30, Loss: 0.119662
+Iter: 40, Loss: 0.061115
+--------------------------- EPOCH:659/4000 ---------------------------
+Iter: 0, Loss: 0.084149
+Iter: 10, Loss: 0.060220
+Iter: 20, Loss: 0.071248
+Iter: 30, Loss: 0.066350
+Iter: 40, Loss: 0.063247
+--------------------------- EPOCH:660/4000 ---------------------------
+Iter: 0, Loss: 0.093845
+Iter: 10, Loss: 0.058910
+Iter: 20, Loss: 0.072476
+Iter: 30, Loss: 0.062889
+Iter: 40, Loss: 0.054146
+--------------------------- EPOCH:661/4000 ---------------------------
+Iter: 0, Loss: 0.033307
+Iter: 10, Loss: 0.080148
+Iter: 20, Loss: 0.098846
+Iter: 30, Loss: 0.062603
+Iter: 40, Loss: 0.073667
+--------------------------- EPOCH:662/4000 ---------------------------
+Iter: 0, Loss: 0.035112
+Iter: 10, Loss: 0.076551
+Iter: 20, Loss: 0.064967
+Iter: 30, Loss: 0.059386
+Iter: 40, Loss: 0.066160
+--------------------------- EPOCH:663/4000 ---------------------------
+Iter: 0, Loss: 0.057170
+Iter: 10, Loss: 0.047557
+Iter: 20, Loss: 0.084608
+Iter: 30, Loss: 0.075405
+Iter: 40, Loss: 0.036555
+--------------------------- EPOCH:664/4000 ---------------------------
+Iter: 0, Loss: 0.036716
+Iter: 10, Loss: 0.064973
+Iter: 20, Loss: 0.046796
+Iter: 30, Loss: 0.072449
+Iter: 40, Loss: 0.040961
+--------------------------- EPOCH:665/4000 ---------------------------
+Iter: 0, Loss: 0.061593
+Iter: 10, Loss: 0.046719
+Iter: 20, Loss: 0.051667
+Iter: 30, Loss: 0.050544
+Iter: 40, Loss: 0.039424
+--------------------------- EPOCH:666/4000 ---------------------------
+Iter: 0, Loss: 0.052102
+Iter: 10, Loss: 0.061068
+Iter: 20, Loss: 0.051151
+Iter: 30, Loss: 0.056674
+Iter: 40, Loss: 0.077077
+--------------------------- EPOCH:667/4000 ---------------------------
+Iter: 0, Loss: 0.064828
+Iter: 10, Loss: 0.050839
+Iter: 20, Loss: 0.033983
+Iter: 30, Loss: 0.084010
+Iter: 40, Loss: 0.073326
+--------------------------- EPOCH:668/4000 ---------------------------
+Iter: 0, Loss: 0.053565
+Iter: 10, Loss: 0.045009
+Iter: 20, Loss: 0.082118
+Iter: 30, Loss: 0.060935
+Iter: 40, Loss: 0.089918
+--------------------------- EPOCH:669/4000 ---------------------------
+Iter: 0, Loss: 0.099204
+Iter: 10, Loss: 0.054647
+Iter: 20, Loss: 0.060173
+Iter: 30, Loss: 0.080625
+Iter: 40, Loss: 0.053212
+--------------------------- EPOCH:670/4000 ---------------------------
+Iter: 0, Loss: 0.064124
+Iter: 10, Loss: 0.080429
+Iter: 20, Loss: 0.052929
+Iter: 30, Loss: 0.034798
+Iter: 40, Loss: 0.055970
+--------------------------- EPOCH:671/4000 ---------------------------
+Iter: 0, Loss: 0.095102
+Iter: 10, Loss: 0.058606
+Iter: 20, Loss: 0.046842
+Iter: 30, Loss: 0.061397
+Iter: 40, Loss: 0.060565
+--------------------------- EPOCH:672/4000 ---------------------------
+Iter: 0, Loss: 0.054196
+Iter: 10, Loss: 0.039140
+Iter: 20, Loss: 0.036919
+Iter: 30, Loss: 0.052463
+Iter: 40, Loss: 0.057962
+--------------------------- EPOCH:673/4000 ---------------------------

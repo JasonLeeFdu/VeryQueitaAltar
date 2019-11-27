@@ -32,8 +32,8 @@ import argparse
 
 
 
-import networkBaseline2 as nt
-import Config.confBaseline2 as conf
+import networkBaseline3 as nt
+import Config.confBaseline3 as conf
 from networkBaseline2 import weights_init
 
 
@@ -135,7 +135,7 @@ def originalVSFAMain():
 
     # 网络载入并设定损失与优化
     device = torch.device("cuda")
-    model = nt.LJCH1(max_len).cuda()  #
+    model = nt.LJCH2(max_len).cuda()  #
     model.apply(weights_init)
     criterion = nn.L1Loss().cuda()  # 本文采用 L1 loss
     best_val_criterion = -1  # 选取模型是采用验证集里面，表现最好的那一个SROCC min
@@ -193,7 +193,7 @@ def originalVSFAMain():
 
             L = L + loss.item() * conf.GRAD_ACCUM
 
-            if i % 100 == 0 and conf.verbose == 1:
+            if i % 10 == 0 and conf.verbose == 1:
                 print('Iter: %d, Loss: %f' % (i, goupi))
                 #print('Outputs: \t', end='');
                 #print(outputs.detach().cpu().numpy())

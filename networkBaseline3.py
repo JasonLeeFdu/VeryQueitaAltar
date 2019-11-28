@@ -319,25 +319,37 @@ def TP2(q,param, tau=12, beta=0.5):
     ## 生成mask
     length = q.shape[-1]
     grid = torch.range(start=0,end=length-1).cuda()
-
     qMemStd = q - torch.min(q)
-
     memList = list()
     memList.append(q[0,0,0].view(1,1,1))
-    for i in range(1,int(qMemStd.shape[-1])):
-        mask = (1 + torch.exp(-steep * (-torch.abs((grid - i)) + interval)))
-        qMemMasked = torch.squeeze(qMemStd) * mask
-        idx = torch.argmin(qMemMasked[:i + 1]) # weighted minpooling
-        memList.append(q[0,0,idx].view(1,1,1))
+    softList = list()
+    negQ = torch.squeeze(-q)
+    expQ = torch.squeeze(torch.exp(negQ))
+    qExpQ = torch.squeeze(q) * expQ
+    for i in range(0,int(qMemStd.shape[-1])):
+        if i is not  0:
+            mask = (1 + torch.exp(-steep * (-torch.abs((grid - i)) + interval)))
+            qMemMasked = torch.squeeze(qMemStd) * mask
+            idx = torch.argmin(qMemMasked[:i + 1]) # weighted minpooling
+            memList.append(q[0,0,idx].view(1,1,1))
+        if i is not int(qMemStd.shape[-1]):
+            left = torch.max(torch.zeros_like(interval).int(),i-torch.round(interval).int());right = torch.min( (torch.ones_like(interval) * length).int().cuda(),i + torch.round(interval).int())
+            qCurr = (torch.sum(qExpQ[i:right+1])) / (torch.sum(expQ[i:right+1]))
+            softList.append(qCurr)
+            #sdf = 43
+
+    softList.append(q[0,0,length-1].view([]))
     l = torch.cat(memList,dim=-1)
+    m = torch.stack(softList); m = m.view([1,1,-1])
 
     ### adaptive memory end
-
+    '''
     # l = -F.max_pool1d(torch.cat((qm, -q), 2), tau, stride=1)  # min pooling
     qp = 10000.0 * torch.ones((1, 1, tau - 1)).to(q.device)  #
     m = F.avg_pool1d(torch.cat((q * torch.exp(-q), qp * torch.exp(-qp)), 2), tau, stride=1)  # padding在右边
     n = F.avg_pool1d(torch.cat((torch.exp(-q), torch.exp(-qp)), 2), tau, stride=1)
     m = m / n
+    '''
     return beta * m + (1 - beta) * l
 
 """ =================================================================================================
@@ -467,10 +479,11 @@ class memPramReg(nn.Module):
     def __init__(self, input_size=64):
         super(memPramReg, self).__init__()
         self.inputSize = input_size
-        self.adaptiveMemRegression = nn.Sequential(nn.Linear(self.inputSize, self.inputSize),
+        self.adaptiveMemRegression = nn.Sequential(nn.Linear(self.inputSize, 32),
                                                    nn.ReLU(),
+
                                                    nn.Dropout(),
-                                                   nn.Linear(self.inputSize, 2)
+                                                   nn.Linear(32, 2)
                                                    )
     def forward(self, inp): # [N, input_size]
         factor = self.adaptiveMemRegression(inp)

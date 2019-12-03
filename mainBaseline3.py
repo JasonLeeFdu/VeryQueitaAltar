@@ -302,7 +302,7 @@ def originalVSFAMain():
             writer.add_scalar("RMSE/test", RMSE, epoch)
 
         # 选择验证效果好的模型保存(由于是基于epoch的，所以比较科学)
-        if nt.bestCriterion(SROCC,KROCC,PLCC,RMSE) > best_val_criterion and epoch > conf.MAX_Epoch / 7:  ##$$##
+        if nt.bestCriterion(SROCC,KROCC,PLCC,RMSE) > best_val_criterion and epoch > conf.MAX_Epoch / 8:  ##$$##
             if conf.verbose == 1:
                 print("实验{}: 更新最佳参数，位于 Epoch {}".format(conf.MODEL_NAME, epoch))
                 print("Val results: val loss={:.4f}, SROCC={:.4f}, KROCC={:.4f}, PLCC={:.4f}, RMSE={:.4f}"

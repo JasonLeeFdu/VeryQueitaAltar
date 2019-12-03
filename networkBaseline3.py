@@ -161,7 +161,7 @@ class VQADataset(Dataset):
 
         return motionFeat, distortFeat, contentFeat, label, vidLen
 
-
+''''''
 # The Training and testing datasets
 class VQADatasetH5(Dataset):
     def __init__(self, lmdbPath=os.path.join(conf.TRAINING_SAMPLE_BASEPATH, conf.DATASET_NAME, 'fastRecord.hdf5'),
@@ -332,7 +332,7 @@ def TP2(q,param, tau=12, beta=0.5):
             qMemMasked = torch.squeeze(qMemStd) * mask
             idx = torch.argmin(qMemMasked[:i + 1]) # weighted minpooling
             memList.append(q[0,0,idx].view(1,1,1))
-        if i is not int(qMemStd.shape[-1]):
+        if i is not int(qMemStd.shape[-1]-1):
             left = torch.max(torch.zeros_like(interval).int(),i-torch.round(interval).int());right = torch.min( (torch.ones_like(interval) * length).int().cuda(),i + torch.round(interval).int())
             qCurr = (torch.sum(qExpQ[i:right+1])) / (torch.sum(expQ[i:right+1]))
             softList.append(qCurr)
@@ -490,7 +490,9 @@ class memPramReg(nn.Module):
         return factor
         # 取值范围的约束？
 
-#
+
+
+'''
 class LJCH2(nn.Module):
     def __init__(self, maxLen):
         super(LJCH2, self).__init__()
@@ -525,17 +527,7 @@ class LJCH2(nn.Module):
         outputs, inpLen = nn_utils.rnn.pad_packed_sequence(outputs,batch_first=True)
 
 
-        '''
-              前着你那个
-
-              hid[1,3,:] # outputs[3,0,32:] batch3号的最后一个元素的去向
-              tensor([-0.9136,  0.8916,  0.0931,  0.2071, -0.5570, -0.2541, -0.6761,  0.9255,
-                      -0.8166,  0.7803, -0.9827,  0.4119,  0.9509, -0.5924, -0.7002,  0.8857,
-                      -0.9185, -0.4454,  0.1220, -0.9689,  0.9960, -0.9828, -0.6659, -0.8052,
-                       0.8664, -0.9838,  0.9877,  0.9687, -0.3757, -0.1598, -0.3387, -0.8694],
-                     device='cuda:0', grad_fn=<SliceBackward>)
-              hid[0,3,:] # outputs[3,188,:32] batch3号的最后一个元素的去向
-        '''
+       
         # 抽取最后状态或者开头状态,用它们来回归印象参数 -- content adaptive memory 如果不行再试试单向的
 
         lastHidForwardLi = list()
@@ -563,9 +555,310 @@ class LJCH2(nn.Module):
             qi = q[i, :int(validLen[i])]  # q[N,T]
             qi = TP2(qi,param[i,:])
             score[i] = torch.mean(qi)  # video overall quality
+        return sco
+        
+        
+def TP20(q,param, tau=12, beta=0.5):
+    """subjectively-inspired temporal pooling,基于时间域的pooling"""
+    q = torch.unsqueeze(torch.t(q), 0)
+    length = q.shape[0]
+    ### adaptive memory start
+
+    STEEP_MAX = 30;         # 边缘衰减
+    STEEP_MIN = 1;
+    INTERVAL_MAX = 30;      # 平台长度
+    INTERVAL_MIN = 3;
+
+    steepFactor = param[0]
+    intervalFactor = param[1]
+    steep = STEEP_MIN + steepFactor * (STEEP_MAX - STEEP_MIN);
+    interval = INTERVAL_MIN + intervalFactor * (INTERVAL_MAX - INTERVAL_MIN) # 单向
+
+    ## 生成mask
+    length = q.shape[-1]
+    grid = torch.range(start=0,end=length-1).cuda()
+
+    qMemStd = q - torch.min(q)
+
+    memList = list()
+    memList.append(q[0,0,0].view(1,1,1))
+    for i in range(1,int(qMemStd.shape[-1])):
+        mask = (1 + torch.exp(-steep * (-torch.abs((grid - i)) + interval)))
+        qMemMasked = torch.squeeze(qMemStd) * mask
+        idx = torch.argmin(qMemMasked[:i + 1]) # weighted minpooling
+        memList.append(q[0,0,idx].view(1,1,1))
+    l = torch.cat(memList,dim=-1)
+
+    ### adaptive memory end
+
+    # l = -F.max_pool1d(torch.cat((qm, -q), 2), tau, stride=1)  # min pooling
+    qp = 10000.0 * torch.ones((1, 1, tau - 1)).to(q.device)  #
+    m = F.avg_pool1d(torch.cat((q * torch.exp(-q), qp * torch.exp(-qp)), 2), tau, stride=1)  # padding在右边
+    n = F.avg_pool1d(torch.cat((torch.exp(-q), torch.exp(-qp)), 2), tau, stride=1)
+    m = m / n
+    return beta * m + (1 - beta) * l
+class LJCH20(nn.Module):
+    def __init__(self, maxLen):
+        super(LJCH20, self).__init__()
+        ## 呵呵 附庸风雅
+        self.reduced_size = 128
+        self.hidden_size = 32
+        # frame wise conv
+        TIME_INTERVAL = conf.ADJACENT_INTERVAL
+        self.ann = ANN(4608 + 256, self.reduced_size, 1)
+        self.rnn = nn.GRU(self.reduced_size, self.hidden_size, batch_first=True, bidirectional=True,dropout=0.5)
+        self.time_interval = TIME_INTERVAL
+        self.q = nn.Linear(self.hidden_size * 2, 1)
+        self.maxLen = maxLen
+        self.memPramReg = memPramReg()
+
+
+    def _get_initial_state(self, batch_size, device):
+        h0 = torch.zeros(2, batch_size, self.hidden_size, device=device)
+        return h0
+
+
+
+
+    def forward(self, motionFeat, inputLength, featContent, featDistort):
+        totalFeat = torch.cat([featContent, featDistort,motionFeat], dim=-1)
+        scores = self.ann(totalFeat)
+        validLen = inputLength - 2 * (self.time_interval // 2) - 1 # idx = len-1
+        pack = nn_utils.rnn.pack_padded_sequence(scores, validLen, batch_first=True,enforce_sorted=False)
+
+
+        outputs, hid = self.rnn(pack, self._get_initial_state(scores.size(0), scores.device))
+        outputs, inpLen = nn_utils.rnn.pad_packed_sequence(outputs,batch_first=True)
+
+
+      
+        # 抽取最后状态或者开头状态,用它们来回归印象参数 -- content adaptive memory 如果不行再试试单向的
+
+        lastHidForwardLi = list()
+        lastHidBackwardLi = list()
+
+        for i in range(outputs.shape[0]):
+            lastHidForwardLi.append(outputs[i,int(validLen[i]-1),:32])
+            lastHidBackwardLi.append(outputs[i,0,32:])
+        lastHidForward = torch.stack(lastHidForwardLi)
+        lastHidBackward = torch.stack(lastHidBackwardLi)
+
+
+        # 计算每帧的分数
+        q = self.q(outputs)  # 基于帧的分数
+        param = torch.sigmoid(self.memPramReg(torch.cat([lastHidForward,lastHidBackward],dim= -1)))
+        #
+
+
+
+
+
+        ## score 的 batch-wise 循环-- temporal pooling inputLength# [16]
+        score = torch.zeros([motionFeat.shape[0]]).cuda()
+        for i in range(motionFeat.shape[0]):
+            qi = q[i, :int(validLen[i])]  # q[N,T]
+            qi = TP20(qi,param[i,:])
+            score[i] = torch.mean(qi)  # video overall quality
+        return score
+        
+        
+class LJCH21(nn.Module):
+    def __init__(self, maxLen):
+        super(LJCH2, self).__init__()
+        ## 呵呵 附庸风雅
+        self.reduced_size = 128
+        self.hidden_size = 32
+        # frame wise conv
+        TIME_INTERVAL = conf.ADJACENT_INTERVAL
+        self.ann = ANN(4608 + 256, self.reduced_size, 1)
+        self.rnn = nn.GRU(self.reduced_size, self.hidden_size, batch_first=True, bidirectional=True,dropout=0.5)
+        self.time_interval = TIME_INTERVAL
+        self.q = nn.Linear(self.hidden_size * 2, 1)
+        self.maxLen = maxLen
+        self.wq =nn.Sequential(nn.Linear(self.hidden_size * 2, 16),nn.LeakyReLU(),nn.Dropout(),nn.Linear(16, 1))
+
+    def _get_initial_state(self, batch_size, device):
+        h0 = torch.zeros(2, batch_size, self.hidden_size, device=device)
+        return h0
+
+
+
+
+    def forward(self, motionFeat, inputLength, featContent, featDistort):
+        totalFeat = torch.cat([featContent, featDistort,motionFeat], dim=-1)
+        scores = self.ann(totalFeat)
+        validLen = inputLength - 2 * (self.time_interval // 2) - 1 # idx = len-1
+        pack = nn_utils.rnn.pack_padded_sequence(scores, validLen, batch_first=True,enforce_sorted=False)
+
+
+        outputs, hid = self.rnn(pack, self._get_initial_state(scores.size(0), scores.device))
+        outputs, inpLen = nn_utils.rnn.pad_packed_sequence(outputs,batch_first=True)
+
+
+
+        # 计算每帧的分数
+        q = self.q(outputs)  # 基于帧的分数
+
+        wq = self.wq(outputs)
+
+
+        ## score 的 batch-wise 循环-- temporal pooling inputLength# [16]
+        score = torch.zeros([motionFeat.shape[0]]).cuda()
+        for i in range(motionFeat.shape[0]):
+            qi = q[i, :int(validLen[i])]  # q[N,T]
+            qi = TP(qi)
+            w = F.softmax(torch.squeeze(wq[i,:int(validLen[i]),:]),dim=0)
+            score[i] = torch.sum(w*torch.squeeze(qi)).view([-1])  # video overall quality
         return score
 
+'''
 
+def TP20(q,param, tau=12, beta=0.5):
+    """subjectively-inspired temporal pooling,基于时间域的pooling"""
+    q = torch.unsqueeze(torch.t(q), 0)
+    length = q.shape[0]
+    ### adaptive memory start
+
+    STEEP_MAX = 30;         # 边缘衰减
+    STEEP_MIN = 1;
+    INTERVAL_MAX = 30;      # 平台长度
+    INTERVAL_MIN = 3;
+
+    steepFactor = param[0]
+    intervalFactor = param[1]
+    steep = STEEP_MIN + steepFactor * (STEEP_MAX - STEEP_MIN);
+    interval = INTERVAL_MIN + intervalFactor * (INTERVAL_MAX - INTERVAL_MIN) # 单向
+
+    ## 生成mask
+    length = q.shape[-1]
+    grid = torch.range(start=0,end=length-1).cuda()
+
+    qMemStd = q - torch.min(q)
+
+    memList = list()
+    memList.append(q[0,0,0].view(1,1,1))
+    for i in range(1,int(qMemStd.shape[-1])):
+        mask = (1 + torch.exp(-steep * (-torch.abs((grid - i)) + interval)))
+        qMemMasked = torch.squeeze(qMemStd) * mask
+        idx = torch.argmin(qMemMasked[:i + 1]) # weighted minpooling
+        memList.append(q[0,0,idx].view(1,1,1))
+    l = torch.cat(memList,dim=-1)
+
+    ### adaptive memory end
+
+    # l = -F.max_pool1d(torch.cat((qm, -q), 2), tau, stride=1)  # min pooling
+    qp = 10000.0 * torch.ones((1, 1, tau - 1)).to(q.device)  #
+    m = F.avg_pool1d(torch.cat((q * torch.exp(-q), qp * torch.exp(-qp)), 2), tau, stride=1)  # padding在右边
+    n = F.avg_pool1d(torch.cat((torch.exp(-q), torch.exp(-qp)), 2), tau, stride=1)
+    m = m / n
+    return beta * m + (1 - beta) * l
+
+class LJCH2(nn.Module):
+    def __init__(self, maxLen):
+        super(LJCH2, self).__init__()
+        ## 呵呵 附庸风雅
+        self.reduced_size = 128
+        self.hidden_size = 32
+        # frame wise conv
+        TIME_INTERVAL = conf.ADJACENT_INTERVAL
+        self.ann = ANN(4608 + 256, self.reduced_size, 1)
+        self.rnn = nn.GRU(self.reduced_size, self.hidden_size, batch_first=True, bidirectional=True, dropout=0.5)
+        self.time_interval = TIME_INTERVAL
+        self.q = nn.Linear(self.hidden_size * 2, 1)
+        self.maxLen = maxLen
+
+        self.adaptiveMemRegression = nn.Sequential(nn.Linear(64, 32),
+                                               nn.ReLU(),
+                                               nn.Dropout(),
+                                               nn.Linear(32, 5) # multi-scale
+                                               )
+    def _get_initial_state(self, batch_size, device):
+        h0 = torch.zeros(2, batch_size, self.hidden_size, device=device)
+        return h0
+
+    def forward(self, motionFeat, inputLength, featContent, featDistort):
+        totalFeat = torch.cat([featContent, featDistort, motionFeat], dim=-1)
+        scores = self.ann(totalFeat)
+        validLen = inputLength - 2 * (self.time_interval // 2) - 1  # idx = len-1
+        pack = nn_utils.rnn.pack_padded_sequence(scores, validLen, batch_first=True, enforce_sorted=False)
+
+        outputs, hid = self.rnn(pack, self._get_initial_state(scores.size(0), scores.device))
+        outputs, inpLen = nn_utils.rnn.pad_packed_sequence(outputs, batch_first=True)
+
+        # 抽取最后状态或者开头状态,用它们来回归印象参数 -- content adaptive memory 如果不行再试试单向的
+
+        lastHidForwardLi = list()
+        lastHidBackwardLi = list()
+
+        for i in range(outputs.shape[0]):
+            lastHidForwardLi.append(outputs[i, int(validLen[i] - 1), :32])
+            lastHidBackwardLi.append(outputs[i, 0, 32:])
+        lastHidForward = torch.stack(lastHidForwardLi)
+        lastHidBackward = torch.stack(lastHidBackwardLi)
+
+        # 计算每帧的分数
+        q = self.q(outputs)  # 基于帧的分数
+        param = torch.softmax(self.adaptiveMemRegression(torch.cat([lastHidForward, lastHidBackward], dim=-1)), dim=-1)
+        #
+
+        ## multi-len-mem(需要尝试一下softmax或者是0/1)
+        ## tau = 8
+        tau = 8
+        score1 = torch.zeros([motionFeat.shape[0]]).cuda()
+        for i in range(motionFeat.shape[0]):
+            qi = q[i, :int(validLen[i])]  # q[N,T]
+            qi = TP(qi,tau)
+            score1[i] = torch.mean(qi)  # video overall quality
+
+        ##
+        ## tau = 10
+        tau = 10
+        score2 = torch.zeros([motionFeat.shape[0]]).cuda()
+        for i in range(motionFeat.shape[0]):
+            qi = q[i, :int(validLen[i])]  # q[N,T]
+            qi = TP(qi,tau)
+            score2[i] = torch.mean(qi)  # video overall quality
+
+        ##
+        ## tau = 12
+        tau = 12
+        score3 = torch.zeros([motionFeat.shape[0]]).cuda()
+        for i in range(motionFeat.shape[0]):
+            qi = q[i, :int(validLen[i])]  # q[N,T]
+            qi = TP(qi,tau)
+            score3[i] = torch.mean(qi)  # video overall quality
+
+        ##
+        ## tau = 14
+        tau = 14
+        score4 = torch.zeros([motionFeat.shape[0]]).cuda()
+        for i in range(motionFeat.shape[0]):
+            qi = q[i, :int(validLen[i])]  # q[N,T]
+            qi = TP(qi,tau)
+            score4[i] = torch.mean(qi)  # video overall quality
+
+        ##
+        ## tau = 16
+        tau = 16
+        score5 = torch.zeros([motionFeat.shape[0]]).cuda()
+        for i in range(motionFeat.shape[0]):
+            qi = q[i, :int(validLen[i])]  # q[N,T]
+            qi = TP(qi,tau)
+            score5[i] = torch.mean(qi)  # video overall quality
+        '''
+        ## softfusion
+        scores = torch.stack([score1,score2,score3,score4,score5],dim=-1)
+        finalScores = torch.sum(scores * param,dim=-1)
+        '''
+        ## hard choice
+        scores = torch.stack([score1, score2, score3, score4, score5], dim=-1)
+        labels = torch.argmax(param, dim=1)
+        one_hot = torch.zeros(param.shape).cuda()
+        one_hot[torch.arange(param.shape[0]), labels] = 1
+        reverted = torch.argmax(one_hot, dim=1)
+        assert (labels == reverted).all().item()
+        finalScores = torch.sum(one_hot * scores, dim=-1)
+        return  finalScores
 
 # 本人算法尝试1
 class SpatialTemporalFeat(nn.Module):
